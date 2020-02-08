@@ -65,6 +65,7 @@ html {
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  scroll-behavior: smooth;
 }
 
 @-ms-viewport {
@@ -18440,8 +18441,8 @@ textarea[resize="horizontal"] {
 }
 
 p {
-  font-size: 1rem;
-  font-weight: 300;
+  font-size: 0.8rem;
+  /* font-weight: 300; */
   line-height: 1.7;
 }
 
@@ -20693,4 +20694,14 @@ pre>code.highlight {
   min-width: 2.25rem;
   font-size: .9375rem;
   line-height: 1.5rem;
+}
+
+.affix {
+    position: fixed;
+    top: 10px;
+    max-width: 20%;
+    transform: all ease-in-out 0.5s;
+}
+.text-large {
+    font-size: 50px;
 }

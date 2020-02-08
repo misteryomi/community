@@ -26,7 +26,7 @@ class Post extends Model
     }
 
     public function category() {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Community::class, 'community_id');
     }
 
     public function tags() {
@@ -39,6 +39,14 @@ class Post extends Model
     public function comments() {
         return $this->hasMany(Comment::class, 'post_id');
     }
+
+    /**
+     * Returns the views on current post
+     */
+    public function views() {
+        return $this->hasMany(PostView::class, 'post_id');
+    }
+
 
     /**
      * Returns the likes on current post
@@ -61,11 +69,23 @@ class Post extends Model
     }
 
     public function getExcerptAttribute() {
-        return  substr($this->content, 0, 180).'...';
+        return  substr(strip_tags($this->details), 0, 180).'...';
     }
 
     public function getDateAttribute() {
         return $this->created_at->diffInHours() > 25 ? $this->created_at->toDayDateTimeString() : $this->created_at->diffForHumans();
+    }
+
+    public function getPlCommentsAttribute() {
+        $comments = $this->comments->count();
+
+        return  $comments.' '.\Str::plural('Comment',  $comments);
+    }
+
+    public function getPlViewsAttribute() {
+        $views = $this->views->count();
+
+        return  $views.' '.\Str::plural('View',  $views);
     }
 
     public function generatePostId() {

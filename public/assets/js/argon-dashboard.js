@@ -798,7 +798,7 @@ var Charts = (function() {
     });
 
     // xAxes
-    Chart.scaleService.updateScaleDefaults('category', {
+    Chart.scaleService.updateScaleDefaults('community', {
       gridLines: {
         drawBorder: false,
         drawOnChartArea: false,

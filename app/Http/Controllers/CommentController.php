@@ -44,9 +44,9 @@ class CommentController extends Controller
         $requestData = $request->all();
         $requestData['user_id'] = $this->user->id;
 
-        $post->comments()->create($requestData);
+        $comment = $post->comments()->create($requestData);
 
-        return redirect()->back()->withMessage('Your comment has been successfully shared');
+        return redirect(route('posts.show', ['post' => $post->slug]).'#'.$comment->id)->withMessage('Your comment has been successfully shared');
     }
 
 }

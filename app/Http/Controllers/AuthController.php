@@ -44,8 +44,9 @@ class AuthController extends Controller
         $requestData['password'] = Hash::make($requestData['password']);
         $user = $this->user->create($requestData);
 
+        $user->details()->create();
 
-        return redirect()->route('register')->withMessage('Account created successfully. Please login to continue');
+        return redirect()->route('login')->withMessage('Account created successfully. Please login to continue');
     }
 
     public function login() {
@@ -60,11 +61,17 @@ class AuthController extends Controller
             return redirect()->back()->withError('Invalid username/password');
         }
 
-        if(!Auth::attempt(['username' => $user->username, 'password' => $request->password])){
+        if(!Auth::attempt(['username' => $user->original_username, 'password' => $request->password])){
             return redirect()->route('login')->withError('Invalid username/password');
         }
 
         return redirect()->intended(route('home'));
     }
-    //
+
+
+    public function logout() {
+        Auth::logout();
+
+        return redirect()->intended(route('home'));
+    }
 }

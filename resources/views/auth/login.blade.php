@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-        @include('layouts.partials.status')
+        @include('layouts.partials.alert')
         <div class="card">
         <div class="card-header">
           <h3 class="mb-0">Login to continue</h3>
