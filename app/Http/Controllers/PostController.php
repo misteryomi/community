@@ -178,4 +178,34 @@ class PostController extends Controller
         return redirect()->route('posts.show', ['post' => $post->slug]);
     }
 
+
+    public function like(Post $post) {
+
+        $post->likes()->firstOrCreate(['user_id' => $this->user->id], ['created_at' => now()]);
+
+        return response(['status' => true]);
+    }
+
+    public function unlike(Post $post) {
+
+        $post->likes()->where('user_id', $this->user->id)->delete();
+
+        return response(['status' => true]);
+    }
+
+
+    public function bookmark(Post $post) {
+
+        $post->bookmarks()->firstOrCreate(['user_id' => $this->user->id], ['created_at' => now()]);
+
+        return response(['status' => true]);
+    }
+
+    public function removeBookmark(Post $post) {
+
+        $post->bookmarks()->where('user_id', $this->user->id)->delete();
+
+        return response(['status' => true]);
+    }
+
 }

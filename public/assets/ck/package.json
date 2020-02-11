@@ -28,12 +28,10 @@
     "style-loader": "^1.1.3",
     "terser-webpack-plugin": "^2.3.2",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "@ckeditor/ckeditor5-mention": "^16.0.0"
   },
   "scripts": {
     "build": "webpack --mode production"
-  },
-  "dependencies": {
-    "@ckeditor/ckeditor5-mention": "^16.0.0"
   }
 }

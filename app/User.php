@@ -50,7 +50,9 @@ class User extends Authenticatable
     }
 
     public function getFullnameAttribute() {
+        if($this->details) {
             return $this->details->first_name .' '. $this->details->last_name;
+        }
     }
 
     public function getUsernameAttribute($value) {

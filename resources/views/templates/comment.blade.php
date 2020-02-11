@@ -1,3 +1,4 @@
+<section id="comment">
 @if($post->comments->count() == 0)
 <h3>Be the first to comment</h3>
 @else
@@ -12,6 +13,7 @@
         <!-- <div class="form-group">
             <textarea id="editor" name="comment" class="form-control form-control-alternative" rows="20"></textarea>
         </div> -->
-        <button type="submit" id="submit-comment" class="btn btn-default">Reply Post</button>
+        <button type="submit" id="submit-comment" class="btn btn-default">Reply Topic</button>
     </form>
 </div>
+</section>

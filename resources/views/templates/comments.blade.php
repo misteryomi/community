@@ -29,7 +29,7 @@
                                                 </a>
                                             </div>
 
-                                            <div class="col-sm-6 text-right">                            
+                                            <div class="col-sm-6 text-right">
                                                 <a href="#" class="mr-2 text-gray">
                                                     <i class="fa fa-facebook"></i>
                                                 </a>
@@ -44,7 +44,7 @@
                                                     <i class="fa fa-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-160px, -60px, 0px);">
-                                                            @if(auth()->user()->canEditPost($post))
+                                                            @if(auth()->user() && auth()->user()->canEditPost($post))
                                                             <a class="dropdown-item" href="{{ route('posts.edit', ['post' => $post->slug]) }}">
                                                                 <span class="text-muted">Edit</span>
                                                             </a>
@@ -58,7 +58,7 @@
                                                             </a>
 
                                                     </div>
-                                                </div>                                           
+                                                </div>
                                             </div>
                                         </div>
 

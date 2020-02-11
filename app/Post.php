@@ -55,6 +55,13 @@ class Post extends Model
         return $this->hasMany(Like::class, 'post_id');
     }
 
+    /**
+     * Returns the bookmarks on current post
+     */
+    public function bookmarks() {
+        return $this->hasMany(Bookmark::class, 'post_id');
+    }
+
     public function meta() {
         return $this->hasOne(Meta::class, 'post_id');
     }
@@ -94,4 +101,11 @@ class Post extends Model
         return time().uniqid().sprintf("%05s", $currentPostCountToday);
     }
 
+    public function liked() {
+        return $this->likes()->where('user_id', auth()->user()->id)->first() ? true : false;
+    }
+
+    public function bookmarked() {
+        return $this->bookmarks()->where('user_id', auth()->user()->id)->first() ? true : false;
+    }
 }
