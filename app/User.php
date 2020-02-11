@@ -41,6 +41,9 @@ class User extends Authenticatable
         return str_replace('@', '', $this->username);
     }
 
+    public function getShortBioAttribute() {
+        return $this->details->bio ? substr($this->details->bio, 0, 10).'...' : 'Some info here';
+    }
 
     public function getNameAttribute() {
         return trim($this->fullname) ? $this->fullname : $this->username;
@@ -70,4 +73,14 @@ class User extends Authenticatable
     function comments() {
         return $this->hasMany(Comment::class, 'user_id');
     }
+
+
+    function canEditPost($post) {
+        return $this->hasRole('moderator') || $this->id == $post->user->id;
+    }
+
+    function canEditComment($comment) {
+        return $this->hasRole('moderator') || $this->id == $comment->user->id;
+    }
+
 }

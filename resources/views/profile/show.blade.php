@@ -13,7 +13,7 @@
       @endif
       <div class="card my-4">
         <!-- Card body -->
-        @include('profile.user_card');
+        @include('profile.user_card')
       </div>
 
   </div>
@@ -22,5 +22,5 @@
       @include('templates.topics_list')
   </div>
 </div>
-
 @endsection
+

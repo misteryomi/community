@@ -5782,12 +5782,12 @@ input[type="button"].btn-block {
 .list-group-item-action:focus {
   color: #525f7f;
   text-decoration: none;
-  background-color: #f6f9fc;
+  /* background-color: #f6f9fc; */
 }
 
 .list-group-item-action:active {
   color: #525f7f;
-  background-color: #e9ecef;
+  /* background-color: #e9ecef; */
 }
 
 .list-group-item {
@@ -20704,4 +20704,8 @@ pre>code.highlight {
 }
 .text-large {
     font-size: 50px;
+}
+
+.fa-xlg {
+  font-size: 30px;
 }

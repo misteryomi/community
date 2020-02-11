@@ -2,7 +2,6 @@
 
 
 @section('content')
-
 <div class="pt-2 pb-4 mb-3" role="alert">
     <h1>Welcome to Yarnable.com{{ auth()->user() ? ', '.auth()->user()->username : '' }}!</h1>
     <small>The community forums is a place to discuss anything development/design related. Remember to be nice and have fun.</small>

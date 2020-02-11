@@ -44,8 +44,11 @@ Route::name('posts.')->group(function() {
     });
 
     Route::get('/{post}', 'PostController@show')->name('show');
+
+    Route::post('/media/upload', 'MediaManagerController');
 });
 
 Route::name('profile.')->group(function() {
     Route::get('/user/{user}', 'UserController@index')->name('show');
+    Route::get('/users/list', 'UserController@apiList');
 });

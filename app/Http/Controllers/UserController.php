@@ -19,4 +19,8 @@ class UserController extends Controller
         return view('profile.show', compact('user', 'posts'));
     }
 
+    public function apiList() {
+        return $this->user->select('username')->get()->pluck('username')->toJson();
+    }
+
 }

@@ -8,5 +8,5 @@ class PostView extends Model
 {
     protected $guarded = [];
 
-    public $timestamp = ['created_at'];
+    public $timestamps = false; //['created_at'];
 }

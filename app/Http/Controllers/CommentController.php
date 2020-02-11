@@ -36,7 +36,7 @@ class CommentController extends Controller
     public function store(Request $request, Post $post) {
 
         $this->validate($request, [
-                'comment' => 'required|max:255',
+                'comment' => 'required',
                 // 'photo' => 'mimestypes:image/jpeg,image/bmp,image/png,video/avi,video/mpeg,video/quicktime',
             ]);
 

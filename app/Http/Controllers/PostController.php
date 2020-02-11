@@ -69,7 +69,7 @@ class PostController extends Controller
      * @return response
      */
     public function show(Request $request, Post $post) {
-        $comments = $post->comments()->paginate(1);
+        $comments = $post->comments()->latest()->paginate(15);
 
         $session_id =  $request->getSession()->getId();
 
@@ -85,6 +85,7 @@ class PostController extends Controller
                 'ip' => $request->getClientIp(),
                 'agent' => $request->header('User-Agent'),
                 'user_id' => $this->user ? $this->user->id : null,
+                'created_at' => now(),
             ]);
         }
 
@@ -103,7 +104,7 @@ class PostController extends Controller
 
 
         if(!$community) {
-            $categories = $this->category->where('is_parent', true)->ordered();
+            $categories = $this->category->ordered(); //->where('is_parent', true)->
         } else {
             $categories = $this->category->where('parent_id', $community->id)->ordered();
         }

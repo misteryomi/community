@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>
     Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
   </title>
@@ -12,9 +13,11 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
-  <link href="{{ asset('assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+  <!-- <link href="{{ asset('assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link href="{{ asset('assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" /> -->
   <!-- CSS Files -->
+
   <link href="{{ asset('assets/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
 
   @yield('styles')
@@ -266,7 +269,7 @@
       $(document).ready(function() {
           var btn = $("button[type='submit']");
 
-          $("#form").click(function() {
+          $("#form").submit(function() {
               btn.attr('disabled', true);
               btn.html('<i class="fa fa-spin fa-spinner"></i> Please wait...')
           });

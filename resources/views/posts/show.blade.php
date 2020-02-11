@@ -16,38 +16,57 @@
                         <div class="d-flex w-100 justify-content-between">
                         <div>
                         <a href="{{ route('profile.show', ['user' => $post->user->username]) }}">
-                        <div class="d-flex w-50 align-items-center">
-                            <img src="{{ $post->user->avatar }}" alt="{{ ucfirst($post->user->username) }}" class="avatar avatar-xs mr-2">
-                            <h5 class="mb-1">{{ ucfirst($post->user->username) }}</h5>
-                        </div>
+                            <div class="d-flex  align-items-center">
+                                <img src="{{ $post->user->avatar }}" alt="{{ ucfirst($post->user->username) }}" class="avatar avatar-xs mr-2">
+                                <h5 class="mb-1">{{ ucfirst($post->user->username) }}
+                                <br/><small class="text-gray">{{ $post->user->short_bio }}</small>
+                                </h5>
+                                
+                            </div>
                         </a>
                     </div>
-                    <small>{{ $post->date }}</small>
+                    <br/><small class="text-gray">{{ $post->date }}</small>
                     </div>
-                    <p class="text-sm my-4">{!! $post->details !!}</p>
+                    <div class="my-4">{!! $post->details !!}</div>
 
-                        <div class="row align-items-center my-3">
+                        <div class="row align-items-center border-top pt-3">
                             <div class="col-sm-6">
-                            <div class="icon-actions">
-                                <a href="#" class="like active">
-                                    <i class="ni ni-like-2"></i> <span class="text-muted">Like</span>
-                                </a>
-                                <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">
-                                    <i class="ni ni-curved-next"></i> <span class="text-muted">Edit</span>
-                                </a>
-                                <a href="#">
-                                    <i class="ni ni-curved-next"></i> <span class="text-muted">Quote</span>
-                                </a>
-                                <a href="#">
-                                    <i class="ni ni-curved-next"></i> <span class="text-muted">Report</span>
-                                </a>
-                                <a href="#">
-                                    <i class="ni ni-like-2"></i> <span class="text-muted">Share</span>
-                                </a>
-                                <a href="#">
-                                    <i class="ni ni-like-2"></i> <span class="text-muted">Bookmark</span>
+                                <a href="#" class="text-gray">
+                                    <i class="fa fa-heart"></i>
+                                    <small class="text-muted">150</small>
                                 </a>
                             </div>
+
+                            <div class="col-sm-6 text-right">                            
+                                <a target="blank" title="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ route('posts.show', ['post' => $post->slug]) }}&utm_source=facebook" class="mr-2 text-gray">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a target="blank" title="Share on Twitter" href="http://twitter.com/share?text={{ $post->title }}&url=https://www.facebook.com/sharer/sharer.php?u={{ route('posts.show', ['post' => $post->slug]) }}&utm_source=twitter" class="mr-2 text-gray">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a href="#" class="mr-2 text-gray">
+                                    <i class="fa fa-bookmark"></i>
+                                </a>
+                                <div class="dropdown">
+                                    <a class="px-2 text-gray" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-160px, -60px, 0px);">
+                                        @if(auth()->user()->canEditPost($post))
+                                            <a class="dropdown-item" href="{{ route('posts.edit', ['post' => $post->slug]) }}">
+                                                <span class="text-muted">Edit</span>
+                                            </a>
+                                            @endif
+                                            <a class="dropdown-item"  href="#">
+                                                <span class="text-muted">Report Post</span>
+                                            </a>
+                                            <a class="dropdown-item" href="#">
+                                                <i class="fa fa-bookmark"></i>
+                                                <span class="text-muted">Save for later</span>
+                                            </a>
+
+                                    </div>
+                                </div>                                           
                             </div>
                         </div>
                     </div>
@@ -74,4 +93,21 @@
 
 @section('scripts')
 @include('templates.scripts.tinymce')
+
+<script>
+  $(document).ready(function() {
+
+      $('#submit-comment').click(function(e) {
+        e.preventDefault();
+
+        let comment = editor.getData();
+
+        $("input[name=comment]").val(comment);
+        
+        $('#comment-form').submit();
+        
+        return false;
+      })
+  })
+</script>
 @endsection

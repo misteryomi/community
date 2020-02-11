@@ -32,7 +32,7 @@ class RoleController extends Controller
         $roles = $this->role->paginate(15);
         $permissions = $this->permission->all();
 
-        $this->user->assignRole('super-admin');
+        // $this->user->assignRole('admin');
 
         return view('admin.permissions.roles', compact('roles', 'permissions'));
     }
