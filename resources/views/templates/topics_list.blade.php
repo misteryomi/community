@@ -9,8 +9,8 @@
                 Displaying Featured topics <i class="fa fa-cog"></i>
             </a>
             <div class="dropdown-menu  dropdown-menu-arrow dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Display Followed Communities</a>
-                <a class="dropdown-item" href="#">Display Featured Topics</a>
+                <a class="dropdown-item" href="#"><small>Display Followed Communities</small></a>
+                <a class="dropdown-item" href="#"><small>Display Featured Topics</small></a>
             </div>
         </div>
         @endif

@@ -18,6 +18,11 @@ Route::get('/topics', 'PostController@all')->name('topics');
 //Auth Routes
 Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/login', 'AuthController@postLogin')->name('post.login');
+
+Route::get('login/google', 'AuthController@redirectToProvider');
+Route::get('login/google/callback', 'AuthController@handleProviderCallback')->name('google.callback');
+
+
 Route::get('/logout', 'AuthController@logout')->name('logout');
 
 Route::get('/register', 'AuthController@register')->name('register');
@@ -41,18 +46,36 @@ Route::name('posts.')->group(function() {
         Route::post('/{post}/remove-bookmark/', 'PostController@removeBookmark')->name('bookmark.remove');
 
         Route::post('/{post}/comment', 'CommentController@store')->name('comment');
-        Route::post('/{post}/comment/edit', 'CommentController@store')->name('comment');
+        // Route::post('/{post}/comment/edit', 'CommentController@store')->name('comment');
+
+        Route::get('/{post}/{comment}/edit', 'CommentController@edit')->name('comment.edit');
+        Route::post('/{post}/{comment}/edit', 'CommentController@storeEdit')->name('comment.edit.post');
+
+
+        Route::post('/comment/{comment}/like/', 'CommentController@like')->name('comment.like');
+        Route::post('/comment/{comment}/unlike/', 'CommentController@unlike')->name('comment.unlike');
 
         Route::get('/{post}/edit', 'PostController@edit')->name('edit');
         Route::post('/{post}/edit', 'PostController@update')->name('post.edit');
     });
 
-    Route::get('/{post}', 'PostController@show')->name('show');
 
     Route::post('/media/upload', 'MediaManagerController');
+
 });
 
+
 Route::name('profile.')->group(function() {
-    Route::get('/user/{user}', 'UserController@index')->name('show');
-    Route::get('/users/list', 'UserController@apiList');
+    Route::middleware('auth')->group(function() {
+        Route::get('/settings', 'UserController@settings')->name('settings');
+        Route::post('/settings', 'UserController@update')->name('settings.post');
+        Route::get('/user/{user}', 'UserController@index')->name('show');
+    });
+
+    Route::get('users/list', 'UserController@apiList');
 });
+
+Route::get('/{post}', 'PostController@show')->name('posts.show');
+
+
+

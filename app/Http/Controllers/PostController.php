@@ -132,6 +132,7 @@ class PostController extends Controller
             return redirect()->back()->withErrors($validation->errors())->withInput();
         }
 
+        $requestData['title'] = \ucwords(\strtolower($requestData['title']));
         $requestData['slug'] = \Str::slug($requestData['title'], '-');
         $post = $this->user->posts()->create($requestData);
 
@@ -146,7 +147,10 @@ class PostController extends Controller
      */
     public function edit(Post $post) {
 
-        //only owner can edit
+        if(!$this->user->canEditPost($post)) {
+            abort(404);
+        }
+                //only owner or moderator can edit
 
         $categories = $this->category->where('is_parent', true)->ordered();
 
@@ -159,8 +163,11 @@ class PostController extends Controller
      * @return response
      */
     public function update(Request $request, Post $post) {
+        if(!$this->user->canEditPost($post)) {
+            abort(404);
+        }
 
-        //only owner can edit
+        //only owner or moderator can edit
 
         $requestData = $request->all();
         $validation =  Validator::make($requestData, [
@@ -173,7 +180,8 @@ class PostController extends Controller
             return redirect()->back()->withErrors($validation->errors())->withInput();
         }
 
-        $post->update($requestData);
+        $requestData['title'] = \ucwords(\strtolower($requestData['title']));
+         $post->update($requestData);
 
         return redirect()->route('posts.show', ['post' => $post->slug]);
     }

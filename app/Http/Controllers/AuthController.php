@@ -8,7 +8,8 @@ use App\User;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Socialite;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -50,6 +51,11 @@ class AuthController extends Controller
     }
 
     public function login() {
+        if(Auth::check()) {
+            return redirect()->route('home');
+        }
+
+
         return view('auth.login');
     }
 
@@ -65,9 +71,54 @@ class AuthController extends Controller
             return redirect()->route('login')->withError('Invalid username/password');
         }
 
+        if($request->has('utm_redirect')) {
+            return redirect()->intended($request->utm_redirect);
+        }
+
         return redirect()->intended(route('home'));
     }
 
+
+
+    /**
+     * Redirect the user to the Google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('google')->stateless()->user();
+
+        $userData = $this->user->firstOrNew(['email' => $user->email, 'username' => $user->email], [
+            'password' => Str::random(40),
+        ]);
+
+
+
+
+        if($userData) {
+           $userData->details()->firstOrNew(['user_id' => $userData->id], [
+                        'avatar' => $user->avatar_original,
+                        'first_name' => $user->user ? $user->user['given_name'] : null,
+                        'last_name' => $user->user ? $user->user['family_name'] : null,
+                    ]);
+        }
+
+
+        Auth::login($userData);
+
+        return redirect()->intended(route('home'));
+    }
 
     public function logout() {
         Auth::logout();

@@ -15,11 +15,11 @@
     <div class="row mt-1">
             <div class="col">
                 <h3>{{ $user->posts->count() }}</h3>
-                <small class="text-light">Topics</small>
+                <small class="text-gray">Topics</small>
             </div>
             <div class="col">
                     <h3>{{ $user->comments->count() }}</h3>
-                    <small class="text-light">Comments</small>
+                    <small class="text-gray">Comments</small>
             </div>
     </div>
 </div>

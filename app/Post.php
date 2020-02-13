@@ -102,10 +102,10 @@ class Post extends Model
     }
 
     public function liked() {
-        return $this->likes()->where('user_id', auth()->user()->id)->first() ? true : false;
+        return auth()->user() && $this->likes()->where('user_id', auth()->user()->id)->first() ? true : false;
     }
 
     public function bookmarked() {
-        return $this->bookmarks()->where('user_id', auth()->user()->id)->first() ? true : false;
+        return auth()->user() && $this->bookmarks()->where('user_id', auth()->user()->id)->first() ? true : false;
     }
 }

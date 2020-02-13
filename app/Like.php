@@ -11,6 +11,6 @@ class Like extends Model
     public $timestamps = false;
 
     public function post() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Post::class);
     }
 }

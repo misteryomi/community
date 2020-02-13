@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     private $user;
 
     function __construct(User $user) {
+
         $this->user = $user;
     }
 
@@ -17,6 +19,33 @@ class UserController extends Controller
         $posts = $user->posts()->latest()->paginate(15);
 
         return view('profile.show', compact('user', 'posts'));
+    }
+
+    public function settings() {
+        $user = Auth::user();
+
+        return view('profile.settings', compact('user'));
+    }
+
+    public function update(Request $request) {
+        $user = Auth::user();
+
+        $request->validate([
+            'avatar' => 'image'
+        ]);
+
+        $requestData = $request->all();
+        if($request->has('avatar')) {
+            $path = $request->avatar->store('avatars');
+
+            $requestData['avatar']  = env('APP_URL').'storage/'.$path;
+        } else {
+            $requestData['avatar'] = $user->details->avatar;
+        }
+
+        \App\UserDetails::updateOrCreate(['user_id' => $user->id], $requestData);
+
+        return redirect(route('profile.settings'))->withMessage('Profile updated successfully!');
     }
 
     public function apiList(Request $request) {

@@ -59,6 +59,9 @@ class User extends Authenticatable
         return '@'.$value;
     }
 
+    public function getAvatarAttribute() {
+        return $this->details && $this->details->avatar ? $this->details->avatar : '//placehold.it/100';
+    }
     public function getDateJoinedAttribute() {
         return $this->created_at->toDayDateTimeString();
     }
@@ -78,11 +81,12 @@ class User extends Authenticatable
 
 
     function canEditPost($post) {
-        return $this->hasRole('moderator') || $this->id == $post->user->id;
+        return $post->user && ($this->hasRole('moderator') || $this->id == $post->user->id);
     }
 
     function canEditComment($comment) {
-        return $this->hasRole('moderator') || $this->id == $comment->user->id;
+
+        return $comment->user && ($this->hasRole('moderator') || $this->id == $comment->user->id);
     }
 
 }

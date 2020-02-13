@@ -28,6 +28,7 @@ class CommentController extends Controller
     }
 
 
+
     /**
      * Make comment on a post
      * @param $request
@@ -48,5 +49,37 @@ class CommentController extends Controller
 
         return redirect(route('posts.show', ['post' => $post->slug]).'#'.$comment->id)->withMessage('Your comment has been successfully shared');
     }
+
+    public function edit(Post $post, Comment $comment) {
+        if(!$this->user->canEditComment($comment)) {
+            abort(404);
+        }
+        return view('posts.edit-comment', compact('comment'));
+    }
+
+    public function storeEdit(Request $request, Post $post, Comment $comment) {
+        if(!$this->user->canEditComment($comment)) {
+            abort(404);
+        }
+
+        $comment->update(['comment' => $request->comment]);
+
+        return redirect(route('posts.show', ['post' => $post->slug]).'#'.$comment->id)->withMessage('Your comment has been successfully updated');
+    }
+
+    public function like(Comment $comment) {
+
+        $comment->likes()->firstOrCreate(['user_id' => $this->user->id], ['created_at' => now()]);
+
+        return response(['status' => true]);
+    }
+
+    public function unlike(Comment $comment) {
+
+        $comment->likes()->where('user_id', $this->user->id)->delete();
+
+        return response(['status' => true]);
+    }
+
 
 }

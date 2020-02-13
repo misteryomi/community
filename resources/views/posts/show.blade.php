@@ -2,10 +2,23 @@
 
 @section('content')
     <div class="row">
+        <div class="col-md-3 d-none d-lg-block">
+            <a href="#comment" class="btn mb-2 btn-default btn-block text-center">
+                <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
+                <span class="btn-inner--text">Reply Topic</span>
+            </a>
+
+            <div class="card my-4">
+                @php $user = $post->user; @endphp
+                @include('profile.user_card')
+            </div>
+        </div>
+
+
         <div class="col-md-9">
             <h1 class="mb-1"> {{ $post->title }}</h1>
             <small>{{ $post->pl_comments }} | {{ $post->pl_views }}</small><br/>
-            <a href="#comment" class=" btn btn-default btn-sm btn-icon">
+            <a href="#comment" class=" d-lg-none btn btn-default btn-sm btn-icon">
                 <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
                 <span class="btn-inner--text">Reply Topic</span>
             </a>
@@ -75,17 +88,6 @@
           @endif
         </div>
 
-        <div class="col-md-3">
-            <a href="#comment" class="btn mb-2 btn-default btn-block text-center">
-                <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
-                <span class="btn-inner--text">Reply Topic</span>
-            </a>
-
-            <div class="card my-4">
-                @php $user = $post->user; @endphp
-                @include('profile.user_card');
-            </div>
-        </div>
     </div>
 @endsection
 
@@ -94,6 +96,8 @@
 
 <script>
   $(document).ready(function() {
+        var loggedIn = "{{ auth()->check() ? true : false }}"
+
 
       $('#submit-comment').click(function(e) {
         e.preventDefault();
@@ -110,22 +114,55 @@
 
         $("a > .like").click(function(e) {
             e.preventDefault();
-            $(this).shake();
 
-            if($(this).hasClass('liked')) {
-                $(this).removeClass('liked fa-thumbs-up').addClass('fa-thumbs-o-up');
-                $('.likes-count').text(  parseInt($('.likes-count').text()) - 1)
-                $.post( "{{ $post->slug }}/unlike")
+            if(!loggedIn) {
+                $('#auth-modal').modal('show');
 
             } else {
-                $(this).removeClass('fa-thumbs-o-up').addClass('liked fa-thumbs-up');
-                $('.likes-count').text(  parseInt($('.likes-count').text()) + 1)
-                $.post( "{{ $post->slug }}/like")
+                $(this).shake();
+
+                if($(this).hasClass('liked')) {
+                    $(this).removeClass('liked fa-thumbs-up').addClass('fa-thumbs-o-up');
+                    $('.likes-count').text(  parseInt($('.likes-count').text()) - 1)
+                    $.post( "{{ $post->slug }}/unlike")
+
+                } else {
+                    $(this).removeClass('fa-thumbs-o-up').addClass('liked fa-thumbs-up');
+                    $('.likes-count').text(  parseInt($('.likes-count').text()) + 1)
+                    $.post( "{{ $post->slug }}/like")
+
+                }
+
             }
+
+
 
             return false;
         });
 
+
+        $("a.comment-like").click(function(e) {
+            e.preventDefault();
+
+            var el = $(this).find('i.fa');
+            var id = $(this).attr('data-id');
+
+            var likesEl =  $(".comment-likes-count[data-id="+ id +"]");
+            $(this).shake();
+
+            if($(this).hasClass('liked')) {
+                $(el).removeClass('liked fa-thumbs-up').addClass('fa-thumbs-o-up');
+                likesEl.text(  parseInt(likesEl.text()) - 1)
+                $.post( `comment/${id}/unlike`)
+
+            } else {
+                $(el).removeClass('fa-thumbs-o-up').addClass('liked fa-thumbs-up');
+                likesEl.text(  parseInt(likesEl.text()) + 1)
+                $.post( `comment/${id}/unlike`)
+            }
+
+            return false;
+        });
 
         $("a.bookmark").click(function(e) {
             e.preventDefault();
@@ -165,6 +202,34 @@
             // });
             return this;
         }
+
+
+
+
+    function getId(url) {
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var match = url.match(regExp);
+
+        if (match && match[2].length == 11) {
+            return match[2];
+        } else {
+            return 'error';
+        }
+    }
+
+
+    function replaceOEmbed() {
+        let url = $('figure.media oembed').attr('url')
+
+        var videoId = getId(url);
+
+        var iframeMarkup = '<iframe width="560" height="315" src="//www.youtube.com/embed/'
+        + videoId + '" frameborder="0" allowfullscreen></iframe>';
+        $('figure.media').html(iframeMarkup);
+
+    }
+
+    replaceOEmbed()
 
   })
 </script>

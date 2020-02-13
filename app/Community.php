@@ -41,7 +41,7 @@ class Community extends Model
     }
 
     public function userFollows($user) {
-        return $this->followers->where('user_id', $user->id)->count() > 0;
+        return $user && $this->followers->where('user_id', $user->id)->count() > 0;
     }
 
 

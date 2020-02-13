@@ -1,24 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-        @include('layouts.partials.alert')
-        <div class="card">
-        <div class="card-header">
-          <h3 class="mb-0">Login to continue</h3>
-        </div>
-        <div class="card-body">
-            <form action="{{ route('post.login') }}" method="POST">
-            @csrf
-            <div class="form-group">
-              <label class="form-control-label" for="username">Username or Email address</label>
-              <input type="text" name="username" class="form-control" id="username" placeholder="name@example.com">
+        <h1 class="mb-4 text-center">Login to continue</h1>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        @include('layouts.partials.alert')
+                        <div class="row">
+                            <div class="col-md-6 border-right">
+                                @include('auth.login-form')
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                                <div class="text-center mb-3">
+                                    <a href="login/google" class="btn btn-label btn-danger text-white mb-2">
+                                        <i class="fa fa-google"></i> Signup with Google
+                                    </a>
+                                    <a href="login/google" class="btn btn-label btn-default text-white mb-2">
+                                        <i class="fa fa-google"></i> Signup with Facebook
+                                    </a>
+                                    <a href="login/google" class="btn btn-label btn-primary text-white mb-2">
+                                        <i class="fa fa-google"></i> Signup with Twitter
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
             </div>
-            <div class="form-group">
-              <label class="form-control-label" for="password">Password</label>
-              <input type="password" name="password" class="form-control" id="password" placeholder="*********">
-            </div>
-            <button type="submit" class="btn btn-default">Login</button>
-          </form>
         </div>
-      </div>
 @endsection
