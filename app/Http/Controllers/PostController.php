@@ -6,6 +6,8 @@ use App\Community;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
+
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostsListCollection;
 use App\Post;

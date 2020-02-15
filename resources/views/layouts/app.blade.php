@@ -6,19 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
+    {{ env('APP_NAME') }} - The Nigerian 411 Discussion Forum
   </title>
   <!-- Favicon -->
-  <link href="{{ asset('assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
+  <link href="{{ asset('assets/img/favicon.png') }}" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
-  <!-- <link href="{{ asset('assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" /> -->
-  <link href="{{ asset('assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+  {{-- <link href="{{ asset('assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" /> --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- CSS Files -->
   @yield('styles')
-  <link href="{{ asset('assets/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
+  <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 
 
 </head>
@@ -27,7 +26,7 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="px-2">
+        <div class="px-2 d-md-none">
             @php $communities = \App\Community::where('is_parent', 1)->get() @endphp
 
             @include('templates.categories_list_only')
@@ -137,30 +136,10 @@
 
         @yield('content')
 
-        <footer class="footer">
-            <div class="row align-items-center justify-content-xl-between">
-            <div class="col-xl-6">
+        <footer class="footer text-center">
                 <div class="copyright text-center text-xl-left text-muted">
-                &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+                &copy; @php date('Y') @endphp <a href="#top" class="font-weight-bold ml-1">{{ env('APP_NAME') }}</a>
                 </div>
-            </div>
-            <div class="col-xl-6">
-                <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-                <li class="nav-item">
-                    <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-                </li>
-                </ul>
-            </div>
-            </div>
         </footer>
 
     </div>
@@ -184,63 +163,7 @@
 </div>
 
   </div>
-  <!--   Core   -->
-  <script src="{{ asset('assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ asset('assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('assets/js/argon-dashboard.min.js?v=1.1.0') }}"></script>
-  <script>
-      $(document).ready(function() {
-          var btn = $("button[type='submit']");
-
-          $("#form").submit(function() {
-              btn.attr('disabled', true);
-              btn.html('<i class="fa fa-spin fa-spinner"></i> Please wait...')
-          });
-
-
-        $(window).on('scroll', function (event) {
-            var scrollValue = $(window).scrollTop();
-                if (scrollValue > 262 ) {
-                    $('.affixed').addClass('affix');
-                } else{
-                    $('.affixed').removeClass('affix');
-                }
-        });
-      })
-
-
-
-        $(window).on('load', function(e) {
-            e.preventDefault()
-
-            let url = window.location.href.split('#');
-
-            if(url[1]) {
-                $('html, body').animate(
-                {
-                    scrollTop: $(`#comment-${url[1]}`).offset().top,
-                },
-                500,
-                'linear'
-            )
-            }
-
-        })
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-        }
-
-        function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-        }
-  </script>
+  <script src="{{ asset('js/script.js') }}"></script>
   @yield('scripts')
 </body>
 

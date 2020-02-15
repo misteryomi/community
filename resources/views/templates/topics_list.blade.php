@@ -51,7 +51,9 @@
           </div>
     </div>
     @endforeach
-    {{ $posts->links() }}
+    <div class="d-flex justify-items-center mt-4">
+        {{ $posts->links() }}
+    </div>
 
     @else
         <p>Oops! No topic has been created in this community. Be the champion, <a href="{{ route('posts.new') }}"><strong>click here to create a topic</strong></a>.</p>

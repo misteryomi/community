@@ -13,9 +13,9 @@
 
 $factory->define(\App\Post::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => rand(1, 50),
+        'user_id' => rand(1, 3),
         'title' => $faker->sentence(6, true),
-        'content' => $faker->text(1000),
+        'details' => $faker->text(1000),
         'slug' => $faker->slug,
         'community_id' => rand(1, 3),
     ];
