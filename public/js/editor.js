@@ -148,7 +148,7 @@ function customItemRenderer(item) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\yarnable\resources\assets\js\editor.js */"./resources/assets/js/editor.js");
+module.exports = __webpack_require__(/*! /Users/clicks/Sites/gistradar/resources/assets/js/editor.js */"./resources/assets/js/editor.js");
 
 
 /***/ })

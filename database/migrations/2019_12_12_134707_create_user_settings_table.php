@@ -15,6 +15,7 @@ class CreateUserSettingsTable extends Migration
     {
         Schema::create('user_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id');
             $table->enum('feed_type', ['featured', 'communities'])->default('featured');
             $table->timestamps();
         });

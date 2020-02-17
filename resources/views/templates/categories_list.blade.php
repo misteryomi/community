@@ -36,11 +36,9 @@
       <a href="{{ isset($community) ? route('posts.new', ['community' => $community->slug]) : route('posts.new') }}" class="btn btn-icon btn-default btn-block mb-4">
             <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
               Create New Topic</a>
-
-      <p><strong>Featured Categories</strong><p>
+      <p><strong>Featured Communities</strong><p>
       @endif
 
       <ul class="navbar-nav sidebar-nav">
-          @php $communities = isset($isHomepage) ? $communities : $community->children; @endphp
           @include('templates.categories_list_only')
     </div>

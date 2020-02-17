@@ -108,4 +108,11 @@ class Post extends Model
     public function bookmarked() {
         return auth()->user() && $this->bookmarks()->where('user_id', auth()->user()->id)->first() ? true : false;
     }
+
+
+        // Highlight words in text
+    function highlightSearchQuery($text, $word){
+        $text = preg_replace('#'. preg_quote($word) .'#i', '<span class="text-warning">\\0</span>', $text);
+        return $text;
+    }
 }

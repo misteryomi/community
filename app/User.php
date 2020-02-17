@@ -79,6 +79,21 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class, 'user_id');
     }
 
+    function bookmarks() {
+        return $this->hasMany(Bookmark::class, 'user_id');
+    }
+
+    function likes() {
+        return $this->hasMany(PostLike::class, 'user_id');
+    }
+
+    public function passwordReset() {
+        return $this->hasOne(PasswordReset::class, 'email', 'email');
+    }
+
+    public function settings() {
+        return $this->hasOne(UserSettings::class, 'user_id');
+    }
 
     function canEditPost($post) {
         return $post->user && ($this->hasRole('moderator') || $this->id == $post->user->id);

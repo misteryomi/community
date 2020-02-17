@@ -55,13 +55,19 @@ class PostController extends Controller
      * Display feed of all posts
      * @return response
      */
-    public function all() {
+    public function all(Request $request) {
 
-        $posts = $this->post->latest()->paginate(15);
+        $posts = $this->post->latest();
+        
+        if($request->has('q')) {
+           $posts =  $posts->where('title', 'like', '%'.$request->q.'%')->orWhere('details', 'like', '%'.$request->q.'%');
+        }
+        
+        $posts =  $posts->paginate(15);
 
-        $categories = $this->category->where('is_parent', true)->get();
+        $communities = $this->category->where('is_featured', true)->get();
 
-        return view('posts.list', compact('posts', 'categories'));
+        return view('posts.list', compact('posts', 'communities'));
     }
 
 

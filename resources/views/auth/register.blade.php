@@ -32,12 +32,9 @@
                                     <a href="login/google" class="btn btn-label btn-danger text-white mb-2">
                                         <i class="fa fa-google"></i> Signup with Google
                                     </a>
-                                    <a href="login/google" class="btn btn-label btn-default text-white mb-2">
-                                        <i class="fa fa-google"></i> Signup with Facebook
-                                    </a>
-                                    <a href="login/google" class="btn btn-label btn-primary text-white mb-2">
-                                        <i class="fa fa-google"></i> Signup with Twitter
-                                    </a>
+                                    <hr/>
+                                    <a href="{{ route('forgot-password') }}">Forgot your password? Reset Password</a><br/>
+                                    <a href="{{ route('login') }}">Already own an account? Login now</a><br/>
                                 </div>
                             </div>
                         </div>

@@ -10,7 +10,14 @@ class Bookmark extends Model
 
     public $timestamps = false;
 
-    public function post() {
-        return $this->belongsTo(User::class);
+    /**
+     * Returns the bookmarks on current post
+     */
+    public function posts() {
+        return $this->hasMany(Posts::class, 'post_id');
     }
+
+    // public function posts() {
+    //     return $this->belongsTo(Post::class);
+    // }
 }

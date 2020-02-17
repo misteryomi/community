@@ -211,7 +211,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\yarnable\resources\assets\js\post-script.js */"./resources/assets/js/post-script.js");
+module.exports = __webpack_require__(/*! /Users/clicks/Sites/gistradar/resources/assets/js/post-script.js */"./resources/assets/js/post-script.js");
 
 
 /***/ })

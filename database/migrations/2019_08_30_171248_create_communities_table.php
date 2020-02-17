@@ -17,8 +17,9 @@ class CreateCommunitiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug');
-            $table->boolean('is_parent')->default(0);
+            $table->boolean('is_parent')->default(0);            
             $table->integer('parent_id')->nullable();
+            $table->boolean('is_featured')->default(0);
             // $table->boolean('is_featured')->default(0);
             $table->string('color', 7)->nullable();
             $table->integer('user_id')->nullable();

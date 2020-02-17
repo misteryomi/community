@@ -21,6 +21,14 @@ class UserController extends Controller
         return view('profile.show', compact('user', 'posts'));
     }
 
+
+    public function savedTopics(User $user) {
+        $posts = $user->bookmarks()->posts()->latest()->paginate(15);
+
+        return view('profile.show', compact('user', 'posts'));
+    }
+
+
     public function settings() {
         $user = Auth::user();
 
@@ -46,6 +54,18 @@ class UserController extends Controller
         \App\UserDetails::updateOrCreate(['user_id' => $user->id], $requestData);
 
         return redirect(route('profile.settings'))->withMessage('Profile updated successfully!');
+    }
+
+
+    public function feedSettings(Request $request) {
+        $request->validate([
+            'feed_type' => 'required'
+        ]);
+
+        $request->user()->settings()->updateOrCreate($request->except('_token'));
+
+        return redirect(route('profile.settings'))->withMessage('Feed Settings updated successfully!');
+
     }
 
     public function apiList(Request $request) {

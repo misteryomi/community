@@ -13,6 +13,7 @@
 
 Route::get('/', 'PostController@index')->name('home');
 Route::get('/topics', 'PostController@all')->name('topics');
+Route::get('/search', 'PostController@all')->name('search');
 
 
 //Auth Routes
@@ -21,6 +22,10 @@ Route::post('/login', 'AuthController@postLogin')->name('post.login');
 
 Route::get('login/google', 'AuthController@redirectToProvider');
 Route::get('login/google/callback', 'AuthController@handleProviderCallback')->name('google.callback');
+
+Route::get('/forgot-password/{token?}', 'AuthController@forgotPassword')->name('forgot-password');
+Route::post('/forgot-password', 'AuthController@postForgotPassword')->name('post.forgot-password');
+Route::post('/reset-password', 'AuthController@storePassword')->name('store-password');
 
 
 Route::get('/logout', 'AuthController@logout')->name('logout');
@@ -69,10 +74,16 @@ Route::name('profile.')->group(function() {
     Route::middleware('auth')->group(function() {
         Route::get('/settings', 'UserController@settings')->name('settings');
         Route::post('/settings', 'UserController@update')->name('settings.post');
+        Route::post('/settings/feed', 'UserController@feedSettings')->name('feed.settings.post');
         Route::get('/user/{user}', 'UserController@index')->name('show');
     });
-
     Route::get('users/list', 'UserController@apiList');
+});
+
+Route::name('topics.')->prefix('topics')->middleware('auth')->group(function() {
+    Route::get('/saved', 'UserController@savedTopics')->name('saved');
+    Route::get('/likes', 'UserController@savedTopics')->name('saved');
+    Route::get('/liked', 'UserController@savedTopics')->name('saved');
 });
 
 Route::get('/{post}', 'PostController@show')->name('posts.show');

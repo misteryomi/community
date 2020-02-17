@@ -1,7 +1,7 @@
 @include('layouts.partials.alert')
 
     <div class="d-flex justify-content-md-between">
-        <h1 class="font-weight-normal mb-3"><strong>{{ isset($isHomepage) ? 'Topics Feed' : 'All Topics' }} {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }}</strong></h1>
+        <h1 class="font-weight-normal mb-3"><strong>{{ isset($isHomepage) ? 'Topics Feed' : 'All Topics' }} {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}</strong></h1>
 
         @if(isset($isHomepage))
         <div class="dropdown">
@@ -24,18 +24,17 @@
             <div class="d-flex align-items-center">
               <a href="#" class="ml--3 ml-lg-0">
                 <div class="icon icon-shape bg-red text-white rounded-circle shadow">
-                  {{-- <i class="ni ni-active-40"></i> --}}
                   <strong>{{ strtolower(substr($post->title, 0, 1)) }}</strong>
                 </div>
               </a>
               <div class="ml-3 ml-lg-3 mr-lg-4">
-                <a href="{{ $route }}" class="text-dark font-weight-600 text-lg-lg" title="{{ $post->title }}">{{ $post->title }}</a>
+                <a href="{{ $route }}" class="text-dark font-weight-600 text-lg-lg" title="{{ $post->title }}">{!! request()->has('q') ? $post->highlightSearchQuery($post->title, request()->q) : $post->title !!}</a>
                 <span class="badge badge-md badge-primary mb-1">{{ $post->category->name }}</span>
                 <small class="d-block text-muted">
                    Posted by {{ $post->user->username }}<br/>
                 </small>
                 <small class="d-block text-muted mt-2">
-                        {{ $post->excerpt }} ...
+                        {!! request()->has('q') ? $post->highlightSearchQuery($post->excerpt, request()->q) : $post->excerpt !!} ...
                   <a href="{{ $route }}">Read more</a>
                 </small>
               </div>
@@ -56,7 +55,11 @@
     </div>
 
     @else
-        <p>Oops! No topic has been created in this community. Be the champion, <a href="{{ route('posts.new') }}"><strong>click here to create a topic</strong></a>.</p>
+      @if(request()->has('q'))
+      <p>Oops! No topic found. Be the champion, <a href="{{ route('posts.new') }}"><strong>click here to create a topic</strong></a>.</p>
+      @else 
+      <p>Oops! No topic has been created in this community. Be the champion, <a href="{{ route('posts.new') }}"><strong>click here to create a topic</strong></a>.</p>
+      @endif
     @endif
 
 

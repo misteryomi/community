@@ -43,19 +43,10 @@
             {{-- <img src="{{ asset('assets/img/logo_.png') }}" height="40px" class="d-md-none"/> --}}
         </a>
         <!-- Form -->
-        <form class=" d-none d-md-flex w-50 mx-3 ">
-          {{-- <div class="form-group mb-0">
-            <div class="input-group ">
-              <input class="form-control" placeholder="Search Topics..." type="text">
-              <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-search"></i></span>
-              </div>
-            </div>
-          </div> --}}
+        <form action="{{ route('topics') }}" method="get" class="navbar-search d-none d-md-flex w-50 mx-3 ">
           <div class="input-group">
-            <input type="text" class="form-control px-2" placeholder="Search Topics...">
+            <input type="text" class="form-control px-2" placeholder="Search Topics..." name="q">
             <div class="input-group-append">
-                {{-- <span class="input-group-text"><i class="fa fa-search"></i></span> --}}
               <button type="submit" class="input-group-text" type="button"><i class="fa fa-search"></i></button>
             </div>
           </div>
@@ -137,8 +128,9 @@
         @yield('content')
 
         <footer class="footer text-center">
-                <div class="copyright text-center text-xl-left text-muted">
-                &copy; @php date('Y') @endphp <a href="#top" class="font-weight-bold ml-1">{{ env('APP_NAME') }}</a>
+                <div class="copyright text-center text-muted">
+                <p>&copy; {{ date('Y') }} <a href="#top" class="font-weight-bold ml-1">{{ env('APP_NAME') }}</a>. All rights reserved.</p>
+                <p><small>Disclaimer: All posts or comments on this discussion forum do not represent our views or opinions of anybody</small></p>
                 </div>
         </footer>
 

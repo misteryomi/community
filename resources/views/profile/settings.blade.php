@@ -14,9 +14,8 @@
   <div class="col-md-10 offset-md-1">
     <div class="nav nav-pills mb-4 justify-content-center d-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <a class="nav-link m-2 text-center active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-user"></i><br/>  Profile</a>
-        {{-- <a class="nav-link m-2 text-center" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i class="fa fa-camera"></i><br/>  Profile Picture</a> --}}
-        <a class="nav-link m-2 text-center" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><i class="fa fa-list"></i><br/> Feed Settings</a>
-        <a class="nav-link m-2 text-center" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><i class="fa fa-lock"></i><br/> Security</a>
+        <a class="nav-link m-2 text-center" id="v-pills-feed-tab" data-toggle="pill" href="#v-pills-feed" role="tab" aria-controls="v-pills-feed" aria-selected="false"><i class="fa fa-list"></i><br/> Feed Settings</a>
+        <a class="nav-link m-2 text-center" id="v-pills-security-tab" data-toggle="pill" href="#v-pills-security" role="tab" aria-controls="v-pills-security" aria-selected="false"><i class="fa fa-lock"></i><br/> Security</a>
     </div>
 
 
@@ -26,9 +25,12 @@
         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
             @include('profile.edit')
         </div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-feed" role="tabpanel" aria-labelledby="v-pills-feed-tab">
+        @include('profile.feed-settings')        
+        </div>
+        <div class="tab-pane fade" id="v-pills-security" role="tabpanel" aria-labelledby="v-pills-security-tab">
+        @include('profile.password')        
+        </div>
       </div>
   </div>
 </div>
