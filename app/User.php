@@ -79,6 +79,10 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class, 'user_id');
     }
 
+    function communities() {
+        return $this->hasMany(FollowedCommunities::class, 'user_id');
+    }    
+
     function bookmarks() {
         return $this->hasMany(Bookmark::class, 'user_id');
     }

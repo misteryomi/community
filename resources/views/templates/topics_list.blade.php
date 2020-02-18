@@ -3,14 +3,14 @@
     <div class="d-flex justify-content-md-between">
         <h1 class="font-weight-normal mb-3"><strong>{{ isset($isHomepage) ? 'Topics Feed' : 'All Topics' }} {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}</strong></h1>
 
-        @if(isset($isHomepage))
+        @if(isset($isHomepage) && auth()->check())
         <div class="dropdown">
             <a href="#" class="text-dark badge" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Displaying Featured topics <i class="fa fa-cog"></i>
+                Displaying {{ auth()->user()->settings && auth()->user()->settings->feed_type == 'communities' ? 'Followed Communities' : 'Featured topics'}} <i class="fa fa-cog"></i>
             </a>
             <div class="dropdown-menu  dropdown-menu-arrow dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#"><small>Display Followed Communities</small></a>
-                <a class="dropdown-item" href="#"><small>Display Featured Topics</small></a>
+                <a class="dropdown-item" href="?feed_type=communities"><small>Display Followed Communities</small></a>
+                <a class="dropdown-item" href="?feed_type=featured"><small>Display Featured Topics</small></a>
             </div>
         </div>
         @endif

@@ -37,15 +37,12 @@ class AuthController extends Controller
 
     public function postRegister(Request $request)
     {
-        $validation = Validator::make($request->all(), [
+        $request->validate([
                             'username' => 'required|unique:users',
                             'email' => 'required|email|unique:users',
                             'password' => 'required'
                         ]);
-        if($validation->fails()) {
-            return redirect()->back()->withErrors($validation->errors());
-        }
-
+                        
         $requestData = $request->all();
         $requestData['password'] = Hash::make($requestData['password']);
         $user = $this->user->create($requestData);

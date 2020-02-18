@@ -4,9 +4,9 @@
         <h1 class="mb-4 text-center">Login to continue</h1>
         <div class="row">
             <div class="col-md-8 offset-md-2">
+                @include('layouts.partials.alert')
                 <div class="card">
                     <div class="card-body py-5">
-                        @include('layouts.partials.alert')
                         <div class="row">
                             <div class="col-md-6 border-right">
                                 @include('auth.login-form')

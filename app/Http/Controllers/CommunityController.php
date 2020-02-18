@@ -32,6 +32,13 @@ class CommunityController extends Controller
         return view('posts.list', compact('community', 'posts'));
     }
 
+    public function all() {
+        $communities = $community->paginate(15);
+
+        return view('community.list', compact('communities'));
+    }
+
+
     public function follow(Community $community) {
 
         $community->followers()->create(['user_id' => $this->user->id]);

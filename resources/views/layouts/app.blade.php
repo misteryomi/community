@@ -8,14 +8,9 @@
   <title>
     {{ env('APP_NAME') }} - The Nigerian 411 Discussion Forum
   </title>
-  <!-- Favicon -->
   <link href="{{ asset('assets/img/favicon.png') }}" rel="icon" type="image/png">
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <!-- Icons -->
-  {{-- <link href="{{ asset('assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" /> --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- CSS Files -->
   @yield('styles')
   <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 
@@ -33,16 +28,13 @@
         </div>
     </div>
   <div class="main-content">
-    <!-- Navbar -->
 
     <nav class="navbar navbar-expand border-bottom bg-white {{ isset($isHomepage) ? ' navbar-light' : ' navbar-light border-bottom' }}" id="navbar-main">
       <div class="container-fluid">
-        <!-- Brand -->
         <a class="h4 mb-0 text-uppercase" href="{{ route('home') }}">
             <img src="{{ asset('assets/img/logo.png') }}" height="40px" />
             {{-- <img src="{{ asset('assets/img/logo_.png') }}" height="40px" class="d-md-none"/> --}}
         </a>
-        <!-- Form -->
         <form action="{{ route('topics') }}" method="get" class="navbar-search d-none d-md-flex w-50 mx-3 ">
           <div class="input-group">
             <input type="text" class="form-control px-2" placeholder="Search Topics..." name="q">
@@ -75,7 +67,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </a>
             </li>
-        <!-- User -->
         <ul class="navbar-nav align-items-center ">
             <li class="nav-item">
                 <a href="{{ route('posts.new') }}" class="nav-link  btn btn-icon btn-default text-white">
@@ -100,14 +91,14 @@
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Settings</span>
               </a>
-              <a href="./examples/profile.html" class="dropdown-item">
+              <a href="{{ route('topics.saved') }}" class="dropdown-item">
                 <i class="ni ni-calendar-grid-58"></i>
                 <span>Saved Posts</span>
               </a>
-              <a href="./examples/profile.html" class="dropdown-item">
+              {{-- <a href="{{ route('topics.liked') }}" class="dropdown-item">
                 <i class="ni ni-support-16"></i>
                 <span>Liked Posts</span>
-              </a>
+              </a> --}}
               <div class="dropdown-divider"></div>
               <a href="{{ route('logout') }}" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
@@ -120,7 +111,6 @@
         @endguest
       </div>
     </nav>
-    <!-- End Navbar -->
     @yield('wide-content')
 
     <div class="container mt-3 mt-md-6">
@@ -130,7 +120,7 @@
         <footer class="footer text-center">
                 <div class="copyright text-center text-muted">
                 <p>&copy; {{ date('Y') }} <a href="#top" class="font-weight-bold ml-1">{{ env('APP_NAME') }}</a>. All rights reserved.</p>
-                <p><small>Disclaimer: All posts or comments on this discussion forum do not represent our views or opinions of anybody</small></p>
+                <p><small>Disclaimer: All posts or comments on this discussion forum do not represent the views of the <a href="{{ route('home') }}">{{ env('APP_NAME') }}</a> Team</small></p>
                 </div>
         </footer>
 
@@ -138,8 +128,6 @@
 
 
 
-<!--login modal-->
-{{-- <button type="button" class="btn btn-block btn-primary mb-3" data-toggle="modal" data-target="#auth-modal">Default</button> --}}
 <div class="modal fade" id="auth-modal" tabindex="-1" role="dialog" aria-labelledby="auth-modal" aria-hidden="true">
 <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
   <div class="modal-content">

@@ -33,10 +33,14 @@ Route::get('/logout', 'AuthController@logout')->name('logout');
 Route::get('/register', 'AuthController@register')->name('register');
 Route::post('/register', 'AuthController@postRegister')->name('post.register');
 
-Route::prefix('community')->name('community.')->group(function() {
-    Route::get('/{community}', 'CommunityController@list')->name('list');
-    Route::get('/{community}/follow', 'CommunityController@follow')->name('follow');
-    Route::get('/{community}/unfollow', 'CommunityController@unfollow')->name('unfollow');
+Route::name('community.')->group(function() {
+    Route::get('/communities', 'CommunityController@all')->name('all');
+
+    Route::prefix('community')->group(function() {
+        Route::get('/{community}', 'CommunityController@list')->name('list');
+        Route::get('/{community}/follow', 'CommunityController@follow')->name('follow');
+        Route::get('/{community}/unfollow', 'CommunityController@unfollow')->name('unfollow');    
+    });
 });
 
 Route::name('posts.')->group(function() {
@@ -82,8 +86,8 @@ Route::name('profile.')->group(function() {
 
 Route::name('topics.')->prefix('topics')->middleware('auth')->group(function() {
     Route::get('/saved', 'UserController@savedTopics')->name('saved');
-    Route::get('/likes', 'UserController@savedTopics')->name('saved');
-    Route::get('/liked', 'UserController@savedTopics')->name('saved');
+    // Route::get('/likes', 'UserController@savedTopics')->name('likes');
+    // Route::get('/liked', 'UserController@savedTopics')->name('liked');
 });
 
 Route::get('/{post}', 'PostController@show')->name('posts.show');

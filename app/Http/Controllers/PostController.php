@@ -39,13 +39,24 @@ class PostController extends Controller
      * Display feed of {featured} posts
      * @return response
      */
-    public function index() {
+    public function index(Request $request) {
 
-        $posts = $this->post->where('is_featured', 1)->latest()->paginate(15);
+        if($this->user->settings && $this->user->settings->feed_type == 'communities') {
+            $posts = $this->user->communities()->post()->latest()->paginate(15);
+        } else {
+            $posts = $this->post->where('is_featured', 1)->latest()->paginate(15);
+        }
+
 
         $communities = $this->category->where('is_parent', true)->ordered();
 
         $isHomepage = true;
+
+        if($request->has('feed_type') && $this->user) {
+            $this->user->settings()->updateOrCreate(['user_id' => $this->user->id], ['feed_type' => $request->feed_type]);
+        }
+
+
 
         return view('welcome', compact('posts', 'communities', 'isHomepage'));
     }
