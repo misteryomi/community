@@ -41,12 +41,13 @@ class PostController extends Controller
      */
     public function index(Request $request) {
 
-        if($this->user->settings && $this->user->settings->feed_type == 'communities') {
-            $posts = $this->user->communities()->post()->latest()->paginate(15);
-        } else {
-            $posts = $this->post->where('is_featured', 1)->latest()->paginate(15);
-        }
+        // if($this->user->settings && $this->user->settings->feed_type == 'communities') {
+        //     $posts = $this->user->communities()->post()->latest()->paginate(15);
+        // } else {
+        //     $posts = $this->post->where('is_featured', 1)->latest()->paginate(15);
+        // }
 
+        $posts = $this->post->where('is_featured', 1)->latest()->paginate(15);
 
         $communities = $this->category->where('is_parent', true)->ordered();
 
