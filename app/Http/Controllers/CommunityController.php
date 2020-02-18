@@ -33,7 +33,7 @@ class CommunityController extends Controller
     }
 
     public function all() {
-        $communities = $community->paginate(15);
+        $communities = $this->community->paginate(15);
 
         return view('community.list', compact('communities'));
     }

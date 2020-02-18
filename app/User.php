@@ -80,7 +80,11 @@ class User extends Authenticatable
     }
 
     function communities() {
-        return $this->hasMany(FollowedCommunities::class, 'user_id');
+        return $this->hasManyThrough(Community::class, FollowedCommunities::class, 'user_id', 'id', 'id', 'community_id');
+    }    
+
+    function communitiesTopics() {
+        return $this->hasManyThrough(Post::class, FollowedCommunities::class, 'user_id', 'id', 'id', 'community_id');
     }    
 
     function bookmarks() {

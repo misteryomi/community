@@ -44,6 +44,10 @@ class Community extends Model
         return $user && $this->followers->where('user_id', $user->id)->count() > 0;
     }
 
+    public function getExcerptAttribute() {
+        return 'Some text here in few seconds...';
+    }
+
 
     public function icon($size = 'sm') {
         return '

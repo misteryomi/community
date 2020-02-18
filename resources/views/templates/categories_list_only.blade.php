@@ -1,3 +1,4 @@
+<ul>
 @foreach($communities as $community)
 <li class="nav-item  class=">
 <a class=" nav-link active " href="{{ route('community.list', ['community' => $community->slug]) }}">

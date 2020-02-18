@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>
-    {{ env('APP_NAME') }} - The Nigerian 411 Discussion Forum
+    {{ env('APP_NAME') }} - The Nigerian 411 Discussion Community
   </title>
   <link href="{{ asset('assets/img/favicon.png') }}" rel="icon" type="image/png">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -22,6 +22,22 @@
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="px-2 d-md-none">
+        <ul class="d-inline-block">
+            <li class="mb-2">
+                <a href="{{ route('topics') }}" class="nav-link"><i class="fa fa-newspaper-o mr-2"></i> Latest</a>
+            </li>
+            <li class="mb-2">
+                <a href="{{ route('topics') }}" class="nav-link"><i class="fa fa-fire mr-2"></i> Trending</a>
+            </li>
+            <li class="mb-2">
+                <a href="{{ route('community.all') }}" class="nav-link"><i class="fa fa-object-group mr-2"></i> Communities</a>
+            </li>
+          </ul>
+          <hr class="mt-2"/>
+          <a href="{{ route('posts.new') }}" class="btn btn-default btn-block mb-4">
+            <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
+              Create New Topic</a>
+                  
             @php $communities = \App\Community::where('is_parent', 1)->get() @endphp
 
             @include('templates.categories_list_only')
@@ -35,7 +51,7 @@
             <img src="{{ asset('assets/img/logo.png') }}" height="40px" />
             {{-- <img src="{{ asset('assets/img/logo_.png') }}" height="40px" class="d-md-none"/> --}}
         </a>
-        <form action="{{ route('topics') }}" method="get" class="navbar-search d-none d-md-flex w-50 mx-3 ">
+        <form action="{{ route('topics') }}" method="get" class="navbar-search d-none d-md-flex  ml-4 ">
           <div class="input-group">
             <input type="text" class="form-control px-2" placeholder="Search Topics..." name="q">
             <div class="input-group-append">
@@ -44,32 +60,34 @@
           </div>
 
         </form>
-        @guest
-            <ul class="navbar-nav align-items-center ml-md-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('login') }}"><strong>Login</strong></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link btn btn-danger text-white" href="{{ route('register') }}">Sign Up</a>
-                </li>
-
-                <li class="nav-item d-none d-md-inline">
-                    <a href="{{ route('posts.new') }}" class="nav-link  btn btn-icon btn-default text-white ml-1">
-                        <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
-                          Create New Topic</a>
-                </li>
-             </ul>
-        @else
-
         <ul class="navbar-nav align-items-center ml-md-auto">
-            <li class="nav-item d-lg-none">
-                <a href="#" class="nav-link" onclick="openNav()">
-                    <span class="navbar-toggler-icon"></span>
-                </a>
-            </li>
-        <ul class="navbar-nav align-items-center ">
+              <li class="nav-item d-lg-none">
+                  <a href="#" class="nav-link" onclick="openNav()">
+                      <span class="navbar-toggler-icon"></span>
+                  </a>
+              </li>
+                <li class="nav-item d-none d-md-inline">
+                    <a href="{{ route('topics') }}" class="nav-link"><i class="fa fa-newspaper-o"></i> Latest</a>
+                </li>
+                <li class="nav-item d-none d-md-inline">
+                    <a href="{{ route('topics') }}" class="nav-link"><i class="fa fa-fire"></i> Trending</a>
+                </li>
+                <li class="nav-item d-none d-md-inline">
+                    <a href="{{ route('community.all') }}" class="nav-link"><i class="fa fa-object-group"></i> Communities</a>
+                </li>
+            @guest
+                <li class="nav-item">
+                  <a class="nav-link btn btn-primary text-white mr-2" href="{{ route('login') }}"><strong>Login</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link btn btn-danger text-white" href="{{ route('register') }}">
+                    <span class="d-none d-md-block">Create an Account</span>
+                    <span class="d-md-none">Sign Up</span>
+                  </a>
+                </li>
+        @else
             <li class="nav-item">
-                <a href="{{ route('posts.new') }}" class="nav-link  btn btn-icon btn-default text-white">
+                <a href="{{ route('posts.new') }}" class="nav-link ml-3 btn btn-icon btn-default text-white">
                     <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
                       <span class="d-none d-md-inline">Create New Topic</span></a>
             </li>
@@ -109,6 +127,7 @@
 
         </ul>
         @endguest
+        </ul>
       </div>
     </nav>
     @yield('wide-content')
@@ -120,7 +139,7 @@
         <footer class="footer text-center">
                 <div class="copyright text-center text-muted">
                 <p>&copy; {{ date('Y') }} <a href="#top" class="font-weight-bold ml-1">{{ env('APP_NAME') }}</a>. All rights reserved.</p>
-                <p><small>Disclaimer: All posts or comments on this discussion forum do not represent the views of the <a href="{{ route('home') }}">{{ env('APP_NAME') }}</a> Team</small></p>
+                <p><small>Disclaimer: All posts or comments on this website do not represent the views of the <a href="{{ route('home') }}">{{ env('APP_NAME') }}</a> Team</small>. Individuals are responsible for their own posts.</p>
                 </div>
         </footer>
 

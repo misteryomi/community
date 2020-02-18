@@ -13,6 +13,8 @@ use App\Http\Resources\PostsListCollection;
 use App\Post;
 use App\User;
 
+use \Carbon\Carbon;
+
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Routing\Route;
 
@@ -41,23 +43,21 @@ class PostController extends Controller
      */
     public function index(Request $request) {
 
-        // if($this->user->settings && $this->user->settings->feed_type == 'communities') {
-        //     $posts = $this->user->communities()->post()->latest()->paginate(15);
-        // } else {
-        //     $posts = $this->post->where('is_featured', 1)->latest()->paginate(15);
-        // }
 
-        $posts = $this->post->where('is_featured', 1)->latest()->paginate(15);
+        if($this->user && $this->user->settings && $this->user->settings->feed_type == 'communities') {
+            $posts = $this->user->communitiesTopics()->latest()->paginate(15);
+        } else {
+            $posts = $this->post->where('is_featured', 1)->latest()->paginate(15);
+        }
 
         $communities = $this->category->where('is_parent', true)->ordered();
 
         $isHomepage = true;
 
-        if($request->has('feed_type') && $this->user) {
+        if($request->feed_type && $this->user) {
             $this->user->settings()->updateOrCreate(['user_id' => $this->user->id], ['feed_type' => $request->feed_type]);
+            return redirect()->route('home');
         }
-
-
 
         return view('welcome', compact('posts', 'communities', 'isHomepage'));
     }
@@ -82,6 +82,32 @@ class PostController extends Controller
         return view('posts.list', compact('posts', 'communities'));
     }
 
+
+    public function latest(Request $request) {
+
+        $posts = $this->post->latest();
+        
+        $posts =  $posts->paginate(15);
+
+        $communities = $this->category->where('is_featured', true)->get();
+
+        $title = 'Latest Topics';
+
+        return view('posts.list', compact('posts', 'communities', 'title'));
+    }    
+
+    public function trending(Request $request) {
+
+        $posts = $this->post->withCount('views')->whereBetween('created_at', [Carbon::now()->subDays(7), now()])->orderBy('views_count', 'DESC');
+        
+        $posts =  $posts->paginate(15);
+
+        $communities = $this->category->where('is_featured', true)->get();
+
+        $title = 'Trending Topics';
+
+        return view('posts.list', compact('posts', 'communities', 'title'));
+    }    
 
     /**
      * Display post

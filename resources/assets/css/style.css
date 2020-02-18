@@ -4802,8 +4802,8 @@ input[type="button"].btn-block {
 }
 
 .navbar-expand .navbar-nav .nav-link {
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding-right: .6rem;
+  padding-left: .6rem;
 }
 
 .navbar-expand>.container,
@@ -16647,6 +16647,7 @@ textarea[resize="horizontal"] {
 
 .nav-link {
   color: #717171;
+  font-weight: bold;
 }
 
 .nav-link:hover {
@@ -20778,6 +20779,18 @@ body {
     font-size: 36px;
     color: #000;
     margin-left: 50px;
+  }
+  .sidenav ul {
+    margin: 0;
+    padding: 0;
+  }
+  .sidenav li {
+    list-style-type: none;
+  }
+
+
+  figure.image img {
+    max-width: 100%;
   }
 
   @media screen and (max-height: 450px) {
