@@ -1,6 +1,6 @@
-<ul>
+<ul class="navbar-nav sidebar-nav">
 @foreach($communities as $community)
-<li class="nav-item  class=">
+<li class="nav-item "  >
 <a class=" nav-link active " href="{{ route('community.list', ['community' => $community->slug]) }}">
   {!! $community->icon() !!}
 

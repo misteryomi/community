@@ -22,17 +22,16 @@
 
             </div>
         </div>
-        </div>
 
       
-        @if($community->children->count() > 0)
-        <p class="mt-4"><strong>Sub Categories</strong><p>
-        @endif
+        {{-- @if($community->children->count() > 0)
+        <p class="mt-4"><strong>Sub Communities</strong><p>
+        @endif --}}
       @else
       <a href="{{ isset($community) ? route('posts.new', ['community' => $community->slug]) : route('posts.new') }}" class="btn btn-icon btn-default btn-block mb-4">
             <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
               Create New Topic</a>
       <p><strong>Featured Communities</strong><p>
+      @include('templates.categories_list_only')
       @endif
-      </div>
-
+  </div>

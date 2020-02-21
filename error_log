@@ -1,0 +1,4 @@
+[18-Feb-2020 06:45:56 America/New_York] PHP Warning:  require(/home/viradhga/411.servicemall.ng/vendor/autoload.php): failed to open stream: No such file or directory in /home/viradhga/411.servicemall.ng/artisan on line 18
+[18-Feb-2020 06:45:56 America/New_York] PHP Fatal error:  require(): Failed opening required '/home/viradhga/411.servicemall.ng/vendor/autoload.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/viradhga/411.servicemall.ng/artisan on line 18
+[18-Feb-2020 06:45:59 America/New_York] PHP Warning:  require(/home/viradhga/411.servicemall.ng/vendor/autoload.php): failed to open stream: No such file or directory in /home/viradhga/411.servicemall.ng/artisan on line 18
+[18-Feb-2020 06:45:59 America/New_York] PHP Fatal error:  require(): Failed opening required '/home/viradhga/411.servicemall.ng/vendor/autoload.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/viradhga/411.servicemall.ng/artisan on line 18

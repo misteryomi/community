@@ -50,8 +50,8 @@ class PostController extends Controller
             $posts = $this->post->where('is_featured', 1)->latest()->paginate(15);
         }
 
-        $communities = $this->category->where('is_parent', true)->ordered();
-
+        $communities = \App\Community::where('is_parent', true)->get(); //->ordered();
+        
         $isHomepage = true;
 
         if($request->feed_type && $this->user) {

@@ -1,0 +1,9 @@
+[18-Feb-2020 06:46:48 America/New_York] PHP Warning:  require(/home/viradhga/411.servicemall.ng/public/../vendor/autoload.php): failed to open stream: No such file or directory in /home/viradhga/411.servicemall.ng/public/index.php on line 24
+[18-Feb-2020 06:46:48 America/New_York] PHP Fatal error:  require(): Failed opening required '/home/viradhga/411.servicemall.ng/public/../vendor/autoload.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/viradhga/411.servicemall.ng/public/index.php on line 24
+[18-Feb-2020 06:47:44 America/New_York] PHP Warning:  require(/home/viradhga/411.servicemall.ng/public/../vendor/autoload.php): failed to open stream: No such file or directory in /home/viradhga/411.servicemall.ng/public/index.php on line 24
+[18-Feb-2020 06:47:44 America/New_York] PHP Fatal error:  require(): Failed opening required '/home/viradhga/411.servicemall.ng/public/../vendor/autoload.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/viradhga/411.servicemall.ng/public/index.php on line 24
+[18-Feb-2020 06:50:21 America/New_York] PHP Fatal error:  Uncaught Error: Class 'ComposerAutoloaderInit29e79840724e2dd9b657e23cdbde5031' not found in /home/viradhga/411.servicemall.ng/vendor/autoload.php:7
+Stack trace:
+#0 /home/viradhga/411.servicemall.ng/public/index.php(23): require()
+#1 {main}
+  thrown in /home/viradhga/411.servicemall.ng/vendor/autoload.php on line 7

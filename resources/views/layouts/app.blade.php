@@ -14,6 +14,16 @@
   @yield('styles')
   <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-53641905-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-53641905-1');
+</script>
+
 
 </head>
 
@@ -139,7 +149,7 @@
         <footer class="footer text-center">
                 <div class="copyright text-center text-muted">
                 <p>&copy; {{ date('Y') }} <a href="#top" class="font-weight-bold ml-1">{{ env('APP_NAME') }}</a>. All rights reserved.</p>
-                <p><small>Disclaimer: All posts or comments on this website do not represent the views of the <a href="{{ route('home') }}">{{ env('APP_NAME') }}</a> Team</small>. Individuals are responsible for their own posts.</p>
+                <p><small>Disclaimer: All posts or comments on this website do not represent the views of the <a href="{{ route('home') }}">{{ env('APP_NAME') }}</a> Team. Individuals are responsible for their own posts.</small></p>
                 </div>
         </footer>
 
