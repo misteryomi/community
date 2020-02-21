@@ -6,8 +6,6 @@ use App\Community;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
-
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostsListCollection;
 use App\Post;
@@ -20,6 +18,8 @@ use Symfony\Component\Routing\Route;
 
 class PostController extends Controller
 {
+    use SEOTrait;
+
     private $post;
     private $community;
     private $user;
@@ -135,6 +135,7 @@ class PostController extends Controller
             ]);
         }
 
+        $this->setSEO($post->title, $post->excerpt, route('posts.show', ['post' => $post->slug]));
 
         return view('posts.show', compact('post', 'comments'));
     }
@@ -170,7 +171,8 @@ class PostController extends Controller
         $requestData = $request->all();
         $validation =  Validator::make($requestData, [
                         'title' => 'required|max:255',
-                        'details' => 'required'
+                        'details' => 'required',
+                        'community_id' => 'required'
                         // 'photo' => 'mimestypes:image/jpeg,image/bmp,image/png,video/avi,video/mpeg,video/quicktime',
         ]);
 

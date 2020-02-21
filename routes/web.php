@@ -17,6 +17,7 @@ Route::get('/latest', 'PostController@latest')->name('latest');
 Route::get('/trending', 'PostController@trending')->name('trending');
 Route::get('/search', 'PostController@all')->name('search');
 
+Route::get('/generate-sitemap', 'SitemapController');
 
 //Auth Routes
 Route::get('/login', 'AuthController@login')->name('login');
