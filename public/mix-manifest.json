@@ -1,6 +1,4 @@
 {
-    "/js/editor.js": "/js/editor.js",
-    "/js/post-script.js": "/js/post-script.js",
-    "/css/style.css": "/css/style.css",
-    "/js/script.js": "/js/script.js"
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css"
 }
