@@ -1,4 +1,4 @@
-<form action="{{ route('post.login') }}?utm_redirect={{ request()->fullUrl() }}" method="POST">
+<form action="{{ route('post.login') }}{{ request()->has('utm_redirect') ? '?utm_redirect='.request()->utm_redirect : '?utm_redirect='.request()->fullUrl() }}" method="POST">
     @csrf
     <div class="form-group">
       <label class="form-control-label" for="username">Username or Email address</label>
