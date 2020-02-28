@@ -12,7 +12,11 @@ class UserController extends Controller
 
     function __construct(User $user) {
 
-        $this->user = $user;
+        $this->middleware(function($request, $next) {
+            $this->user = $request->user();
+
+            return $next($request);
+        });
     }
 
     public function index(User $user) {
@@ -22,8 +26,9 @@ class UserController extends Controller
     }
 
 
-    public function savedTopics(User $user) {
-        $posts = $user->bookmarkedTopics()->latest()->paginate(15);
+    public function savedTopics() {
+        $user = $this->user;
+        $posts = $this->user->bookmarkedTopics()->latest()->paginate(15);
 
         return view('profile.show', compact('user', 'posts'));
     }
