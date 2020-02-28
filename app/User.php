@@ -87,6 +87,10 @@ class User extends Authenticatable
         return $this->hasManyThrough(Post::class, FollowedCommunities::class, 'user_id', 'id', 'id', 'community_id');
     }    
 
+    function bookmarkedTopics() {
+        return $this->hasManyThrough(Post::class, Bookmark::class, 'user_id', 'id', 'id', 'post_id');
+    }    
+
     function bookmarks() {
         return $this->hasMany(Bookmark::class, 'user_id');
     }

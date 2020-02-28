@@ -23,8 +23,7 @@ class UserController extends Controller
 
 
     public function savedTopics(User $user) {
-        dd($user->bookmarks->posts()P);
-        $posts = $user->bookmarks()->posts()->latest()->paginate(15);
+        $posts = $user->bookmarkedTopics()->latest()->paginate(15);
 
         return view('profile.show', compact('user', 'posts'));
     }
