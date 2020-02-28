@@ -124,7 +124,7 @@
               </a>
               <a href="{{ route('topics.saved') }}" class="dropdown-item">
                 <i class="ni ni-calendar-grid-58"></i>
-                <span>Saved Posts</span>
+                <span>Saved Topics</span>
               </a>
               {{-- <a href="{{ route('topics.liked') }}" class="dropdown-item">
                 <i class="ni ni-support-16"></i>
