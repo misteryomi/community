@@ -85,7 +85,14 @@
           @include('templates.comments')
           @if(auth()->user())
           @include('templates.comment')
+          @else
+                <div class="card mt-3">
+                    <div class="card-body text-center">
+                        <a href="#" data-toggle="modal" data-target="#auth-modal"><strong>Drop your comment</strong></a>               
+                    </div>
+                </div>
           @endif
+          
         </div>
 
     </div>

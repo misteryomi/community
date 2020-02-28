@@ -164,11 +164,19 @@
 <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
   <div class="modal-content">
 
-      <div class="modal-body text-center py-7">
-          <h3>Oops! You must be logged in to perform that action</h3>
+      <div class="modal-body py-5">
+          <div class="mb-2 text-center">
+              <h2 class="mb-3 text-default">You are not logged in</h2>
+              <p class="">You must be logged in to perform that action</p>
+              <hr/>
+              <a class=" " href="{{ route('register') }}?utm_redirect={{ request()->fullUrl() }}">New here? Create an account</a>
+                      
+          </div>
 
           @include('auth.login-form')
-
+          <p class="text-center mt-2">
+            <a href="{{ route('forgot-password') }}">Forgot your password? Reset Password</a><br/>
+          </p>
       </div>
 
   </div>

@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 border-right">
-                            <form action="{{route( 'post.register' )}} " method="post">
+                            <form action="{{route( 'post.register' )}}{{ request()->has('utm_redirect') ? '?utm_redirect='.request()->utm_redirect : '' }}" method="post">
                             @csrf
                                 <div class="form-group">
                                 <label class="form-control-label" for="username">Desired Username</label>

@@ -49,6 +49,10 @@ class AuthController extends Controller
 
         $user->details()->create();
 
+        if($request->has('utm_redirect')) {
+            return redirect(route('login').'?utm_redirect='.$request->utm_redirect)->withMessage('Account created successfully. Please login to continue');            
+        }
+
         return redirect()->route('login')->withMessage('Account created successfully. Please login to continue');
     }
 
