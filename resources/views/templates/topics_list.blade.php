@@ -26,7 +26,7 @@
     @if($posts->count() > 0)
     @foreach($posts as $post)
     @php $route = route('posts.show', ['post' => $post->slug]); @endphp
-    <div class="card border-0 shadow--hover">
+    <div class="card mx--3 mx-md-0 border-0 shadow--hover">
         <div class="card-body  border-top d-flex align-items-center">
             <div class="d-flex align-items-center">
               <a href="#" class="ml--3 ml-lg-0">

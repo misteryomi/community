@@ -1,6 +1,6 @@
         @if($comments->count() > 0)
         @foreach ($comments as $comment)
-            <div class="card mt-2" id="comment-{{ $comment->id }}">
+            <div class="card mx--3 mx-md-0  mt-2" id="comment-{{ $comment->id }}">
                 <!-- Card body -->
                 <div class="card-body p-0">
                         <!-- List group -->

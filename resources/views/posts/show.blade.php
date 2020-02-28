@@ -23,7 +23,7 @@
                 <span class="btn-inner--text">Reply Topic</span>
             </a>
             @if($comments->onFirstPage())
-            <div class="card mt-2">
+            <div class="card mx--3 mx-md-0 mt-2">
                 <div class="list-group list-group-flush">
                     <div class="list-group-item list-group-item-action flex-column align-items-start py-4 px-4">
                         <div class="d-flex w-100 justify-content-between">
