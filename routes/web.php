@@ -41,8 +41,10 @@ Route::name('community.')->group(function() {
 
     Route::prefix('community')->group(function() {
         Route::get('/{community}', 'CommunityController@list')->name('list');
-        Route::get('/{community}/follow', 'CommunityController@follow')->name('follow');
-        Route::get('/{community}/unfollow', 'CommunityController@unfollow')->name('unfollow');    
+        Route::middleware('auth')->group(function() {
+            Route::get('/{community}/follow', 'CommunityController@follow')->name('follow');
+            Route::get('/{community}/unfollow', 'CommunityController@unfollow')->name('unfollow');        
+        });
     });
 });
 
@@ -69,6 +71,7 @@ Route::name('posts.')->group(function() {
 
         Route::get('/{post}/edit', 'PostController@edit')->name('edit');
         Route::post('/{post}/edit', 'PostController@update')->name('post.edit');
+        Route::get('/{post}/delete', 'PostController@delete')->name('delete');
     });
 
 

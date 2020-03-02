@@ -8,9 +8,8 @@
         {{ $user->fullname }}
     </h3>
     <p> {{ $user->username }}</p>
-    <p class="text-sm text-muted mb-0">{{ $user->details->bio }}</p>
     <small>Member since:<br/>{{ $user->date_joined }}</small>
-
+    <p class="text-sm text-muted my-2">{{ $user->details->bio }}</p>
     <hr />
     <div class="row mt-1">
             <div class="col">

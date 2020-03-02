@@ -227,12 +227,18 @@ class PostController extends Controller
             return redirect()->back()->withErrors($validation->errors())->withInput();
         }
 
-        $requestData['title'] = \ucwords(\strtolower($requestData['title']));
          $post->update($requestData);
 
         return redirect()->route('posts.show', ['post' => $post->slug]);
     }
 
+    
+    public function delete(Post $post) {
+        $post->delete();
+
+        return redirect()->route('profile.show', ['user' => $this->user->username])->withMessage('Topic deleted successfully!');
+
+    }
 
     public function like(Post $post) {
 

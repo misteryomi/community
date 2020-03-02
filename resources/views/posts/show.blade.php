@@ -70,10 +70,14 @@
                                                 <span class="text-muted">Edit</span>
                                             </a>
                                             @endif
+                                            @if(auth()->user() && auth()->user()->canDeletePost($post))
+                                            <a class="dropdown-item" href="{{ route('posts.delete', ['post' => $post->slug]) }}">
+                                                <span class="text-muted">Delete</span>
+                                            </a>
+                                            @endif
                                             <a class="dropdown-item"  href="#">
                                                 <span class="text-muted">Report Post</span>
                                             </a>
-
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +90,7 @@
           @if(auth()->user())
           @include('templates.comment')
           @else
-                <div class="card mt-3">
+                <div id="comment" class="card mt-3">
                     <div class="card-body text-center">
                         <a href="#" data-toggle="modal" data-target="#auth-modal"><strong>Drop your comment</strong></a>               
                     </div>

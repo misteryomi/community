@@ -18,6 +18,19 @@ class Post extends Model
         return $this->where('slug', $value)->firstOrFail();
     }
 
+
+    public function setTitleAttribute($value) {
+        $title = '';
+
+        $title_arr = explode(' ', $value);
+
+        foreach($title_arr as $arr) {
+                $new_arr = !ctype_upper($arr) ? \ucwords(\strtolower($arr)) : $arr;
+                $title .= ' '.$new_arr;
+        }
+        $this->attributes['title'] = $title;
+    }
+
     /**
      * Returns owner of this interest
      */

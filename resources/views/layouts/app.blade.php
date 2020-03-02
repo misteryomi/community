@@ -149,6 +149,12 @@
 
         @yield('content')
 
+        <div class="text-center">
+          <h2>@yield('code')</h2>
+          @yield('message')
+        
+        </div>
+
         <footer class="footer text-center">
                 <div class="copyright text-center text-muted">
                 <p>&copy; {{ date('Y') }} <a href="#top" class="font-weight-bold ml-1">{{ env('APP_NAME') }}</a>. All rights reserved.</p>

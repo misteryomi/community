@@ -42,7 +42,7 @@ class User extends Authenticatable
     }
 
     public function getShortBioAttribute() {
-        return $this->details->bio ? substr($this->details->bio, 0, 10).'...' : 'Some info here';
+        return $this->details->bio ? substr($this->details->bio, 0, 40).'...' : '';
     }
 
     public function getNameAttribute() {
@@ -108,6 +108,10 @@ class User extends Authenticatable
     }
 
     function canEditPost($post) {
+        return $post->user && ($this->hasRole('moderator') || $this->id == $post->user->id);
+    }
+
+    function canDeletePost($post) {
         return $post->user && ($this->hasRole('moderator') || $this->id == $post->user->id);
     }
 
