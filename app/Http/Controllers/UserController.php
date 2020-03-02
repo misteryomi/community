@@ -80,7 +80,7 @@ class UserController extends Controller
             return [
                 'id' => $user->username,
                 'userId' => $user->id,
-                'name' => '$user->fullname',
+                'name' => $user->fullname ? $user->fullname : $this->username,
                 'link' => 'http://google.com'
             ];
         });
