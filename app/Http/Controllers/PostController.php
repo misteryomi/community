@@ -115,7 +115,7 @@ class PostController extends Controller
      * @return response
      */
     public function show(Request $request, Post $post) {
-        $comments = $post->comments()->latest()->paginate(15);
+        $comments = $post->comments()->paginate(15);
 
         $session_id =  $request->getSession()->getId();
 
