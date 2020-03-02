@@ -180,7 +180,6 @@ class PostController extends Controller
             return redirect()->back()->withErrors($validation->errors())->withInput();
         }
 
-        $requestData['title'] = \ucwords(\strtolower($requestData['title']));
         $requestData['slug'] = \Str::slug($requestData['title'], '-');
         $post = $this->user->posts()->create($requestData);
 
