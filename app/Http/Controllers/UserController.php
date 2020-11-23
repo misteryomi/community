@@ -20,6 +20,16 @@ class UserController extends Controller
     }
 
     public function index(User $user) {
+
+        //Check if $user is not empty, but is logged in
+        // if(!$user->id && auth()->user()) {
+        //     $user = auth()->user();
+        // } else {
+        //     return redirect()->route('login');
+        // }
+        
+
+
         $posts = $user->posts()->latest()->paginate(15);
 
         return view('profile.show', compact('user', 'posts'));
@@ -51,7 +61,7 @@ class UserController extends Controller
         if($request->has('avatar')) {
             $path = $request->avatar->store('avatars');
 
-            $requestData['avatar']  = env('APP_URL').'storage/'.$path;
+            $requestData['avatar']  = $path;
         } else {
             $requestData['avatar'] = $user->details->avatar;
         }

@@ -123,7 +123,7 @@ class Post extends Model
     }
 
 
-        // Highlight words in text
+        // Highlight words fin text
     function highlightSearchQuery($text, $word){
         $text = preg_replace('#'. preg_quote($word) .'#i', '<span class="text-warning">\\0</span>', $text);
         return $text;

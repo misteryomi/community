@@ -1,40 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-7">
-              <div class="card bg-secondary shadow border-0">
-                <div class="card-body px-lg-5 py-lg-5">
-                  <div class="text-center text-muted mb-4">
-                    <h4>Reset Password</h4>
-                    <small>Please enter your email address or username to continue</small>
-                  </div>
+  <div uk-height-viewport="expand: true" class="uk-flex uk-flex-middle">
+        <div class="uk-width-1-3@m uk-width-1-2@s m-auto">
+            <div class="px-2 uk-animation-scale-up">
+                <div class="my-4 uk-text-center">
+                    <h1 class="mb-2"> Reset Password</h1>
+                    <p class="my-2">Enter your username or email address to continue</p>
+                </div>
 
+
+    
                   @include('layouts.partials.alert')
 
                   <form action="{{ route('post.forgot-password') }}" method="POST">
                     @csrf
-                    <div class="form-group mb-3">
-                     <label><small>Username or email address</small></label>
-                      <div class="input-group input-group-alternative">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    <div class="form-group">
+                        <div class="uk-form-group">
+                            <div class="uk-position-relative">
+                                <input class="uk-input bg-secondary" type="text" required name="username" placeholder="Username or email address">
+                            </div>
                         </div>
-                        <input class="form-control" name="username"  placeholder="Username or email address">
-                      </div>
-                    </div>
+
                     <div class="text-center">
-                      <button type="submit" class="btn btn-block btn-primary my-4">Reset Password</button>
+                      <button type="submit" class="button block primary my-4">Reset password</button>
                     </div>
                   </form>
-                  <hr/>
-                  <div class="text-center mt-4">
-                    <a href="{{ route('login') }}"><small><strong>Go back to login</strong></small></a><br/>
-                    <a href="{{ route('register') }}"><small><strong>New on IRS? Create new account</strong></small></a>
-                  </div>
+                  <a href="{{ route('login') }}" class="text-center uk-display-block"> Go back to login</a>
+                  <a href="{{ route('register') }}" class="text-center uk-display-block"> New here? Create a new account</a>
+
                 </div>
-              </div>
-            </div>
-          </div>
-      </div>
+            </div>       
+        </div>
+    </div>
 @endsection
+

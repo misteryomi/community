@@ -33,7 +33,7 @@ class User extends Authenticatable
      */
     public function resolveRouteBinding($value)
     {
-        return $this->where('username', str_replace('@', '', $value))->firstOrFail();
+        return $this->where('username', $value)->firstOrFail();
     }
 
 
@@ -59,8 +59,14 @@ class User extends Authenticatable
         return '@'.$value;
     }
 
+
+    // Clean username
+    public function getCleanUsernameAttribute() {
+        return str_replace('@',  '', $this->username);
+    }    
+
     public function getAvatarAttribute() {
-        return $this->details && $this->details->avatar ? $this->details->avatar : '//placehold.it/100';
+        return $this->details && $this->details->avatar ? env('APP_URL').'storage/'.$this->details->avatar : asset('assets/images/avatars/avatar-7.jpg');
     }
     public function getDateJoinedAttribute() {
         return $this->created_at->toDayDateTimeString();

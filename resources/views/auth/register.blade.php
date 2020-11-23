@@ -1,47 +1,52 @@
 @extends('layouts.app')
 
 @section('content')
-        <h1 class="mb-4 text-center">Create an account</h1>
+<div uk-height-viewport="expand: true" class="uk-flex uk-flex-middle">
+        <div class="uk-width-1-3@m uk-width-1-2@s m-auto">
+            <div class="px-2 uk-animation-scale-up">
+                <div class="my-4 uk-text-center">
+                    <h1 class="mb-2"> Create an Account  </h1>
+                    <p class="my-2">Already registered?
+                    <a href="{{ route('login') }}" class="uk-link text-primary">Log in</a> </p>
+                </div>
 
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                @include('layouts.partials.alert')
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6 border-right">
+
+                    @include('layouts.partials.alert')
                             <form action="{{route( 'post.register' )}}{{ request()->has('utm_redirect') ? '?utm_redirect='.request()->utm_redirect : '' }}" method="post">
                             @csrf
-                                <div class="form-group">
-                                <label class="form-control-label" for="username">Desired Username</label>
-                                <input type="text" name="username" class="form-control" id="username">
+                            <div class="uk-form-group">
+                                <div class="uk-position-relative">
+                                    <label class="form-control-label" for="username">Desired Username</label>
+                                    <input class="uk-input bg-secondary" type="text" required name="username" placeholder="Enter Username">
                                 </div>
-                                <div class="form-group">
-                                <label class="form-control-label" for="email">Email address</label>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
+                            </div>
+                            <div class="uk-form-group">
+                                <div class="uk-position-relative">
+                                    <label class="form-control-label" for="email">Email address</label>
+                                    <input class="uk-input bg-secondary" type="email" required name="email" placeholder="Enter Email Address">
                                 </div>
-                                <div class="form-group">
-                                <label class="form-control-label" for="password">Password</label>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="*********">
+                            </div>
+                            <div class="uk-form-group">
+                                <div class="uk-position-relative">
+                                    <label class="form-control-label" for="password">Password</label>
+                                    <input class="uk-input bg-secondary" type="password" required name="password" placeholder="*******">
                                 </div>
-                                <button type="submit" class="btn btn-block btn-default">Create account</button>
+                            </div>
+                            <button type="submit" class="button primary block">Create account</button>
                             </form>
-                            </div>
-                            <div class="col-md-6 d-flex align-items-center justify-content-center">
-                                <div class="text-center mb-3">
-                                    <a href="login/google" class="btn btn-label btn-danger text-white mb-2">
-                                        <i class="fa fa-google"></i> Signup with Google
-                                    </a>
-                                    <hr/>
-                                    <a href="{{ route('forgot-password') }}">Forgot your password? Reset Password</a><br/>
-                                    <a href="{{ route('login') }}">Already own an account? Login now</a><br/>
-                                </div>
-                            </div>
-                        </div>
 
+                            <hr/>
+                            <div class="text-center mb-3">
+                                <a href="login/google" class="button danger block text-white mb-2">
+                                    <i class="fa fa-google mr-3"></i> Continue with Google
+                                </a>
+                                <a href="login/google" class="button facebook block text-white mb-2">
+                                    <i class="fa fa-facebook mr-3"></i> Continue with Facebook
+                                </a>
+                            </div>
 
-                    </div>
                 </div>
-            </div>
+            </div>       
         </div>
+    </div>
 @endsection

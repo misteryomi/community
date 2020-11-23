@@ -1,5 +1,7 @@
 @include('layouts.partials.alert')
 
+
+
     <div class="d-md-flex justify-content-md-between mb-3 mb-md-0">
         <h1 class="font-weight-normal md-0 mb-md-3"><strong>
         
@@ -26,39 +28,39 @@
     @if($posts->count() > 0)
     @foreach($posts as $post)
     @php $route = route('posts.show', ['post' => $post->slug]); @endphp
-    <div class="card mx--3 mx-md-0 border-0 shadow--hover">
-        <div class="card-body  border-top d-flex align-items-center">
-            <div class="d-flex align-items-center">
-              <a href="#" class="ml--3 ml-lg-0">
-                <div class="icon icon-shape bg-red text-white rounded-circle shadow">
-                  <strong>{{ strtolower(substr($post->title, 0, 1)) }}</strong>
-                </div>
-              </a>
-              <div class="ml-3 ml-lg-3 mr-lg-4">
-                <a href="{{ $route }}" class="text-dark font-weight-600 text-lg-lg" title="{{ $post->title }}">{!! request()->has('q') ? $post->highlightSearchQuery($post->title, request()->q) : $post->title !!}</a>
-                <span class="badge badge-md badge-primary mb-1">{{ $post->category->name }}</span>
-                <small class="d-block text-muted">
-                   Posted by {{ $post->user->username }}<br/>
-                </small>
-                <small class="d-block text-muted mt-2">
-                        {!! request()->has('q') ? $post->highlightSearchQuery($post->excerpt, request()->q) : $post->excerpt !!} 
-                  <a href="{{ $route }}">Read more</a>
-                </small>
-              </div>
+    <a href="{{ $route }}" class="blog-post">
+      @if($post->featured_image)
+        <div class="blog-post-thumbnail">
+            <div class="blog-post-thumbnail-inner">
+                <span class="blog-item-tag">Tips</span>
+                <img src="assets/images/blog/img-1.jpg" alt="">
             </div>
-            <div class="text-right d-none d-md-block ml-auto">
-                <div class="icon-actions">
-                    <a href="{{ $route }}" class="text-muted" title="{{ $post->pl_comments }} ">
-                      <span class="text-lg"><strong>{{ $post->comments->count() }}</strong></span>
-                      <i class="ni ni-chat-round"></i>
-                    </a>
-                  </div>
-              </div>
-          </div>
-    </div>
+        </div>
+      @endif
+        <!-- Blog Post Content -->
+        <div class="blog-post-content">
+            <div class="blog-post-content-info">
+                <span class="blog-post-info-tag button soft-danger"> {{ $post->category->name }} </span>
+                <span class="blog-post-info-date">{{ $post->date }}</span>
+            </div>
+            <h3>{!! request()->has('q') ? $post->highlightSearchQuery($post->title, request()->q) : $post->title !!}</h3>
+            {!! request()->has('q') ? $post->highlightSearchQuery($post->excerpt, request()->q) : $post->excerpt !!} 
+
+            <div class="group-card-content pl-0">
+                <p class="info"> 
+                <span><i class="icon-feather-user"></i> {{ $post->user->username }} 
+                <span><i class="icon-feather-eye ml-2"></i>  
+                 {{ $post->views->count() }} views </span> <span> <i class="icon-feather-message-square ml-2"></i> {{ $post->comments->count() }} comments </span>
+                 
+                 
+                </p>
+            </div>
+        </div>
+    </a>    
+
     @endforeach
-    <div class="d-flex justify-items-center mt-4">
-        {{ $posts->links() }}
+    <div class="uk-pagination my-5 uk-flex-center">
+        {{ $posts->links('layouts.pagination.custom') }}
     </div>
 
     @else

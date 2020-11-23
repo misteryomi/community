@@ -1,35 +1,29 @@
 @if(session()->get('error'))
 <div class="col-md-12">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="uk-alert-danger" uk-alert>
         <strong>An error occured!</strong><br/>{{ session()->get('error') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">×</span>
-        </button>
+        <a class="uk-alert-close" uk-close></a>
     </div>
 </div>
 @endif
 @if($errors->any())
 <div class="col-md-12">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="uk-alert-danger" uk-alert>
         <strong>You have the following errors with your form</strong><br/>
         <ul>
         @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
         @endforeach
         </ul>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">×</span>
-        </button>
+        <a class="uk-alert-close" uk-close></a>
     </div>
 </div>
 @endif
 @if(session()->get('message'))
 <div class="col-md-12">
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="uk-alert-success" uk-alert>
         {{ session()->get('message') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">×</span>
-        </button>
+        <a class="uk-alert-close" uk-close></a>
     </div>
 </div>
 @endif

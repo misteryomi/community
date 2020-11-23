@@ -24,6 +24,8 @@ class PostController extends Controller
     private $community;
     private $user;
 
+    private static $PAGINATION_LIMIT = 2;
+
     function __construct(Post $post, Community $community) {
         $this->post = $post;
         $this->category = $community;
@@ -45,9 +47,9 @@ class PostController extends Controller
 
 
         if($this->user && $this->user->settings && $this->user->settings->feed_type == 'communities') {
-            $posts = $this->user->communitiesTopics()->latest()->paginate(15);
+            $posts = $this->user->communitiesTopics()->latest()->paginate(SELF::$PAGINATION_LIMIT);
         } else {
-            $posts = $this->post->where('is_featured', 1)->latest()->paginate(15);
+            $posts = $this->post->where('is_featured', 1)->latest()->paginate(SELF::$PAGINATION_LIMIT);
         }
 
         $communities = \App\Community::where('is_parent', true)->get(); //->ordered();
@@ -75,7 +77,7 @@ class PostController extends Controller
            $posts =  $posts->where('title', 'like', '%'.$request->q.'%')->orWhere('details', 'like', '%'.$request->q.'%');
         }
         
-        $posts =  $posts->paginate(15);
+        $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
 
         $communities = $this->category->where('is_featured', true)->get();
 
@@ -87,7 +89,7 @@ class PostController extends Controller
 
         $posts = $this->post->latest();
         
-        $posts =  $posts->paginate(15);
+        $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
 
         $communities = $this->category->where('is_featured', true)->get();
 
@@ -100,7 +102,7 @@ class PostController extends Controller
 
         $posts = $this->post->withCount('views')->whereBetween('created_at', [Carbon::now()->subDays(7), now()])->orderBy('views_count', 'DESC');
         
-        $posts =  $posts->paginate(15);
+        $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
 
         $communities = $this->category->where('is_featured', true)->get();
 
@@ -115,7 +117,7 @@ class PostController extends Controller
      * @return response
      */
     public function show(Request $request, Post $post) {
-        $comments = $post->comments()->paginate(15);
+        $comments = $post->comments()->paginate(SELF::$PAGINATION_LIMIT);
 
         $session_id =  $request->getSession()->getId();
 

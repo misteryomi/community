@@ -73,7 +73,7 @@
                             </table>
 
                             <div class="irs_pagination">
-                                {{ $roles->links() }}
+                                {{ $roles->links('layouts.pagination.custom') }}
                             </div>
 
                         </div>

@@ -82,6 +82,7 @@ Route::name('posts.')->group(function() {
 
 Route::name('profile.')->group(function() {
     Route::middleware('auth')->group(function() {
+        // Route::get('/profile', 'UserController@index')->name('index');
         Route::get('/settings', 'UserController@settings')->name('settings');
         Route::post('/settings', 'UserController@update')->name('settings.post');
         Route::post('/settings/feed', 'UserController@feedSettings')->name('feed.settings.post');

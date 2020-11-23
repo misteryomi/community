@@ -51202,8 +51202,8 @@ if (document.getElementById('example')) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/clicks/Sites/gistradar/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/clicks/Sites/gistradar/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\yarnlist\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\yarnlist\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

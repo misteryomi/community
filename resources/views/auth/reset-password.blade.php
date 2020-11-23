@@ -1,46 +1,43 @@
 @extends('layouts.app')
 
 @section('content')
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-7">
-              <div class="card shadow border-0">
-                <div class="card-body px-lg-5 py-lg-5">
-                  <div class="text-center text-muted mb-4">
-                    <h4>Reset Password</h4>
-                    <small>Please enter your new password to continue</small>
-                  </div>
+  <div uk-height-viewport="expand: true" class="uk-flex uk-flex-middle">
+        <div class="uk-width-1-3@m uk-width-1-2@s m-auto">
+            <div class="px-2 uk-animation-scale-up">
+                <div class="my-4 uk-text-center">
+                    <h1 class="mb-2"> Reset Password an Account  </h1>
+                    <p class="my-2">Enter your new password to continue</p>
+                </div>
 
+
+    
                   @include('layouts.partials.alert')
 
                   <form action="{{ route('store-password') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label><small>Password</small></label>
-                      <div class="input-group input-group-alternative">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                        <div class="uk-form-group">
+                            <div class="uk-position-relative">
+                                <label class="form-control-label" for="username">Password</label>
+                                <input class="uk-input bg-secondary" type="password" required name="password" placeholder="Enter Password">
+                            </div>
                         </div>
-                        <input class="form-control" name="password" placeholder="Password" type="password">
-                        <input name="email" value="{{ $token->email }}" type="hidden">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                        <label><small>Confirm Password</small></label>
-                      <div class="input-group input-group-alternative">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+
+                        <div class="uk-form-group">
+                            <div class="uk-position-relative">
+                                <label class="form-control-label" for="username">Password</label>
+                                <input class="uk-input bg-secondary" type="password" required name="password_confirmation" placeholder="Confirm Password">
+                                <input name="email" value="{{ $token->email }}" type="hidden">
+                            </div>
                         </div>
-                        <input class="form-control" name="password_confirmation" placeholder="Confirm Password" type="password">
-                      </div>
-                    </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-block btn-primary my-4">Save new password</button>
+                      <button type="submit" class="btn btn-block btn-primary my-4">Update password</button>
                     </div>
                   </form>
+
                 </div>
-              </div>
-            </div>
-          </div>
-      </div>
+            </div>       
+        </div>
+    </div>
 @endsection

@@ -57,7 +57,7 @@
             </div>
 
             <div class="irs_pagination">
-            {{ $units->links() }}
+            {{ $units->links('layouts.pagination.custom') }}
             </div>
       </div>
 

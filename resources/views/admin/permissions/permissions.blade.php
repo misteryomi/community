@@ -73,7 +73,7 @@
                             </table>
 
                             <div class="irs_pagination">
-                                {{ $permissions->links() }}
+                                {{ $permissions->links('layouts.pagination.custom') }}
                             </div>
 
                         </div>
