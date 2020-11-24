@@ -1,1 +1,104 @@
-!function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=0)}([function(e,t,n){e.exports=n(1)},function(e,t){InlineEditor.create(document.querySelector(".editor"),{toolbar:{items:["heading","|","bold","italic","underline","alignment","bulletedList","numberedList","|","link","blockQuote","imageUpload","mediaEmbed","code","|","undo","redo"]},simpleUpload:{uploadUrl:"/media/upload",headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")}},mention:{feeds:[{marker:"@",feed:function(e){return new Promise((function(t){$.get("users/list/?username="+e,(function(e){var n=JSON.parse(e);t(n)}))}))},minimumCharacters:2,itemRenderer:function(e){var t=document.createElement("span");t.classList.add("custom-item"),t.id="mention-list-item-id-".concat(e.userId),t.textContent="".concat(e.name," ");var n=document.createElement("span");return n.classList.add("custom-item-username"),n.textContent=e.id,t.appendChild(n),t}}]}}).then((function(e){window.editor=e})).catch((function(e){}))}]);
+const items = []
+
+
+function apiFetch(userName) {
+
+    
+   return $.get(usersListURL + userName, function( data ) {
+        // JSON.parse(data).forEach(e => {
+        //     resp.push(e);
+        // });
+        return data;
+    });
+
+}
+
+function getFeedItems( queryText ) {
+
+            return new Promise( resolve => {
+                apiFetch(queryText).then(itemsToDisplay => {
+                    console.log({itemsToDisplay});
+                    resolve( JSON.parse(itemsToDisplay) );
+                })
+            } );
+
+
+}
+
+$(document).ready(function() {
+    ClassicEditor
+    .create( document.querySelector( '.editor' ), {
+        
+        toolbar: {
+            items: [
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                'underline',
+                'strikethrough',
+                'superscript',
+                'subscript',
+                'bulletedList',
+                'numberedList',
+                '|',
+                'imageUpload',
+                'link',
+                'blockQuote',
+                'mediaEmbed',
+                '|',
+                'code',
+                'codeBlock',
+                '|',
+                'undo',
+                'redo'
+            ]
+        },
+        language: 'en',
+        image: {
+            toolbar: [
+                'imageTextAlternative',
+                'imageStyle:full',
+                'imageStyle:side'
+            ]
+        },
+        table: {
+            contentToolbar: [
+                'tableColumn',
+                'tableRow',
+                'mergeTableCells'
+            ]
+        },
+        licenseKey: '',
+        simpleUpload: {
+            // The URL that the images are uploaded to.
+            uploadUrl: uploadURL ? uploadURL : '/media/upload',
+
+        // Headers sent along with the XMLHttpRequest to the upload server.
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        },
+
+        mention: {
+            feeds: [
+                {
+                    marker: '@',
+                    feed: getFeedItems,
+                    minimumCharacters: 2
+                }
+            ]
+        }
+        
+        
+    } )
+    .then( editor => {
+        window.editor = editor;
+
+        console.log({editor})
+    } )
+    .catch( error => {
+        console.error( error );
+    } );
+
+});

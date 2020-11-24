@@ -8,6 +8,9 @@
         <div class="mt-lg-4" uk-grid>
             <div class="uk-width-3-3@m">
                 <h1>{{ $post->title }}</h1>
+                @if(auth()->user()->canEditPost($post))
+                   <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">Edit</a>
+                @endif
 
                 @if($comments->onFirstPage())
                 <div class="user-details-card pt-0">

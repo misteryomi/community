@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Community;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class CommunityController extends Controller
 {
@@ -12,7 +13,7 @@ class CommunityController extends Controller
     private $user;
 
     function __construct(Community $community) {
-        $this->community = $community;
+        $this->community = $community->where('is_active', true);
 
 
         $this->middleware(function($request, $next) {
@@ -38,6 +39,24 @@ class CommunityController extends Controller
         return view('community.list', compact('communities'));
     }
 
+    public function joined() {
+
+        $user = $this->user;
+
+        $communities = $this->community->whereHas('followers', function($query) use ($user) {
+                            return $query->where('user_id', $user->id);
+                        })->paginate(15);
+        
+        return view('community.list', compact('communities'));
+    }
+
+    public function userCommunities(User $user) {
+
+        $communities = $this->community->where('user_id', $user->id)->paginate(15);
+        
+        return view('community.list', compact('communities'));
+    }
+
 
     public function follow(Community $community) {
 
@@ -51,5 +70,10 @@ class CommunityController extends Controller
 
         return redirect()->back()->withMessage('You have successfully unfollowed '. $community->name .'!');
     }
+
+    public function new() {
+        return view('community.new');
+    }
+
 
 }

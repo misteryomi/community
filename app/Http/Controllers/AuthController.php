@@ -103,27 +103,41 @@ class AuthController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('google')->stateless()->user();
+        try {
 
-        $userData = $this->user->firstOrNew(['email' => $user->email, 'username' => $user->email], [
-            'password' => Str::random(40),
-        ]);
+            $user = Socialite::driver('google')->user();
+
+            $userData = User::where('google_id', $user->id)->first();
+
+            if(!$userData) {
+                $username = explode('@', $user->email)[0];
+
+                if($this->user->where('username', $username)->count() > 0) {
+                    $username = $username.Str::random(6);
+                }
+    
+                $userData = $this->user->firstOrNew(['email' => $user->email, 'username' => $username, 'google_id' => $user->id], [
+                    'password' => Str::random(40),
+                ]);
+        
+            }
 
 
 
+            $userData->details()->firstOrNew(['user_id' => $userData->id], [
+                'avatar' => $user->avatar_original,
+                'first_name' => $user->user ? $user->user['given_name'] : null,
+                'last_name' => $user->user ? $user->user['family_name'] : null,
+            ]);
 
-        if($userData) {
-           $userData->details()->firstOrNew(['user_id' => $userData->id], [
-                        'avatar' => $user->avatar_original,
-                        'first_name' => $user->user ? $user->user['given_name'] : null,
-                        'last_name' => $user->user ? $user->user['family_name'] : null,
-                    ]);
+            Auth::login($userData, true);
+
+
+            return redirect()->intended(route('home'));
+        } catch (Exception $e) {
+            return redirect('auth/google');
         }
 
-
-        Auth::login($userData);
-
-        return redirect()->intended(route('home'));
     }
 
 

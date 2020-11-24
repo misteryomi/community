@@ -10,17 +10,20 @@
             <!-- sidebar Menu -->
             <div class="sidebar">
                 <div class="sidebar_innr" data-simplebar>
+                    <?php
+                    //  ['name' => 'Questions', 'routeName' => 'home', 'icon' => 'icon-line-awesome-question'], 
+                                               ?>
                     @php 
                         $route = request()->route()->getName();
+                        $communities = \App\Community::where('is_featured', true)->take(5)->get();
 
                         $links = [
                             ['name' => 'Home', 'routeName' => 'home', 'icon' => 'icon-line-awesome-home'],  
                             ['name' => 'Latest Topics', 'routeName' => 'latest', 'icon' => 'icon-line-awesome-paw'],                               
                             ['name' => 'Trending', 'routeName' => 'trending', 'icon' => 'icon-line-awesome-fire'], 
                             ['name' => 'Communities', 'routeName' => 'community.all', 'icon' => 'icon-feather-users'], 
-                            ['name' => 'Questions', 'routeName' => 'home', 'icon' => 'icon-line-awesome-question'], 
-                            ['name' => 'Rants', 'routeName' => 'home', 'icon' => 'icon-brand-first-order-alt'], 
-                            ['name' => 'Jobs', 'routeName' => 'home', 'icon' => 'icon-line-awesome-folder-open-o'], 
+                            ['name' => 'Rants', 'routeName' => 'rants', 'icon' => 'icon-brand-first-order-alt'], 
+                            ['name' => 'Jobs', 'routeName' => 'jobs', 'icon' => 'icon-line-awesome-folder-open-o'], 
                             
                         ]
                     @endphp
@@ -48,46 +51,14 @@
                                     <span> Questions </span>
                                 </a>
                             </li> -->
+                            @foreach($communities as $community)
                             <li id="more-veiw" hidden>
+
                                 <a href="book.html"> <img src="{{ asset('assets/images/icons/book.png') }}" alt="">
-                                    <span> Books </span>
+                                    <span>{{ $community->name }}</span>
                                 </a>
                             </li>
-                            <!-- <li id="more-veiw" hidden>
-                                <a href="friends.html"> <img src="{{ asset('assets/images/icons/friends.png') }}" alt="">
-                                    <span> Friends </span>
-                                </a>
-                            </li> -->
-                            <li id="more-veiw" hidden>
-                                <a href="blog.html"> <img src="{{ asset('assets/images/icons/document.png') }}" alt="">
-                                    <span> Blogs </span>
-                                </a>
-                            </li>
-                            <li id="more-veiw" hidden>
-                                <a href="marketplace.html"> <img src="{{ asset('assets/images/icons/market.png') }}" alt="">
-                                    <span> Marketplace </span>
-                                </a>
-                            </li>
-                            <li id="more-veiw" hidden>
-                                <a href="gallery.html"> <img src="{{ asset('assets/images/icons/photo.png') }}" alt="">
-                                    <span> Gallery </span>
-                                </a>
-                            </li>
-                            <li id="more-veiw" hidden>
-                                <a href="event.html"> <img src="{{ asset('assets/images/icons/events.png') }}" alt="">
-                                    <span> Events </span>
-                                </a>
-                            </li>
-                            <li id="more-veiw" hidden>
-                                <a href="movies.html"> <img src="{{ asset('assets/images/icons/movies.png') }}" alt="">
-                                    <span> Movies </span>
-                                </a>
-                            </li>
-                            <li id="more-veiw" hidden>
-                                <a href="games.html"> <img src="{{ asset('assets/images/icons/game.png') }}" alt="">
-                                    <span> Games </span>
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
 
                         <a href="#" class="button secondary px-5 btn-more"

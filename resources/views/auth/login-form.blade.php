@@ -27,7 +27,4 @@
     <a href="login/google" class="button danger block text-white mb-2">
         <i class="fa fa-google mr-3"></i> Continue with Google
     </a>
-    <a href="login/google" class="button facebook block text-white mb-2">
-        <i class="fa fa-facebook mr-3"></i> Continue with Facebook
-    </a>
 </div>

@@ -10,8 +10,8 @@
 
                     <!-- Logo-->
                     <div id="logo">
-                        <a href="homepage.html"> <img src="{{ asset('assets/images/logo.png') }}" alt=""></a>
-                        <a href="homepage.html"> <img src="{{ asset('assets/images/logo-light.png') }}" class="logo-inverse"
+                        <a href="{{ route('home') }}"> <img src="{{ asset('assets/images/logo.png') }}" alt=""></a>
+                        <a href="{{ route('home') }}"> <img src="{{ asset('assets/images/logo-light.png') }}" class="logo-inverse"
                                 alt=""></a>
                     </div>
 
@@ -54,12 +54,13 @@
                     <div class="head_user">
 
 
-                        <a href="{{ route('home') }}" class="opts_icon_link uk-visible@s"> Home </a>
+                        <a href="{{ route('home') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-feather-home"></i> Home</a>
+                        <a href="{{ route('home') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-feather-bar-chart"></i> Communities</a>
 
                         
 
                         @if($user)
-                        <a href="{{ route('posts.new') }}" class="button primary uk-visible@s"> Create New Topic</a>
+                        <a href="{{ route('posts.new') }}" class="button primary uk-visible@s ml-2"> Create New Topic</a>
 
                         <!-- notificiation icon  -->
                         <a href="#" class="opts_icon" uk-tooltip="title: Notifications ; pos: bottom ;offset:7">
@@ -68,7 +69,7 @@
 
                         <!-- notificiation dropdown -->
                         <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small"
-                            class="dropdown-notifications">
+                            class="dropdown-notifications" style="display:none">
 
                             <!-- notification contents -->
                             <div class="dropdown-notifications-content" data-simplebar>
@@ -179,13 +180,33 @@
 
                         <!-- profile -image -->
                         @guest
-                        <a href="{{ route('login') }}" class="button primary uk-visible@s"> Login </a>
-                        <a href="{{ route('register') }}" class="button outline-danger ml-2 uk-visible@s"> Create an account </a>
+                        <a href="{{ route('login') }}" class="button primary uk-visible@s ml-2"> Login </a>
+                        <a href="{{ route('register') }}" class="button warning ml-2 uk-visible@s"> Create an account </a>
+                        <a class="opts_account uk-hidden@s mt-2" href="#"> <span class="icon-border"><i class="icon-feather-user"></i></span></a>
+                        <!-- profile dropdown-->
+                        <div uk-dropdown="mode:click; animation: uk-animation-slide-bottom-small"
+                            class="dropdown-notifications rounded" style="display:none">
+
+                            <ul class="dropdown-user-menu">
+                                <li><a href="{{ route('login') }}"> <i class="uil-user"></i> Login </a> </li>
+                                <li><a href="{{ route('register') }}"> <i class="uil-bookmark"></i> Create an account </a></li>
+                                <li>
+                                    <a href="#" id="night-mode" class="btn-night-mode">
+                                        <i class="uil-moon"></i> Night mode
+                                        <span class="btn-night-mode-switch">
+                                            <span class="uk-switch-button"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
                         @else
                         <a class="opts_account" href="#"> <img src="{{ $user->avatar }}" alt=""></a>
                         <!-- profile dropdown-->
                         <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small"
-                            class="dropdown-notifications rounded">
+                            class="dropdown-notifications rounded"  style="display:none">
 
                             <!-- User Name / Avatar -->
                             <a href="{{ route('profile.show', ['user' => $user->clean_username]) }}">

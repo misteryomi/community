@@ -15,6 +15,8 @@ Route::get('/', 'PostController@index')->name('home');
 Route::get('/topics', 'PostController@all')->name('topics');
 Route::get('/latest', 'PostController@latest')->name('latest');
 Route::get('/trending', 'PostController@trending')->name('trending');
+Route::get('/jobs', 'PostController@trending')->name('jobs');
+Route::get('/rants', 'PostController@trending')->name('rants');
 Route::get('/search', 'PostController@all')->name('search');
 
 Route::get('/generate-sitemap', 'SitemapController');
@@ -39,7 +41,17 @@ Route::post('/register', 'AuthController@postRegister')->name('post.register');
 Route::name('community.')->group(function() {
     Route::get('/communities', 'CommunityController@all')->name('all');
 
+    Route::middleware('auth')->group(function() {
+        Route::get('{user}/communities', 'CommunityController@userCommunities')->name('user');
+        Route::get('/communities/joined', 'CommunityController@joined')->name('joined');    
+    });
+
     Route::prefix('community')->group(function() {
+        Route::middleware('auth')->group(function() {
+            Route::get('/new', 'CommunityController@new')->name('new');
+            Route::post('/new', 'CommunityController@new')->name('post.new');
+        });
+
         Route::get('/{community}', 'CommunityController@list')->name('list');
         Route::middleware('auth')->group(function() {
             Route::get('/{community}/follow', 'CommunityController@follow')->name('follow');
@@ -75,8 +87,7 @@ Route::name('posts.')->group(function() {
     });
 
 
-    Route::post('/media/upload', 'MediaManagerController');
-
+    Route::post('/media/upload', 'MediaManagerController')->name('media.upload');
 });
 
 
@@ -88,7 +99,7 @@ Route::name('profile.')->group(function() {
         Route::post('/settings/feed', 'UserController@feedSettings')->name('feed.settings.post');
         Route::get('/user/{user}', 'UserController@index')->name('show');
     });
-    Route::get('users/list', 'UserController@apiList');
+    Route::get('users/list', 'UserController@apiList')->name('users.api');
 });
 
 Route::name('topics.')->prefix('topics')->middleware('auth')->group(function() {

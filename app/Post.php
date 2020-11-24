@@ -42,6 +42,10 @@ class Post extends Model
         return $this->belongsTo(Community::class, 'community_id');
     }
 
+    public function media() {
+        return $this->hasMany(PostMedia::class, 'post_id');
+    }
+
     public function tags() {
         return $this->belongsToMany(Tag::class, 'id', 'tag_id');
     }
@@ -86,6 +90,10 @@ class Post extends Model
      */
     public function checkExists($slug) {
         return $this->where('slug', $slug)->first();
+    }
+
+    public function getFeaturedImageAttribute() {
+        return $this->media->first();
     }
 
     public function getExcerptAttribute() {

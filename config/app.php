@@ -167,6 +167,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -229,6 +230,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+
 
     ],
 

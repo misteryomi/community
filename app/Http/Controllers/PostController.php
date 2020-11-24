@@ -10,6 +10,7 @@ use App\Http\Resources\PostResource;
 use App\Http\Resources\PostsListCollection;
 use App\Post;
 use App\User;
+use Jenssegers\Agent\Agent;
 
 use \Carbon\Carbon;
 
@@ -23,12 +24,14 @@ class PostController extends Controller
     private $post;
     private $community;
     private $user;
+    private $agent;
 
-    private static $PAGINATION_LIMIT = 2;
+    private static $PAGINATION_LIMIT = 20;
 
     function __construct(Post $post, Community $community) {
         $this->post = $post;
         $this->category = $community;
+        $this->agent = new Agent();
 
         $this->middleware(function($request, $next) {
             $this->user = Auth::user();
@@ -44,12 +47,13 @@ class PostController extends Controller
      * @return response
      */
     public function index(Request $request) {
+        $agent = $this->agent;
 
 
         if($this->user && $this->user->settings && $this->user->settings->feed_type == 'communities') {
             $posts = $this->user->communitiesTopics()->latest()->paginate(SELF::$PAGINATION_LIMIT);
         } else {
-            $posts = $this->post->where('is_featured', 1)->latest()->paginate(SELF::$PAGINATION_LIMIT);
+            $posts = $this->post->where('is_featured', 1)->take('30')->latest()->paginate(SELF::$PAGINATION_LIMIT);
         }
 
         $communities = \App\Community::where('is_parent', true)->get(); //->ordered();
@@ -61,7 +65,7 @@ class PostController extends Controller
             return redirect()->route('home');
         }
 
-        return view('welcome', compact('posts', 'communities', 'isHomepage'));
+        return view('welcome', compact('posts', 'communities', 'isHomepage', 'agent'));
     }
 
 
@@ -70,6 +74,7 @@ class PostController extends Controller
      * @return response
      */
     public function all(Request $request) {
+        $agent = $this->agent;
 
         $posts = $this->post->latest();
         
@@ -81,11 +86,12 @@ class PostController extends Controller
 
         $communities = $this->category->where('is_featured', true)->get();
 
-        return view('posts.list', compact('posts', 'communities'));
+        return view('posts.list', compact('posts', 'communities', 'agent'));
     }
 
 
     public function latest(Request $request) {
+        $agent = $this->agent;
 
         $posts = $this->post->latest();
         
@@ -95,10 +101,11 @@ class PostController extends Controller
 
         $title = 'Latest Topics';
 
-        return view('posts.list', compact('posts', 'communities', 'title'));
+        return view('posts.list', compact('posts', 'communities', 'title', 'agent'));
     }    
 
     public function trending(Request $request) {
+        $agent = $this->agent;
 
         $posts = $this->post->withCount('views')->whereBetween('created_at', [Carbon::now()->subDays(7), now()])->orderBy('views_count', 'DESC');
         
@@ -108,7 +115,7 @@ class PostController extends Controller
 
         $title = 'Trending Topics';
 
-        return view('posts.list', compact('posts', 'communities', 'title'));
+        return view('posts.list', compact('posts', 'communities', 'title', 'agent'));
     }    
 
     /**
@@ -170,6 +177,7 @@ class PostController extends Controller
      */
     public function store(Request $request) {
 
+    
         $requestData = $request->all();
         $validation =  Validator::make($requestData, [
                         'title' => 'required|max:255',
@@ -182,8 +190,18 @@ class PostController extends Controller
             return redirect()->back()->withErrors($validation->errors())->withInput();
         }
 
+
         $requestData['slug'] = \Str::slug($requestData['title'], '-');
         $post = $this->user->posts()->create($requestData);
+
+        
+        //Fetch images in this post
+        $images = $this->fetchImages($request->details);
+
+        if(count($images) > 0) {
+            $this->updateMedia($post, $images);
+        }
+
 
         return redirect()->route('posts.show', ['post' => $post->slug]);
 
@@ -229,7 +247,15 @@ class PostController extends Controller
             return redirect()->back()->withErrors($validation->errors())->withInput();
         }
 
-         $post->update($requestData);
+        $post->update($requestData);
+
+                 
+        //Fetch images in this post
+        $images = $this->fetchImages($request->details);
+
+        if(count($images) > 0) {
+            $this->updateMedia($post, $images);
+        }
 
         return redirect()->route('posts.show', ['post' => $post->slug]);
     }
@@ -271,4 +297,34 @@ class PostController extends Controller
         return response(['status' => true]);
     }
 
+    
+    private function updateMedia($post, $images) {
+        \App\PostMedia::whereIn('url', $images)->update(['post_id' => $post->id]);
+    }
+
+
+    private function fetchImages($text) {
+        $htmlDom = new \DOMDocument;
+
+
+        @$htmlDom->loadHTML($text);
+        
+        $imageTags = $htmlDom->getElementsByTagName('img');
+        
+        //Create an array to add extracted images to.
+        $extractedImages = array();
+        
+        //Loop through the image tags that DOMDocument found.
+        foreach($imageTags as $imageTag){
+        
+            //Get the src attribute of the image.
+            $imgSrc = $imageTag->getAttribute('src');        
+        
+            //Add the image details to our $extractedImages array.
+            $extractedImages[] = $imgSrc;
+        }
+        
+        //var_dump our array of images.
+        return($extractedImages);        
+    }
 }

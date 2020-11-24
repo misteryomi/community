@@ -83,14 +83,16 @@ class UserController extends Controller
 
     }
 
+    
     public function apiList(Request $request) {
+
         $users = $this->user->where('username', 'like', "%$request->username%")->get();
 
         $users = $users->map(function ($user) {
             return [
                 'id' => $user->username,
                 'userId' => $user->id,
-                'name' => $user->fullname ? $user->fullname : $this->username,
+                'name' => $user->name,
                 'link' => 'http://google.com'
             ];
         });

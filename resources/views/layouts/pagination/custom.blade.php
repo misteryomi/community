@@ -8,7 +8,7 @@
         @endif
 
 
-      
+<!--       
         @foreach ($elements as $element)
            
             @if (is_string($element))
@@ -26,7 +26,7 @@
                     @endif
                 @endforeach
             @endif
-        @endforeach
+        @endforeach -->
 
 
         

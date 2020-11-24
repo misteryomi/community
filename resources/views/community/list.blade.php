@@ -6,22 +6,23 @@
 <h1> Communities </h1>
 <div class="uk-flex uk-flex-between">
     <nav class="responsive-tab style-1 mb-5">
+        @php $routeName = request()->route()->getName(); @endphp
         <ul>
-            <li class="uk-active"><a href="#"> All Communities </a></li>
-            <li><a href="#"> Joined Communities</a></li>
-            <li><a href="#"> My Communities</a></li>
+            <li @if($routeName == 'community.all') class="uk-active" @endif><a href="{{ route('community.all') }}""> All Communities </a></li>
+            <li @if($routeName == 'community.joined') class="uk-active" @endif><a href="{{ route('community.joined') }}"> Joined Communities</a></li>
+            @if(auth()->user())
+            <li @if($routeName == 'community.user') class="uk-active" @endif><a href="{{ route('community.user', ['user' => auth()->user()->clean_username]) }}""> My Communities</a></li>
+            @endif
         </ul>
     </nav>
-    <a href="#" class="button primary small circle uk-visible@s"> <i class="uil-plus"> </i> Create new
+    <a href="{{ route('community.new') }}" class="button primary small circle uk-visible@s"> <i class="uil-plus"> </i> Create new Community
     </a>
 </div>
 
 
-<div class="uk-position-relative" uk-slider="finite: true">
 
-<div class="uk-slider-container pb-3">
-
-    <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s  pr-lg-1 uk-grid"
+    @if($communities->count() > 0)
+    <ul class=" uk-child-width-1-4@m uk-child-width-1-3@s  pr-lg-1 uk-grid"
         uk-scrollspy="target: > div; cls: uk-animation-slide-bottom-small; delay: 100">
 
         @foreach($communities as $community)
@@ -30,7 +31,7 @@
 
                 <!-- Group Card Thumbnail -->
                 <div class="group-card-thumbnail">
-                    <img src="assets/images/group/group-cover-1.jpg" alt="">
+                    <img src="{{ asset('assets/images/group/group-cover-1.jpg') }}" alt="">
                 </div>
 
                 <!-- Group Card Content -->
@@ -63,15 +64,14 @@
 
     </ul>
 
-    <a class="uk-position-center-left-out uk-position-small uk-hidden-hover slidenav-prev" href="#"
-        uk-slider-item="previous"></a>
-    <a class="uk-position-center-right-out uk-position-small uk-hidden-hover slidenav-next" href="#"
-        uk-slider-item="next"></a>
+    @else
+        @if($routeName == 'community.joined')
+        <p>You have not joined any community yet. <a href="{{ route('community.all') }}">Join your first community</a>!</p>
+        @else
+        <p>No community has been created yet. <a href="{{ route('community.new') }}">Create your first community</a>!</p>
+        @endif
+    @endif
 
-</div>
-
-
-</div>
 
 
 

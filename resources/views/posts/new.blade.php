@@ -162,6 +162,9 @@
 @endsection
 
 @section('scripts')
+<script>
+    var uploadURL = "{{ route('posts.media.upload') }}"
+</script>
 @include('templates.scripts.tinymce')
 @include('templates.scripts.select2')
 
