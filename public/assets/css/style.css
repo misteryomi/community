@@ -12162,13 +12162,13 @@ ul.course-curriculum-list {
   max-width: 36px;
 }
 
-.quiz-block .btn-acts {
+.quiz-block .btn-acts,  .btn-acts {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.quiz-block .btn-acts .button {
+.quiz-block .btn-acts .button, .btn-acts .button  {
   background-color: transparent;
   color: #989898;
   display: inline-flex;
@@ -12183,16 +12183,16 @@ ul.course-curriculum-list {
   position: relative;
 }
 
-.quiz-block .btn-acts :first-child {
+.quiz-block .btn-acts :first-child, .btn-acts :first-child {
   border: 0;
 }
 
-.quiz-block .btn-acts a span {
+.quiz-block .btn-acts a span, .btn-acts a span  {
   font-weight: 500;
   margin-left: 13px;
 }
 
-.quiz-block .btn-acts a span::before {
+.quiz-block .btn-acts a span::before. .btn-acts a span::before {
   content: '';
   position: absolute;
   width: 4px;
@@ -12203,14 +12203,14 @@ ul.course-curriculum-list {
   border-radius: 50px;
 }
 
-.quiz-block .btn-acts i {
+.quiz-block .btn-acts i, .btn-acts i {
   font-size: 24px; 
   border-radius: 100px !important;
   padding: 7px;
 }
 
-.quiz-block .btn-acts i:hover,
-.quiz-block .btn-acts .button:hover {
+.quiz-block .btn-acts i:hover, .btn-acts i:hover,
+.quiz-block .btn-acts .button:hover,  .btn-acts .button:hover  {
   background-color: #f1f3f4;
   border-radius: 6px !important;
 }
@@ -13339,4 +13339,9 @@ ul.story-side-list li a .story-user-innr p span.story-time-ago{
 }
 .ck.ck-content {
   height: 340px;
+}
+.liked{
+  background-color: #e0dfdf!important;
+  color: #232222!important;
+  font-weight: 900;
 }

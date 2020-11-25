@@ -92,6 +92,20 @@ class Post extends Model
         return $this->where('slug', $slug)->first();
     }
 
+    public function relatedTopics() {
+        $keywords = explode(' ', $this->title);
+
+        $query = $this;
+        
+        foreach($keywords as $keyword) {
+            $query->orWhere('title', 'LIKE', '%'.$keyword.'%');
+        }
+
+        return $query->inRandomOrder();
+    }
+
+    
+
     public function getFeaturedImageAttribute() {
         return $this->media->first();
     }
@@ -114,6 +128,11 @@ class Post extends Model
         $views = $this->views->count();
 
         return  $views.' '.\Str::plural('View',  $views);
+    }
+
+
+    public function canEdit() {
+        return auth()->user() && auth()->user()->canEditPost($this);
     }
 
     public function generatePostId() {

@@ -26,7 +26,7 @@
                     </ul>
                 </nav>
 
-                <a href="{{ route('posts.new') }}" class="button primary small circle uk-visible@s"> <i class="uil-plus"> </i> Create a New Topic
+                <a href="{{ route('posts.new') }}" class="button primary small circle"> <i class="uil-plus"> </i> Create a New Topic
                 </a>
 
             </div>        

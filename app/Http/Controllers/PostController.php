@@ -65,7 +65,9 @@ class PostController extends Controller
             return redirect()->route('home');
         }
 
-        return view('welcome', compact('posts', 'communities', 'isHomepage', 'agent'));
+        $trending = $this->getTrending()->take(7)->get();
+
+        return view('welcome', compact('posts', 'communities', 'isHomepage', 'agent', 'trending'));
     }
 
 
@@ -107,7 +109,7 @@ class PostController extends Controller
     public function trending(Request $request) {
         $agent = $this->agent;
 
-        $posts = $this->post->withCount('views')->whereBetween('created_at', [Carbon::now()->subDays(7), now()])->orderBy('views_count', 'DESC');
+        $posts = $this->getTrending();
         
         $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
 
@@ -118,6 +120,10 @@ class PostController extends Controller
         return view('posts.list', compact('posts', 'communities', 'title', 'agent'));
     }    
 
+
+    private function getTrending() {
+       return $this->post->withCount('views')->whereBetween('created_at', [Carbon::now()->subDays(7), now()])->orderBy('views_count', 'DESC');
+    }
     /**
      * Display post
      * @param $post_id post_id of the post
@@ -146,7 +152,9 @@ class PostController extends Controller
 
         $this->setSEO($post->title, $post->excerpt, route('posts.show', ['post' => $post->slug]));
 
-        return view('posts.show', compact('post', 'comments'));
+        $related = $this->post->relatedTopics()->take(8)->get();
+
+        return view('posts.show', compact('post', 'comments', 'related'));
     }
 
 
@@ -157,7 +165,6 @@ class PostController extends Controller
      */
     public function new($community = null) {
         $community = $this->category->where('slug', $community)->first();
-
 
         if(!$community) {
             $categories = $this->category->ordered(); //->where('is_parent', true)->
@@ -191,15 +198,26 @@ class PostController extends Controller
         }
 
 
-        $requestData['slug'] = \Str::slug($requestData['title'], '-');
+    
+
+        $newID = $this->post->count() + 1;
+        $requestData['slug'] = \Str::slug($requestData['title'], '-').'-'.$newID;
         $post = $this->user->posts()->create($requestData);
 
-        
+
+                
         //Fetch images in this post
         $images = $this->fetchImages($request->details);
 
         if(count($images) > 0) {
             $this->updateMedia($post, $images);
+        }
+
+        //Notify all mentions
+        $mentions = $this->fetchMentions($request->details);
+
+        if(count($mentions) > 0) {
+            $this->notifyMentions($post, $mentions);
         }
 
 
@@ -295,6 +313,28 @@ class PostController extends Controller
         $post->bookmarks()->where('user_id', $this->user->id)->delete();
 
         return response(['status' => true]);
+    }
+
+
+    private function fetchMentions($post) {
+        $post =  html_entity_decode(strip_tags($post));
+        preg_match_all('/@(?=.*\w)[\w]{2,}/', $post, $matches);
+
+
+        return $matches[0];
+    }
+
+    private function notifyMentions($mentions){
+
+        foreach($mentions as $mention) {
+            $username = str_replace('@', '', $mention);
+            $checkExists = $this->user->where('username', $username)->count();
+
+            if($checkExists) {
+                //Send Notification of mention here
+            }
+        }
+        
     }
 
     

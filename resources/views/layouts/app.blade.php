@@ -59,6 +59,7 @@
 <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('assets/js/simplebar.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 
 
 
