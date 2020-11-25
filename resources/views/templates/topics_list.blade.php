@@ -18,6 +18,25 @@
           $displayCommunityFeed = (auth()->user()->settings && auth()->user()->settings->feed_type == 'communities') ? true : false;
         @endphp
 
+
+          <div class="uk-child-width-expand@s mb-4" uk-grid>
+              <div>
+                <nav class="responsive-tab style-1">
+                    <ul>
+                        <li @if(!$displayCommunityFeed) class="uk-active" @endif><a href="?feed_type=featured"> Featured Topics</a></li>
+                        <li @if($displayCommunityFeed) class="uk-active" @endif><a href="?feed_type=communities"> Followed Communities </a></li>
+                    </ul>
+                </nav>
+              </div>
+              <div>
+                <div class="text-right block-mobile">
+                  <a href="{{ route('posts.new') }}" class="button primary small circle"> <i class="uil-plus"> </i> Create a New Topic
+                  </a>
+                </div>
+              </div>
+          </div>
+        
+<!-- 
             <div class="uk-flex uk-flex-between">
                 <nav class="responsive-tab style-1 mb-5">
                     <ul>
@@ -26,10 +45,10 @@
                     </ul>
                 </nav>
 
-                <a href="{{ route('posts.new') }}" class="button primary small circle"> <i class="uil-plus"> </i> Create a New Topic
+                <a href="{{ route('posts.new') }}" class="button primary small circle block"> <i class="uil-plus"> </i> Create a New Topic
                 </a>
 
-            </div>        
+            </div>         -->
         @endif
     </div>
 
@@ -41,7 +60,7 @@
         <div class="blog-post-thumbnail">
             <div class="blog-post-thumbnail-inner">
                 <span class="blog-item-tag">{{ $post->category->name }} </span>
-                <img src="{{ $post->featured_image->url }}" alt="">
+                <img src="{{ $post->featured_image }}" alt="">
             </div>
         </div>
       @endif
@@ -77,9 +96,9 @@
 
     @else
       @if(request()->has('q'))
-      <p class="text-center text-md-left">Oops! No topic found. Be the champion, <a href="{{ route('posts.new') }}"><strong>click here to create a topic</strong></a>.</p>
+      <p class="text-center text-md-left">No topic found. Be the champion, <a href="{{ route('posts.new') }}"><strong>create a topic</strong></a>.</p>
       @else 
-      <p class="text-center text-md-left">Oops! No topic has been created in this community. Be the champion, <a href="{{ route('posts.new') }}"><strong>click here to create a topic</strong></a>.</p>
+      <p class="text-center text-md-left">No topic found. Be the champion, <a href="{{ route('posts.new') }}"><strong>create a topic</strong></a>.</p>
       @endif
     @endif
 

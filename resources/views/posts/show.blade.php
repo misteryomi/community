@@ -7,17 +7,23 @@
      <div class="uk-width-5-5@m m-auto">
         <div class="mt-lg-4" uk-grid>
             <div class="uk-width-3-3@m">
-                <h1>{{ $post->title }}</h1>
-                <a href="#" class="button default small"> {{ $post->category->name }} </a>
+                <h1 class="mb-0">{{ $post->title }}</h1>
+                <div class="group-card-content pl-0 p-sm-0 mb-0 ">
+                    <p class="info"> 
+                        <a href="{{ route('community.list', ['community' => $post->category->slug]) }}" class="button small"> {{ $post->category->name }} </a>
+                        <span><i class="icon-feather-eye ml-2"></i>  
+                        {{ $post->views->count() }} views </span> <span> <i class="icon-feather-message-square ml-2"></i> {{ $post->comments->count() }} comments </span>            
+                    </p>
+                </div>
+                
     
                 @if($post->canEdit())
                    <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">Edit</a>
                 @endif
-                <br/>
-                <br/>
+
 
                 @if($comments->onFirstPage())
-                <div class="user-details-card pt-0">
+                <div class="user-details-card py-0">
                     <div class="user-details-card-avatar" style="max-width: 40px">
                         <img src="{{ $post->user->avatar }}" alt="">
                     </div>
@@ -30,12 +36,6 @@
             </div>
         </div>
 
-
-
-
-        <br>
-        <br>
-
         @if($comments->onFirstPage())
 
         <div class="border-bottom pb-3">
@@ -44,14 +44,8 @@
             <div class="blog-content mt-3 mt-lg-6">
                 {!! $post->details !!}
             </div>
-            <!-- <div class="group-card-content pl-0 p-sm-0 ">
-                <p class="info"> 
-                    <span><i class="icon-feather-eye ml-2"></i>  
-                    {{ $post->views->count() }} views </span> <span> <i class="icon-feather-message-square ml-2"></i> {{ $post->comments->count() }} comments </span>            
-                </p>
-            </div> -->
     
-            <div class="btn-acts">
+            <div class="btn-acts mt-5">
                 <div>
                     <a href="#" class="button white circle like {{ $post->liked() ? 'liked ' : '' }}"  uk-tooltip="{{ $post->liked() ? 'Unlike ' : 'Like' }}" title="" aria-expanded="false">
                         <i class="uil-thumbs-up mr-1"></i> <span class="liked_text m-0 pr-1"> {{ $post->liked() ? 'Liked ' : 'Like' }}</span><span class="m-0 {{ $post->likes()->count() > 0  ? '' : 'uk-hidden'  }}"> - <span class=" m-0 likes-count">{{ $post->likes()->count() }}</span></span>
@@ -64,7 +58,7 @@
                     <a target="blank" title="Share on Twitter" uk-tooltip="Share on Twitter" href="http://twitter.com/share?text={{ $post->title }}&url=https://www.facebook.com/sharer/sharer.php?u={{ route('posts.show', ['post' => $post->slug]) }}&text={{ $post->title }}&utm_source=twitter" class="mr-2 text-gray">
                         <i class="fa fa-twitter"></i>
                     </a>
-                    <a href="#" uk-tooltip="Save for later" class="mr-2 text-gray bookmark {{ $post->bookmarked() ? 'bookmarked' : '' }} " data-toggle="tooltip" data-placement="top" title="{{ $post->bookmarked() ? 'Remove from Saved' : 'Save for later' }}">
+                    <a href="#" uk-tooltip="{{ $post->bookmarked() ? 'Remove from Bookmarks' : 'Save for later' }}" class="mr-2 text-gray bookmark {{ $post->bookmarked() ? 'bookmarked' : '' }} " data-toggle="tooltip" data-placement="top" title="{{ $post->bookmarked() ? 'Remove from Saved' : 'Save for later' }}">
                         <i class="fa {{ $post->bookmarked() ? 'fa-bookmark' : 'fa-bookmark-o' }}"></i>
                     </a>
 

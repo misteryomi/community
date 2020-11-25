@@ -6,14 +6,18 @@ use App\Community;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use Jenssegers\Agent\Agent;
+
 
 class CommunityController extends Controller
 {
     private $community;
     private $user;
+    private $agent;
 
     function __construct(Community $community) {
         $this->community = $community->where('is_active', true);
+        $this->agent = new Agent();
 
 
         $this->middleware(function($request, $next) {
@@ -28,9 +32,11 @@ class CommunityController extends Controller
      * @return response
      */
     public function list(Community $community) {
+        $agent = $this->agent;
+
         $posts = $community->posts()->latest()->paginate(15);
 
-        return view('posts.list', compact('community', 'posts'));
+        return view('posts.list', compact('community', 'posts', 'agent'));
     }
 
     public function all() {

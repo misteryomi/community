@@ -8,9 +8,13 @@ use App\Http\Resources\CommentResource;
 use \App\Comment;
 use \App\Post;
 use \App\User;
+use App\Http\Controllers\Traits\ContentTrait;
 
 class CommentController extends Controller
 {
+
+    use ContentTrait;
+
     private $post;
     private $user;
     private $comment;
@@ -48,6 +52,13 @@ class CommentController extends Controller
 
         $comment = $post->comments()->create($requestData);
 
+        $mentions = $this->fetchMentions($request->comment);
+
+        if(count($mentions) > 0) {
+            $this->notifyMentions($comment, $mentions);
+        }
+
+
         return redirect(route('posts.show', ['post' => $post->slug]).'#'.$comment->id)->withMessage('Your comment has been successfully shared');
     }
 
@@ -64,6 +75,13 @@ class CommentController extends Controller
         }
 
         $comment->update(['comment' => $request->comment]);
+
+        $mentions = $this->fetchMentions($request->comment);
+
+        if(count($mentions) > 0) {
+            $this->notifyMentions($comment, $mentions);
+        }
+
 
         return redirect(route('posts.show', ['post' => $post->slug]).'#'.$comment->id)->withMessage('Your comment has been successfully updated');
     }

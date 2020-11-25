@@ -34,7 +34,7 @@
             </li>
             @endforeach
             <li>
-                <a href="#"><strong>See More →</strong></a>
+                <a href="{{ route('trending') }}"><strong>See More →</strong></a>
             </li>
         </ul>
     </div>

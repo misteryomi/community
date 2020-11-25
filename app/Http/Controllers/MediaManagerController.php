@@ -20,8 +20,8 @@ class MediaManagerController extends Controller
         $path = $request->upload->store('images');
 
         $fullPath = env('APP_URL').'storage/'.$path;
-        $media = \App\PostMedia::create(['url' => $fullPath, 'created_at' => now()]);
+//        $media = \App\PostMedia::create(['url' => $fullPath, 'created_at' => now()]);
 
-        return response(['url' => $fullPath, 'id' => $media->id]);
+        return response(['url' => $fullPath]);
     }
 }

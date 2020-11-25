@@ -11,6 +11,7 @@ use App\Http\Resources\PostsListCollection;
 use App\Post;
 use App\User;
 use Jenssegers\Agent\Agent;
+use App\Http\Controllers\Traits\ContentTrait;
 
 use \Carbon\Carbon;
 
@@ -19,7 +20,7 @@ use Symfony\Component\Routing\Route;
 
 class PostController extends Controller
 {
-    use SEOTrait;
+    use SEOTrait, ContentTrait;
 
     private $post;
     private $community;
@@ -122,7 +123,13 @@ class PostController extends Controller
 
 
     private function getTrending() {
-       return $this->post->withCount('views')->whereBetween('created_at', [Carbon::now()->subDays(7), now()])->orderBy('views_count', 'DESC');
+       $trending =  $this->post->withCount('views')->whereBetween('created_at', [Carbon::now()->subDays(7), now()])->orderBy('views_count', 'DESC');
+
+       if(!$trending->count()) {
+            $trending =  $this->post->withCount('views')->orderBy('views_count', 'DESC');
+       }
+
+       return $trending;
     }
     /**
      * Display post
@@ -152,7 +159,7 @@ class PostController extends Controller
 
         $this->setSEO($post->title, $post->excerpt, route('posts.show', ['post' => $post->slug]));
 
-        $related = $this->post->relatedTopics()->take(8)->get();
+        $related = $this->post->relatedTopics($post)->take(8)->get();
 
         return view('posts.show', compact('post', 'comments', 'related'));
     }
@@ -206,12 +213,12 @@ class PostController extends Controller
 
 
                 
-        //Fetch images in this post
-        $images = $this->fetchImages($request->details);
+        // //Fetch images in this post
+        // $images = $this->fetchImages($request->details);
 
-        if(count($images) > 0) {
-            $this->updateMedia($post, $images);
-        }
+        // if(count($images) > 0) {
+        //     $this->updateMedia($post, $images);
+        // }
 
         //Notify all mentions
         $mentions = $this->fetchMentions($request->details);
@@ -268,12 +275,12 @@ class PostController extends Controller
         $post->update($requestData);
 
                  
-        //Fetch images in this post
-        $images = $this->fetchImages($request->details);
+        // //Fetch images in this post
+        // $images = $this->fetchImages($request->details);
 
-        if(count($images) > 0) {
-            $this->updateMedia($post, $images);
-        }
+        // if(count($images) > 0) {
+        //     $this->updateMedia($post, $images);
+        // }
 
         return redirect()->route('posts.show', ['post' => $post->slug]);
     }
@@ -316,55 +323,36 @@ class PostController extends Controller
     }
 
 
-    private function fetchMentions($post) {
-        $post =  html_entity_decode(strip_tags($post));
-        preg_match_all('/@(?=.*\w)[\w]{2,}/', $post, $matches);
-
-
-        return $matches[0];
-    }
-
-    private function notifyMentions($mentions){
-
-        foreach($mentions as $mention) {
-            $username = str_replace('@', '', $mention);
-            $checkExists = $this->user->where('username', $username)->count();
-
-            if($checkExists) {
-                //Send Notification of mention here
-            }
-        }
-        
-    }
-
     
-    private function updateMedia($post, $images) {
-        \App\PostMedia::whereIn('url', $images)->update(['post_id' => $post->id]);
-    }
+    
+    // private function updateMedia($post, $images) {
+    //     \App\PostMedia::whereIn('url', $images)->update(['post_id' => $post->id]);
+    // }
 
 
-    private function fetchImages($text) {
-        $htmlDom = new \DOMDocument;
+    // private function fetchImages($text) {
+    //     $htmlDom = new \DOMDocument;
 
 
-        @$htmlDom->loadHTML($text);
+    //     @$htmlDom->loadHTML($text);
         
-        $imageTags = $htmlDom->getElementsByTagName('img');
+    //     $imageTags = $htmlDom->getElementsByTagName('img');
         
-        //Create an array to add extracted images to.
-        $extractedImages = array();
+
+    //     //Create an array to add extracted images to.
+    //     $extractedImages = array();
         
-        //Loop through the image tags that DOMDocument found.
-        foreach($imageTags as $imageTag){
+    //     //Loop through the image tags that DOMDocument found.
+    //     foreach($imageTags as $imageTag){
         
-            //Get the src attribute of the image.
-            $imgSrc = $imageTag->getAttribute('src');        
+    //         //Get the src attribute of the image.
+    //         $imgSrc = $imageTag->getAttribute('src');        
         
-            //Add the image details to our $extractedImages array.
-            $extractedImages[] = $imgSrc;
-        }
+    //         //Add the image details to our $extractedImages array.
+    //         $extractedImages[] = $imgSrc;
+    //     }
         
-        //var_dump our array of images.
-        return($extractedImages);        
-    }
+    //     //var_dump our array of images.
+    //     return($extractedImages);        
+    // }
 }

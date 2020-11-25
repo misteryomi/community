@@ -60,7 +60,7 @@
                         
 
                         @if($user)
-                        <a href="{{ route('posts.new') }}" class="button primary uk-visible@s ml-2"> Create New Topic</a>
+                        <a href="{{ route('posts.new') }}" class="button primary uk-visible@s ml-2"> <i class="uil-plus"> </i> Create New Topic</a>
 
                         <!-- notificiation icon  -->
                         <a href="#" class="opts_icon" uk-tooltip="title: Notifications ; pos: bottom ;offset:7">

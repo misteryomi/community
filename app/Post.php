@@ -92,22 +92,39 @@ class Post extends Model
         return $this->where('slug', $slug)->first();
     }
 
-    public function relatedTopics() {
-        $keywords = explode(' ', $this->title);
+    public function relatedTopics($post) {
+        $keywords = explode(' ', $post->title);
 
-        $query = $this;
-        
-        foreach($keywords as $keyword) {
-            $query->orWhere('title', 'LIKE', '%'.$keyword.'%');
-        }
+        $q = $this->where('community_id', $post->community_id)->where(function($query) use ($keywords) {
+            foreach($keywords as $keyword) {
+                $query->orWhere('title', 'LIKE', '%'.$keyword.'%');
+            }    
+        })->where('id', '!=', $post->id);
 
-        return $query->inRandomOrder();
+
+        // return $q;
+       return $q->inRandomOrder();
     }
 
     
 
-    public function getFeaturedImageAttribute() {
-        return $this->media->first();
+    public function getFeaturedImageAttribute($value) {
+
+        // return $this->media->first();
+        if($value) {
+            return $value;
+        } else {
+            $images = $this->fetchImages($this->details);
+
+            if(count($images) > 0) {
+                $this->update([
+                    'featured_image' => $images[0]
+                ]);
+    
+                return $images[0];    
+            }
+        }
+
     }
 
     public function getExcerptAttribute() {
@@ -154,5 +171,38 @@ class Post extends Model
     function highlightSearchQuery($text, $word){
         $text = preg_replace('#'. preg_quote($word) .'#i', '<span class="text-warning">\\0</span>', $text);
         return $text;
+    }
+
+
+    private function fetchImages($text, $limit = 1) {
+        $htmlDom = new \DOMDocument;
+
+
+        @$htmlDom->loadHTML($text);
+        
+        $imageTags = $htmlDom->getElementsByTagName('img');
+
+
+        // dd(count($imageTags));        
+        //Create an array to add extracted images to.
+        $extractedImages = array();
+        
+        //Loop through the image tags that DOMDocument found.
+
+        for ($i=0; $i < $limit; $i++) { 
+            $imageTag = $imageTags[$i];
+
+            if($imageTag) {
+                //Get the src attribute of the image.
+                $imgSrc = $imageTag->getAttribute('src');        
+            
+                //Add the image details to our $extractedImages array.
+                $extractedImages[] = $imgSrc;
+            }
+        }
+        
+
+        //var_dump our array of images.
+        return($extractedImages);        
     }
 }

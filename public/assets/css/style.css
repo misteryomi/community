@@ -12204,9 +12204,9 @@ ul.course-curriculum-list {
 }
 
 .quiz-block .btn-acts i, .btn-acts i {
-  font-size: 24px; 
+  font-size: 18px; 
   border-radius: 100px !important;
-  padding: 7px;
+  padding: 2px;
 }
 
 .quiz-block .btn-acts i:hover, .btn-acts i:hover,
@@ -13344,4 +13344,13 @@ ul.story-side-list li a .story-user-innr p span.story-time-ago{
   background-color: #e0dfdf!important;
   color: #232222!important;
   font-weight: 900;
+}
+@media (max-width: 640px) {
+  .block-mobile {
+    text-align: center!important;
+  }
+  .block-mobile .button{
+    width: 90%;
+    margin: 0 auto;
+  }
 }

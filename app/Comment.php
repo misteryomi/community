@@ -29,6 +29,9 @@ class Comment extends Model
         return $this->created_at->diffInHours() > 25 ? $this->created_at->toDayDateTimeString() : $this->created_at->diffForHumans();
     }
 
+    public function canEdit() {
+        return auth()->user() && auth()->user()->canEditComment($this);
+    }
 
 
     public function liked() {

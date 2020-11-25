@@ -88,6 +88,7 @@ Route::name('posts.')->group(function() {
 
 
     Route::post('/media/upload', 'MediaManagerController')->name('media.upload');
+    Route::post('/comments/media/upload', 'MediaManagerController')->name('comments.media.upload');
 });
 
 
