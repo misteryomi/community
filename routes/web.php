@@ -40,6 +40,7 @@ Route::post('/register', 'AuthController@postRegister')->name('post.register');
 
 Route::name('community.')->group(function() {
     Route::get('/communities', 'CommunityController@all')->name('all');
+    Route::get('/communities/search-api', 'CommunityController@APISearch')->name('api.search');
 
     Route::middleware('auth')->group(function() {
         Route::get('{user}/communities', 'CommunityController@userCommunities')->name('user');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 
 class MediaManagerController extends Controller
@@ -19,7 +20,9 @@ class MediaManagerController extends Controller
         
         $path = $request->upload->store('images');
 
-        $fullPath = env('APP_URL').'storage/'.$path;
+        Storage::setVisibility($path, 'public');
+
+        $fullPath = Storage::url($path); 
 //        $media = \App\PostMedia::create(['url' => $fullPath, 'created_at' => now()]);
 
         return response(['url' => $fullPath]);

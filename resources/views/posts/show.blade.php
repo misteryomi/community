@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 
 <div class="uk-grid-large uk-grid uk-grid-stack" uk-grid="">
@@ -18,7 +19,7 @@
                 
     
                 @if($post->canEdit())
-                   <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">Edit</a>
+                   <!-- <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">Edit</a> -->
                 @endif
 
 
@@ -68,11 +69,11 @@
                     <div uk-dropdown="mode: click">
                         <ul class="uk-list uk-list-divider">
                             <li>
-                                <a href="#">Report Post </a>
+                                <a href="#">Report </a>
                             </li>
                             @if($post->canEdit())
                             <li>
-                                <a href="#"><strong>Edit</strong></a>
+                                <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">Edit</a>
                             </li>
                             @endif
                         </ul>
@@ -125,7 +126,6 @@
 
 </script>
 @include('templates.scripts.tinymce')
-
 <script>
     var slug = "{{ $post->slug }}";
     var loggedIn = "{{ auth()->check() ? true : false }}"

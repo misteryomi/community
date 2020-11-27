@@ -81,5 +81,11 @@ class CommunityController extends Controller
         return view('community.new');
     }
 
+    
+    public function APISearch(Request $request) {
+        $communities = $this->community->selectRaw('id, name as text')->where('name', 'LIKE', "%$request->term%")->take(15)->get();
+
+        return response(['results' => $communities]);
+    }
 
 }

@@ -64,6 +64,8 @@
 
     </ul>
 
+    {{ $communities->links('layouts.pagination.custom')}}
+
     @else
         @if($routeName == 'community.joined')
         <p>You have not joined any community yet. <a href="{{ route('community.all') }}">Join your first community</a>!</p>

@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('styles')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
 
 @section('content')
 
@@ -18,35 +21,49 @@
                         @csrf
                         <div class="uk-form-group">
                           <div class="uk-position-relative">
-                              <input type="text" name="title" class="uk-input uk-form-large	 bg-secondary text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Title"  id="title" value="{{ isset($isEdit) ? $post->title : '' }}" required>
+                              <input type="text" name="title" class="uk-input uk-form-large bg-secondary text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Title"  id="title" value="{{ isset($isEdit) ? $post->title : '' }}" required>
                           </div>
                         </div>
 
                           @if(!isset($community) || $community == null)
                           <div class="uk-form-group">
-                          <div class="uk-position-relative">
-                            <select class="uk-input  select2" name="community_id" id="category" required>
-                            <option value="">Select Community</option>
-                              @foreach($categories as $community)
-                                <option {{ isset($isEdit) && $post->category->id == $community->id ? 'selected' : '' }} value="{{ $community->id }}">{{ $community->name }}</option>
-                              @endforeach
-                            </select>
-                            </div>
+                            <div class="uk-position-relative autosuggest">
+                                <select class="select2 uk-input uk-textarea uk-form-large" name="community_id" @if($isEdit) value="{{ $post->community_id }}" @endif id="community">
+                                    @if($isEdit)
+                                    <option value="{{ $post->community_id }}">{{ $post->category->name }}</option>
+                                    @endif
+                                    @foreach($categories as $community)
+                                    <option value="">{{ $community->name }}</option>
+                                    @endforeach
+                                </select>
+                                <!-- <input class="uk-input uk-form-large" id="category" placeholder="Select Community" >
+                                <input type="hidden" name="community_id">
+                                    <div class="dropdown-list">
+                                        <ul class="uk-list uk-list-divider p-3">
+                                            @foreach($categories as $community)
+                                            <li>
+                                                <a href="#">Report </a>
+                                            </li>
+                                            @endforeach
+                                        </ul>                                
+                                    </div>                            
+                                </div> -->
                           </div>
                           @else
                             <input type="hidden" name="community_id" value="{{ $community->id }}">
                         @endif
                         <div class="uk-form-group">
-                          <div class="uk-position-relative">
-                              <div class="editor"></div>
-                          <input type="hidden" name="details" @if(isset($isEdit)) value="{{ $post->details }}" @endif>
+                          <div class="uk-position-relative editor-container">
+                            <div class="editor"></div>
+                          <textarea class="uk-textarea init-editor mt-4" placeholder="Details..."> @if(isset($isEdit)){{ html_entity_decode(strip_tags($post->details)) }} @endif</textarea>
+                          <input type="hidden" name="details" @if(isset($isEdit)) value="{{ $post->details }}" @endif />
                             {{-- <label class="form-control-label" for="details">Details</label>
                             <textarea class="form-control" name="details" id="textarea" rows="3">
                                 {{ isset($isEdit) ? $post->details : '' }}
                             </textarea> --}}
                             </div>
                           </div>
-                          <button type="submit" id="submit-form" class="button block primary button-lg">@if(isset($isEdit))Update @else Publish @endif Topic</button>
+                          <button type="submit" id="submit-form" class="button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Publish @endif Topic</button>
                         </form>
                       </div>
                     </div>
@@ -157,9 +174,6 @@
 
 
 @endsection
-@section('styles')
-<link href="{{ asset('assets/js/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
-@endsection
 
 @section('scripts')
 <script>
@@ -169,11 +183,19 @@
 @include('templates.scripts.select2')
 
 <script>
+    var data = `{!! isset($post) ? $post->details : '' !!}`;
     $(document).ready(function() {
-        var isEdit = "{{ isset($isEdit) ? true : false }}"
+
+        var isEdit = "{{ isset($isEdit) ? true : false }}";
+        var myForm = $("#publish-form");
+        var initialValue = $('.init-editor').val();
+
+        $('.init-editor').hide();
 
         if(isEdit) {
-            editor.setData('{!! isset($post) ? $post->details : '' !!}')
+            editor.setData(data)
+        } else {
+            editor.setData(data ? data : initialValue)
         }
 
         $('#submit-form').click(function(e) {
@@ -183,10 +205,37 @@
 
           $("input[name=details]").val(post);
 
-          $('#publish-form').submit();
+
+          if(!myForm[0].checkValidity()) {
+            myForm[0].reportValidity();              
+            
+          } else {
+
+            if(!post) {
+                UIkit.notification("<span uk-icon='icon: check'></span> <strong>Sorry, Content cannot be empty</strong>", { status:'danger' });
+                $('.editor-container').addClass('error-border')
+
+            } else {
+                
+                $('.submit-form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+                $('.submit-form-btn').attr('disabled', true);
+
+                myForm.submit();
+            }
+          }
 
           return false;
         })
+
+        $('.autosuggest input').focus(function() {
+            $('.autosuggest .dropdown-list').show();
+        })
+
+        $('.autosuggest input').blur(function() {
+            $('.autosuggest .dropdown-list').hide();
+        })
+
+
     })
 </script>
 

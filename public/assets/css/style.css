@@ -13337,7 +13337,7 @@ ul.story-side-list li a .story-user-innr p span.story-time-ago{
   padding: 5px 7px;
   border: 1px solid #929292;
 }
-.ck.ck-content {
+.ck.ck-content, .init-editor {
   height: 340px;
 }
 .liked{
@@ -13353,4 +13353,53 @@ ul.story-side-list li a .story-user-innr p span.story-time-ago{
     width: 90%;
     margin: 0 auto;
   }
+}
+.error-border {
+  border: 1px solid red;
+}
+
+.autosuggest {
+  position: relative;
+}
+
+.autosuggest .dropdown-list {
+  position: absolute;
+  top: 60px;
+  max-height: 250px;
+  overflow-y: scroll;
+  z-index: 10;
+  width: 100%;
+  border: 1px solid #888888;
+  background-color:#fff;
+  display: none;
+}
+
+.select2 {
+  margin-bottom: 20px;;
+}
+
+.select2-container .select2-selection--single {
+  height: 51px;
+  font-size: 20px;
+  padding: 10px 5px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  top: 85%;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #948585
+}
+
+.select2-search__field {
+  border-color: #949494;
+  border-width: 1px;
+}
+.select2-search__field:focus {
+  border-color: #838383!important;
+}
+.select2-search--dropdown .select2-search__field {
+  font-size: 20px;
+  padding: 13px;
+  border-radius: 5px;
 }
