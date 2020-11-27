@@ -11,23 +11,22 @@
                     <!-- Logo-->
                     <div id="logo">
                         <a href="{{ route('home') }}"> <img src="{{ asset('assets/images/logo.png') }}" alt=""></a>
-                        <a href="{{ route('home') }}"> <img src="{{ asset('assets/images/logo-light.png') }}" class="logo-inverse"
+                        <a href="{{ route('home') }}"> <img src="{{ asset('assets/images/logo.png') }}" class="logo-inverse"
                                 alt=""></a>
                     </div>
 
                     <!-- form search-->
                     <div class="head_search">
-                        <form>
+                        <form action="{{ route('search') }}">
                             <div class="head_search_cont">
-                                <input value="" type="text" class="form-control"
-                                    placeholder="Search for Friends , Videos and more.." autocomplete="off">
+                                <input value="" name="q" type="text" class="form-control"
+                                    placeholder="Search Topics..." autocomplete="off">
                                 <i class="s_icon uil-search-alt"></i>
                             </div>
 
                             <!-- Search box dropdown -->
-                            <div uk-dropdown="pos: top;mode:click;animation: uk-animation-slide-bottom-small"
+                            <!-- <div uk-dropdown="pos: top;mode:click;animation: uk-animation-slide-bottom-small"
                                 class="dropdown-search">
-                                <!-- User menu -->
 
                                 <ul class="dropdown-search-list">
                                     <li class="list-title"> Recent Searches </li>
@@ -44,7 +43,7 @@
                                     </li>
                                 </ul>
 
-                            </div>
+                            </div> -->
 
 
                         </form>
@@ -60,10 +59,11 @@
                         
 
                         @if($user)
+                        <a href="{{ route('posts.new') }}" class="button outline-primary mr-1 small uk-hidden@l"> <i class="fa fa-plus"> </i></a>
                         <a href="{{ route('posts.new') }}" class="button primary uk-visible@s ml-2"> <i class="uil-plus"> </i> Create New Topic</a>
 
                         <!-- notificiation icon  -->
-                        <a href="#" class="opts_icon" uk-tooltip="title: Notifications ; pos: bottom ;offset:7">
+                        <a href="#" class="opts_icon uk-visible@s"  uk-tooltip="title: Notifications ; pos: bottom ;offset:7">
                             <img src="{{ asset('assets/images/icons/bell.svg') }}" alt=""> <span>3</span>
                         </a>
 
@@ -203,7 +203,8 @@
                         </div>
 
                         @else
-                        <a class="opts_account" href="#"> <img src="{{ $user->avatar }}" alt=""></a>
+                        <!-- style="margin-top:-12px" -->
+                        <a class="opts_account mr-2" href="#" > {!! $user->displayAvatar() !!}</a>
                         <!-- profile dropdown-->
                         <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small"
                             class="dropdown-notifications rounded"  style="display:none">
@@ -213,7 +214,7 @@
 
                                 <div class="dropdown-user-details">
                                     <div class="dropdown-user-avatar">
-                                        <img src="{{ $user->avatar }}" alt="">
+                                        {!! $user->displayAvatar() !!}
                                     </div>
                                     <div class="dropdown-user-name"> {{ $user->name }}   <span>{{ $user->name != $user->username ? $user->username : "View profile" }}</span> </div>
                                 </div>

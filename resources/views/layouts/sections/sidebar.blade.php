@@ -54,7 +54,7 @@
                             @foreach($communities as $community)
                             <li id="more-veiw" hidden>
 
-                                <a href="book.html"> <img src="{{ asset('assets/images/icons/book.png') }}" alt="">
+                                <a href="{{ route('community.list', ['community' => $community->slug]) }}"> {!! $community->icon() !!}
                                     <span>{{ $community->name }}</span>
                                 </a>
                             </li>

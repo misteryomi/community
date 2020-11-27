@@ -5271,7 +5271,7 @@ a.text-indigo:focus {
   width: 100%
 }
 
-.avatar.rounded-circle img {
+.avatar.rounded-circle img, .rounded-circle {
   border-radius: 50%
 }
 
@@ -13337,6 +13337,12 @@ ul.story-side-list li a .story-user-innr p span.story-time-ago{
   padding: 5px 7px;
   border: 1px solid #929292;
 }
+.cat-icon {
+  margin-right: 22px;
+  font-size: 14px;
+  color: #5d5555;
+}
+
 .ck.ck-content, .init-editor {
   height: 340px;
 }
@@ -13374,10 +13380,12 @@ ul.story-side-list li a .story-user-innr p span.story-time-ago{
   display: none;
 }
 
-.select2 {
-  margin-bottom: 20px;;
+select.select2 {
+  width: 100%!important;
 }
-
+.select2 {
+  margin-bottom: 20px;
+}
 .select2-container .select2-selection--single {
   height: 51px;
   font-size: 20px;

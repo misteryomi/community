@@ -9,7 +9,7 @@
     </h3>
     <p> {{ $user->username }}</p>
     <small>Member since:<br/>{{ $user->date_joined }}</small>
-    <p class="text-sm text-muted my-2">{{ $user->details->bio }}</p>
+    <p class="text-sm text-muted my-2">{{ $user->details ? $user->details->bio : '' }}</p>
     <hr />
     <div class="row mt-1">
             <div class="col">

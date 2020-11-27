@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\User;
 use Illuminate\Support\Facades\Auth;
+use Jenssegers\Agent\Agent;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
     private $user;
+    private $agent;
 
     function __construct(User $user) {
 
         $this->middleware(function($request, $next) {
             $this->user = $request->user();
+            $this->agent = new Agent();
 
             return $next($request);
         });
@@ -31,16 +35,18 @@ class UserController extends Controller
 
 
         $posts = $user->posts()->latest()->paginate(15);
+        $agent = $this->agent;
 
-        return view('profile.show', compact('user', 'posts'));
+        return view('profile.show', compact('user', 'posts', 'agent'));
     }
 
 
     public function savedTopics() {
+        $agent = $this->agent;
         $user = $this->user;
         $posts = $this->user->bookmarkedTopics()->latest()->paginate(15);
 
-        return view('profile.show', compact('user', 'posts'));
+        return view('profile.show', compact('user', 'posts', 'agent'));
     }
 
 
@@ -61,7 +67,9 @@ class UserController extends Controller
         if($request->has('avatar')) {
             $path = $request->avatar->store('avatars');
 
-            $requestData['avatar']  = $path;
+            Storage::setVisibility($path, 'public');
+
+            $requestData['avatar']  = Storage::url($path);
         } else {
             $requestData['avatar'] = $user->details->avatar;
         }

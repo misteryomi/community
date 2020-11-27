@@ -2,37 +2,44 @@
 
 
 @section('content')
-<div class="row">
-  {{-- <div class="col-xl-3 d-none d-md-block">
-    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Feed Settings</a>
-        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Profile</a>
-        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile Picture</a>
-        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Security</a>
-    </div>
-  </div> --}}
-  <div class="col-md-10 offset-md-1">
-    <div class="nav nav-pills mb-4 justify-content-center d-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <a class="nav-link m-2 text-center active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-user"></i><br/>  Profile</a>
-        <a class="nav-link m-2 text-center" id="v-pills-feed-tab" data-toggle="pill" href="#v-pills-feed" role="tab" aria-controls="v-pills-feed" aria-selected="false"><i class="fa fa-list"></i><br/> Feed Settings</a>
-        <a class="nav-link m-2 text-center" id="v-pills-security-tab" data-toggle="pill" href="#v-pills-security" role="tab" aria-controls="v-pills-security" aria-selected="false"><i class="fa fa-lock"></i><br/> Security</a>
-    </div>
 
 
-      <div class="tab-content" id="v-pills-tabContent">
-        @include('layouts.partials.alert')
 
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            @include('profile.edit')
-        </div>
-        <div class="tab-pane fade" id="v-pills-feed" role="tabpanel" aria-labelledby="v-pills-feed-tab">
-        @include('profile.feed-settings')        
-        </div>
-        <div class="tab-pane fade" id="v-pills-security" role="tabpanel" aria-labelledby="v-pills-security-tab">
-        @include('profile.password')        
-        </div>
-      </div>
-  </div>
-</div>
+                                <div class="bg-grey uk-light uk-padding pb-0 rounded shadow">
+                                        <ul class="uk-tab"
+                                            uk-switcher="connect: #component-tab-left; animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
+                                            <!-- uk-tab="connect: #component-tab-right; animation: uk-animation-fade"> -->
+                                            <li class="uk-active"><a href="#"> <i
+                                                        class="icon-feather-home mr-2"></i>Profile</a>
+                                            </li>
+                                            <li><a href="#"> <i class="icon-feather-message-square mr-2"></i>
+                                                    Homepage Settings</a></li>
+                                            <li><a href="#"> <i class="icon-feather-settings mr-2"></i> Password</a>
+                                            </li>
+                                        </ul>
+                                </div>
+
+                                @include('layouts.partials.alert')
+
+                                        <ul class="uk-switcher uk-margin" id="component-tab-left">
+                                            <!-- tab 1 -->
+                                            <li>
+                                              @include('profile.edit')
+                                            </li>
+
+                                            <!-- tab 2 -->
+                                            <li>
+                                              @include('profile.feed-settings')        
+                                            </li>
+
+                                            <!-- tab 3 -->
+                                            <li>
+                                              @include('profile.password')        
+                                            </li>
+
+                                        </ul>
+
+
+
 
 @endsection

@@ -25,12 +25,13 @@
                           </div>
                         </div>
 
-                          @if(!isset($community) || $community == null)
                           <div class="uk-form-group">
                             <div class="uk-position-relative autosuggest">
-                                <select class="select2 uk-input uk-textarea uk-form-large" name="community_id" @if($isEdit) value="{{ $post->community_id }}" @endif id="community">
-                                    @if($isEdit)
-                                    <option value="{{ $post->community_id }}">{{ $post->category->name }}</option>
+                                <select class="select2 uk-input uk-textarea uk-form-large" name="community_id" @if(isset($isEdit)) value="{{ $post->community_id }}" @endif id="community">
+                                    @if(isset($isEdit))
+                                    <option value="{{ $post->community_id }}" selected>{{ $post->category->name }}</option>
+                                    @elseif(isset($community))
+                                    <option value="{{ $community->id }}" selected>{{ $community->name }}</option>
                                     @endif
                                     @foreach($categories as $community)
                                     <option value="">{{ $community->name }}</option>
@@ -49,9 +50,6 @@
                                     </div>                            
                                 </div> -->
                           </div>
-                          @else
-                            <input type="hidden" name="community_id" value="{{ $community->id }}">
-                        @endif
                         <div class="uk-form-group">
                           <div class="uk-position-relative editor-container">
                             <div class="editor"></div>
@@ -59,7 +57,7 @@
                           <input type="hidden" name="details" @if(isset($isEdit)) value="{{ $post->details }}" @endif />
                             {{-- <label class="form-control-label" for="details">Details</label>
                             <textarea class="form-control" name="details" id="textarea" rows="3">
-                                {{ isset($isEdit) ? $post->details : '' }}
+                                {{ isset($isEdit ?? '') ? $post->details : '' }}
                             </textarea> --}}
                             </div>
                           </div>
@@ -69,104 +67,19 @@
                     </div>
                 </div>
               </div>
+        </div>
 
     <div class="uk-width-expand uk-grid-margin uk-first-column">
-    <div class="sidebar-filter uk-sticky" uk-sticky="offset:30 ; media : @s: bottom: true" style="">
+            <div class="sidebar-filter uk-sticky" uk-sticky="offset:30 ; media : @s: bottom: true" style="">
 
 
-    <div class="uk-card-default rounded mb-4">
+            <div class="uk-card-default rounded mb-4">
+                        <p>Sidebar</p>
 
-        <ul class="uk-child-width-expand uk-tab" uk-switcher="animation: uk-animation-fade">
-            <li class="uk-active"><a href="#" aria-expanded="true">Newest</a></li>
-            <li><a href="#" aria-expanded="false">Popular</a></li>
-        </ul>
-
-        <ul class="uk-switcher" style="touch-action: pan-y pinch-zoom;">
-            <!-- tab 1 -->
-            <li class="uk-active">
-                <div class="py-3 px-4">
-
-                    <div class="uk-grid-small uk-grid" uk-grid="">
-                        <div class="uk-width-expand uk-first-column">
-                            <p> Overview of SQL Commands and PDO </p>
-                        </div>
-                        <div class="uk-width-1-3">
-                            <img src="assets/images/category/img1.jpg" alt="" class="rounded-sm">
-                        </div>
-                    </div>
-                    <div class="uk-grid-small uk-grid" uk-grid="">
-                        <div class="uk-width-expand uk-first-column">
-                            <p> Writing a Simple MVC App in Plain </p>
-                        </div>
-                        <div class="uk-width-1-3">
-                            <img src="assets/images/category/img2.jpg" alt="" class="rounded-sm">
-                        </div>
-                    </div>
-                    <div class="uk-grid-small uk-grid" uk-grid="">
-                        <div class="uk-width-expand uk-first-column">
-                            <p> How to Create and Use Bash Scripts </p>
-                        </div>
-                        <div class="uk-width-1-3">
-                            <img src="assets/images/category/img3.jpg" alt="" class="rounded-sm">
-                        </div>
-                    </div>
-
-                </div>
-            </li>
-
-            <!-- tab 2 -->
-            <li>
-                <div class="py-3 px-4">
-
-                    <div class="uk-grid-small uk-grid uk-grid-stack" uk-grid="">
-                        <div class="uk-width-expand">
-                            <p> Overview of SQL Commands and PDO </p>
-                        </div>
-                        <div class="uk-width-1-3">
-                            <img src="assets/images/category/img1.jpg" alt="" class="rounded-sm">
-                        </div>
-                    </div>
-                    <div class="uk-grid-small uk-grid uk-grid-stack" uk-grid="">
-                        <div class="uk-width-expand">
-                            <p> Writing a Simple MVC App in Plain </p>
-                        </div>
-                        <div class="uk-width-1-3">
-                            <img src="assets/images/category/img2.jpg" alt="" class="rounded-sm">
-                        </div>
-                    </div>
-                    <div class="uk-grid-small uk-grid uk-grid-stack" uk-grid="">
-                        <div class="uk-width-expand">
-                            <p> How to Create and Use Bash Scripts </p>
-                        </div>
-                        <div class="uk-width-1-3">
-                            <img src="assets/images/category/img3.jpg" alt="" class="rounded-sm">
-                        </div>
-                    </div>
-
-                </div>
-            </li>
-        </ul>
+            </div>
 
         </div>
-
-        <div class="uk-card-default rounded uk-overflow-hidden">
-        <div class="p-4 text-center">
-
-            <h4 class="uk-text-bold"> Subsicribe </h4>
-            <p> Get the Latest Posts and Article for us On Your Email</p>
-
-            <form class="mt-3">
-                <input type="text" class="uk-input uk-form-small" placeholder="Enter your email address">
-                <input type="submit" value="Subscirbe" class="button button-default block mt-3">
-            </form>
-
-        </div>
-        </div>
-
-        </div><div class="uk-sticky-placeholder" style="height: 540px; margin: 0px;" hidden=""></div>
-
-
-
+        <div class="uk-sticky-placeholder" style="height: 540px; margin: 0px;" hidden=""></div>
     </div>
 
 </div>

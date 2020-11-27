@@ -10,19 +10,19 @@
 
             <div class="col-md-6 offset-md-3">
                 <div class="form-group">
-                    <label class="form-control-label" for="old_password">Old Password</label>
-                    <input type="password" name="old_password" class="form-control" id="old_password">                
+                    <label class="uk-input-label" for="old_password">Old Password</label>
+                    <input type="password" name="old_password" class="uk-input" id="old_password">                
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="password">New Password</label>
-                    <input type="password" name="password" class="form-control" id="password">                
+                    <label class="uk-input-label" for="password">New Password</label>
+                    <input type="password" name="password" class="uk-input" id="password">                
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="c_password">Confirm Password</label>
-                    <input type="password" name="password_confirmation" class="form-control" id="c_password">                
+                    <label class="uk-input-label" for="c_password">Confirm Password</label>
+                    <input type="password" name="password_confirmation" class="uk-input" id="c_password">                
                 </div>
 
-                <button type="submit" class="btn btn-block btn-default">Update Profile</button>
+                <button type="submit" class="button block primary">Update Profile</button>
             </div>
         </div>
     </form>

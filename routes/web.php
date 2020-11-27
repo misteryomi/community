@@ -65,7 +65,7 @@ Route::name('posts.')->group(function() {
 
     Route::middleware('auth')->group(function() {
         Route::get('/new-topic', 'PostController@new')->name('new');
-        Route::get('/{community}/new-topic', 'PostController@new')->name('posts.new');
+        Route::get('/{community}/new-topic', 'PostController@new')->name('community.new');
         Route::post('/new-topic/store', 'PostController@store')->name('post.new');
         Route::post('/{post}/like/', 'PostController@like')->name('like');
         Route::post('/{post}/unlike/', 'PostController@unlike')->name('unlike');

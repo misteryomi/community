@@ -7,9 +7,9 @@ $link_limit = 7; // maximum number of links (a little bit inaccurate, but will b
     <ul class="uk-pagination my-5 uk-flex-center" uk-margin>
        
         @if ($paginator->onFirstPage())
-            <li class="uk-disabled"><span>← Previous</span></li>
+            <li class="uk-disabled"><span>←</span></li>
         @else
-            <li><a href="{{ $paginator->previousPageUrl() }}" class="uk-first-column" rel="prev">← Previous</a></li>
+            <li><a href="{{ $paginator->previousPageUrl() }}" class="uk-first-column" rel="prev">←</a></li>
         @endif
 
 
@@ -58,9 +58,9 @@ $link_limit = 7; // maximum number of links (a little bit inaccurate, but will b
 
         
         @if ($paginator->hasMorePages())
-            <li><a href="{{ $paginator->nextPageUrl() }}" class="uk-last-column" rel="next">Next →</a></li>
+            <li><a href="{{ $paginator->nextPageUrl() }}" class="uk-last-column" rel="next">→</a></li>
         @else
-            <li class="uk-disabled"><span>Next →</span></li>
+            <li class="uk-disabled"><span>→</span></li>
         @endif
     </ul>
 @endif 

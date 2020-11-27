@@ -66,12 +66,16 @@ class User extends Authenticatable
     }    
 
     public function getAvatarAttribute() {
-        return $this->details && $this->details->avatar ? env('APP_URL').'storage/'.$this->details->avatar : asset('assets/images/avatars/avatar-7.jpg');
+        //env('APP_URL').'storage/'.
+        return $this->details && $this->details->avatar ? $this->details->avatar : '';
+        // asset('assets/images/avatars/avatar-7.jpg');
     }
+    
     public function getDateJoinedAttribute() {
-        return $this->created_at->toDayDateTimeString();
+        return $this->created_at ? $this->created_at->toDayDateTimeString() : '';
     }
 
+    
 
     public function details() {
         return $this->hasOne(UserDetails::class, 'user_id');
@@ -124,6 +128,15 @@ class User extends Authenticatable
     function canEditComment($comment) {
 
         return $comment->user && ($this->hasRole('moderator') || $this->id == $comment->user->id);
+    }
+
+    public function displayAvatar($size = 'sm') {
+        if(!$this->avatar) {
+            return '<span class="avatar rounded-circle img-circle bg-secondary text-dark">'.\strtoupper(substr($this->name, 1, 1)).'</span>';
+            return '<span class="avatar'.$size.'">Y</span>';
+        }
+
+        return '<img src="'.$this->avatar.'" alt=""/>';
     }
 
 }

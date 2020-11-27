@@ -50,11 +50,13 @@ class Community extends Model
     }
 
 
-    public function icon($size = 'sm') {
+    public function icon($size = 'small') {
+        // <div class="icon icon-shape icon-'.$size.' text-white rounded-circle shadow" style="background-color: '.$this->color.'">
+        // <div class="p-1 text-dark bg-white icon-border text-white" style="background-color: '.$this->color.'">        
         return '
-            <div class="icon icon-shape icon-'.$size.' text-white rounded-circle shadow" style="background-color: '.$this->color.'">
+            <span class="cat-icon">
             '.substr($this->name, 0, 1).'
-            </div>
+            </span>
         ';
     }
 }
