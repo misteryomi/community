@@ -1,57 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>@yield('title')</title>
-
-        <!-- Fonts -->
-        <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 36px;
-                padding: 20px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            <div class="content">
-                <div class="title">
-                    @yield('message')
-                </div>
-            </div>
+@section('content')
+<div uk-height-viewport="expand: true" class="uk-flex uk-flex-middle">
+        <div class="uk-width-1-3@m uk-width-1-2@s m-auto">
+            <div class="px-2 uk-animation-scale-up">
+        <div class="my-4 uk-text-center">
+            <h1 class="mb-2">@yield('code') - @yield('title')  </h1>
+            <p class="my-2">@yield('message')</p>
+            <a href="{{ route('home') }}" class="uk-link text-primary">Take me back to the homepage</a> 
         </div>
-    </body>
-</html>
+</div>
+</div>
+</div>
+@endsection

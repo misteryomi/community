@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'username', 'password', 'google_id'
+        'name', 'email', 'username', 'password', 'google_id', 'is_active'
     ];
 
     /**
@@ -84,6 +84,10 @@ class User extends Authenticatable
     function posts() {
         return $this->hasMany(Post::class, 'user_id');
     }
+    
+    function rants() {
+        return $this->hasMany(Rant::class, 'user_id');
+    }
 
     function comments() {
         return $this->hasMany(Comment::class, 'user_id');
@@ -116,6 +120,11 @@ class User extends Authenticatable
     public function settings() {
         return $this->hasOne(UserSettings::class, 'user_id');
     }
+
+    function canEditRant($rant) {
+        return $rant->user && ($this->hasRole('moderator') || $this->id == $rant->user->id);
+    }
+
 
     function canEditPost($post) {
         return $post->user && ($this->hasRole('moderator') || $this->id == $post->user->id);

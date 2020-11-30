@@ -14,7 +14,7 @@
                     //  ['name' => 'Questions', 'routeName' => 'home', 'icon' => 'icon-line-awesome-question'], 
                                                ?>
                     @php 
-                        $route = request()->route()->getName();
+                        $route = request()->route() ? request()->route()->getName() : '';
                         $communities = \App\Community::where('is_featured', true)->take(5)->get();
 
                         $links = [

@@ -61,7 +61,7 @@ Route::name('community.')->group(function() {
     });
 });
 
-Route::name('posts.')->group(function() {
+Route::name('posts.')->prefix('topic')->group(function() {
 
     Route::middleware('auth')->group(function() {
         Route::get('/new-topic', 'PostController@new')->name('new');
@@ -87,10 +87,61 @@ Route::name('posts.')->group(function() {
         Route::get('/{post}/delete', 'PostController@delete')->name('delete');
     });
 
+    Route::get('/{post}', 'PostController@show')->name('show');
 
-    Route::post('/media/upload', 'MediaManagerController')->name('media.upload');
-    Route::post('/comments/media/upload', 'MediaManagerController')->name('comments.media.upload');
+    // Route::post('/comments/media/upload', 'MediaManagerController')->name('comments.media.upload');
 });
+
+
+Route::name('rants.')->group(function() {
+
+    Route::middleware('auth')->group(function() {
+        Route::get('/rant', 'RantController@new')->name('new');
+        Route::post('/rant/store', 'RantController@store')->name('rant.new');
+        Route::get('/{mood}/rant', 'RantController@new')->name('mood.new');
+        // Route::rant('/{rant}/like/', 'RantController@like')->name('like');
+        // Route::rant('/{rant}/unlike/', 'RantController@unlike')->name('unlike');
+        // Route::rant('/{rant}/bookmark/', 'RantController@bookmark')->name('bookmark');
+        // Route::rant('/{rant}/remove-bookmark/', 'RantController@removeBookmark')->name('bookmark.remove');
+    
+        // Route::rant('/{rant}/comment', 'CommentController@store')->name('comment');
+        // Route::rant('/{rant}/comment/edit', 'CommentController@store')->name('comment');
+    
+        // Route::get('/{rant}/{comment}/edit', 'CommentController@edit')->name('comment.edit');
+        // Route::rant('/{rant}/{comment}/edit', 'CommentController@storeEdit')->name('comment.edit.rant');
+    
+    
+        // Route::rant('/comment/{comment}/like/', 'CommentController@like')->name('comment.like');
+        // Route::rant('/comment/{comment}/unlike/', 'CommentController@unlike')->name('comment.unlike');
+    
+        Route::get('/{rant}/edit', 'RantController@edit')->name('edit');
+        Route::post('/{rant}/edit', 'RantController@update')->name('rant.edit');
+        Route::get('/{rant}/delete', 'RantController@delete')->name('delete');
+    });
+    Route::get('/rant/{rant}', 'RantController@show')->name('show');
+
+});
+
+Route::name('mood.')->group(function() {
+    Route::get('/moods', 'MoodController@all')->name('all');
+    Route::get('/moods/search-api', 'MoodController@APISearch')->name('api.search');
+
+    Route::middleware('auth')->group(function() {
+        Route::get('{user}/moods', 'MoodController@userMoods')->name('user');
+        Route::get('/moods/joined', 'MoodController@joined')->name('joined');    
+    });
+
+    Route::prefix('mood')->group(function() {
+        Route::middleware('auth')->group(function() {
+            Route::get('/new', 'MoodController@new')->name('new');
+            Route::post('/new', 'MoodController@new')->name('post.new');
+        });
+
+        Route::get('/{mood}', 'MoodController@list')->name('list');
+    });
+});
+
+
 
 
 Route::name('profile.')->group(function() {
@@ -98,19 +149,27 @@ Route::name('profile.')->group(function() {
         // Route::get('/profile', 'UserController@index')->name('index');
         Route::get('/settings', 'UserController@settings')->name('settings');
         Route::post('/settings', 'UserController@update')->name('settings.post');
-        Route::post('/settings/feed', 'UserController@feedSettings')->name('feed.settings.post');
+        Route::get('/settings/homepage', 'UserController@feedSettings')->name('feed.settings');
+        Route::post('/settings/homepage', 'UserController@updateFeedSettings')->name('feed.settings.post');
+        Route::get('/settings/profile-picture', 'UserController@profilePicture')->name('avatar.settings');
+        Route::post('/settings/profile-picture', 'UserController@updateProfilePicture')->name('avatar.settings.post');
+        Route::get('/settings/password', 'UserController@password')->name('password.settings');
+        Route::post('/settings/password', 'UserController@updatePassword')->name('password.settings.post');
+        Route::get('/settings/deactivate', 'UserController@deactivate')->name('deactivate.settings');
+        Route::post('/settings/deactivate', 'UserController@deactivateAccount')->name('deactivate.settings.post');
         Route::get('/user/{user}', 'UserController@index')->name('show');
     });
     Route::get('users/list', 'UserController@apiList')->name('users.api');
 });
 
 Route::name('topics.')->prefix('topics')->middleware('auth')->group(function() {
-    Route::get('/saved', 'UserController@savedTopics')->name('saved');
-    // Route::get('/likes', 'UserController@savedTopics')->name('likes');
-    // Route::get('/liked', 'UserController@savedTopics')->name('liked');
+    Route::get('/bookmarks', 'PostController@saved')->name('bookmarks');
+    Route::get('/liked', 'PostController@liked')->name('likes');
+    // Route::get('/bookmarks', 'UserController@savedTopics')->name('bookmarks');
 });
 
-Route::get('/{post}', 'PostController@show')->name('posts.show');
+Route::post('/media/upload', 'MediaManagerController')->name('media.upload')->middleware('auth');
+
 
 
 

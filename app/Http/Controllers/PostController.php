@@ -121,6 +121,25 @@ class PostController extends Controller
         return view('posts.list', compact('posts', 'communities', 'title', 'agent'));
     }    
 
+    public function saved(Request $request) {
+        $agent = $this->agent;
+
+        $posts = $this->post->whereHas('bookmarks')->paginate(SELF::$PAGINATION_LIMIT);
+        
+        $title = 'My Bookmarks';
+
+        return view('posts.list', compact('posts', 'agent', 'title'));
+    }
+
+    public function liked(Request $request) {
+        $agent = $this->agent;
+
+        $posts = $this->post->whereHas('likes')->paginate(SELF::$PAGINATION_LIMIT);
+        
+        $title = 'My Liked Topics';
+
+        return view('posts.list', compact('posts', 'agent', 'title'));
+    }
 
     private function getTrending() {
        $trending =  $this->post->withCount('views')->whereBetween('created_at', [Carbon::now()->subDays(7), now()])->orderBy('views_count', 'DESC');

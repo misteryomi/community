@@ -73,6 +73,11 @@ class AuthController extends Controller
             return redirect()->back()->withError('Invalid username/password');
         }
 
+        if (!$user->is_active) {
+            return redirect()->back()->withError('Sorry, your account has been deactivated. If this is an error, please contact admin.');
+        }
+
+
         if(!Auth::attempt(['username' => $user->original_username, 'password' => $request->password])){
             return redirect()->route('login')->withError('Invalid username/password');
         }

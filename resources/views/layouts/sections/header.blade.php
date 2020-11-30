@@ -54,11 +54,10 @@
 
 
                         <a href="{{ route('home') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-feather-home"></i> Home</a>
-                        <a href="{{ route('home') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-feather-bar-chart"></i> Communities</a>
-
-                        
+                        <a href="{{ route('community.all') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-feather-bar-chart"></i> Communities</a>
 
                         @if($user)
+                        <a href="{{ route('home') }}" class=" uk-visible@s button soft-warning disabled text-dark" style="cursor: pointer"> <i class="icon-line-awesome-money"></i> 0.0 Coins</a>
                         <a href="{{ route('posts.new') }}" class="button outline-primary mr-1 small uk-hidden@l"> <i class="fa fa-plus"> </i></a>
                         <a href="{{ route('posts.new') }}" class="button primary uk-visible@s ml-2"> <i class="uil-plus"> </i> Create New Topic</a>
 
@@ -216,16 +215,18 @@
                                     <div class="dropdown-user-avatar">
                                         {!! $user->displayAvatar() !!}
                                     </div>
-                                    <div class="dropdown-user-name"> {{ $user->name }}   <span>{{ $user->name != $user->username ? $user->username : "View profile" }}</span> </div>
+                                    <div class="dropdown-user-name"> {{ $user->name }}   <span>{{ $user->name != $user->username ? $user->username : "View profile" }}</span> 
+                                    </div>
                                 </div>
 
                             </a>
 
                             <hr class="m-0">
                             <ul class="dropdown-user-menu">
+                                <li><a href="group-feed.html" class="button soft-warning disabled"><i class="icon-line-awesome-money"></i> 0.0 Coins  </a></li>                                
                                 <li><a href="{{ route('profile.show', ['user' => $user->clean_username]) }}"> <i class="uil-user"></i> Profile </a> </li>
-                                <li><a href="group-feed.html"> <i class="uil-bookmark"></i> Bookmarks </a></li>
-                                <li><a href="group-feed.html"> <i class="uil-thumbs-up"></i> Liked Posts </a></li>
+                                <li><a href="{{ route('topics.bookmarks') }}"> <i class="uil-bookmark"></i> Bookmarks </a></li>
+                                <li><a href="{{ route('topics.likes') }}"> <i class="uil-thumbs-up"></i> Liked Posts </a></li>
                                 <li><a href="{{ route('profile.settings') }}"> <i class="uil-cog"></i> Settings</a></li>
                                 <li>
                                     <a href="#" id="night-mode" class="btn-night-mode">

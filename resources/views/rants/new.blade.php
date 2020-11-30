@@ -11,37 +11,37 @@
         <div class="mt-lg-4" uk-grid>
             <div class="uk-width-3-3@m">
                     @if(isset($isEdit))
-                        <h1>Edit Topic</h1>
+                        <h1>Edit Rant</h1>
                     @else
-                        <h1>Create a new Topic @if($community != null) in {{ $community->name }} @endif</h1>
+                        <h1>Create a new Rant @if($mood != null) in {{ $mood->name }} @endif</h1>
                     @endif
                     @include('layouts.partials.alert')
 
-                        <form class="mt-4" id="publish-form" action="{{ isset($isEdit) ? route('posts.post.edit', ['post' => $post->slug ]) : route('posts.post.new') }}" method="POST" id="form">
+                        <form class="mt-4" id="publish-form" action="{{ isset($isEdit) ? route('rants.rant.edit', ['rant' => $rant->slug ]) : route('rants.rant.new') }}" method="POST" id="form">
                         @csrf
                         <div class="uk-form-group">
                           <div class="uk-position-relative">
-                              <input type="text" name="title" class="uk-input uk-form-large bg-secondary text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Title"  id="title" value="{{ isset($isEdit) ? $post->title : '' }}" required>
+                              <input type="text" name="title" class="uk-input uk-form-large bg-secondary text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Title"  id="title" value="{{ isset($isEdit) ? $rant->title : '' }}" required>
                           </div>
                         </div>
 
                           <div class="uk-form-group">
                             <div class="uk-position-relative autosuggest">
-                                <select class="select2 uk-input uk-textarea uk-form-large" name="community_id" @if(isset($isEdit)) value="{{ $post->community_id }}" @endif id="community">
+                                <select class="select2 uk-input uk-textarea uk-form-large" name="mood_id" @if(isset($isEdit)) value="{{ $rant->mood_id }}" @endif id="mood">
                                     @if(isset($isEdit))
-                                    <option value="{{ $post->community_id }}" selected>{{ $post->category->name }}</option>
-                                    @elseif(isset($community))
-                                    <option value="{{ $community->id }}" selected>{{ $community->name }}</option>
+                                    <option value="{{ $rant->mood_id }}" selected>{{ $rant->mood->name }}</option>
+                                    @elseif(isset($mood))
+                                    <option value="{{ $mood->id }}" selected>{{ $mood->name }}</option>
                                     @endif
-                                    @foreach($categories as $community)
-                                    <option value="">{{ $community->name }}</option>
+                                    @foreach($moods as $mood)
+                                    <option value="">{{ $mood->name }}</option>
                                     @endforeach
                                 </select>
-                                <!-- <input class="uk-input uk-form-large" id="category" placeholder="Select Community" >
-                                <input type="hidden" name="community_id">
+                                <!-- <input class="uk-input uk-form-large" id="mood" placeholder="Select Mood" >
+                                <input type="hidden" name="mood_id">
                                     <div class="dropdown-list">
                                         <ul class="uk-list uk-list-divider p-3">
-                                            @foreach($categories as $community)
+                                            @foreach($moods as $mood)
                                             <li>
                                                 <a href="#">Report </a>
                                             </li>
@@ -53,15 +53,15 @@
                         <div class="uk-form-group">
                           <div class="uk-position-relative editor-container">
                             <div class="editor"></div>
-                          <textarea class="uk-textarea init-editor mt-4" placeholder="Details..."> @if(isset($isEdit)){{ html_entity_decode(strip_tags($post->details)) }} @endif</textarea>
-                          <input type="hidden" name="details" @if(isset($isEdit)) value="{{ $post->details }}" @endif />
+                          <textarea class="uk-textarea init-editor mt-4" placeholder="Details..."> @if(isset($isEdit)){{ html_entity_decode(strip_tags($rant->details)) }} @endif</textarea>
+                          <input type="hidden" name="details" @if(isset($isEdit)) value="{{ $rant->details }}" @endif />
                             {{-- <label class="form-control-label" for="details">Details</label>
                             <textarea class="form-control" name="details" id="textarea" rows="3">
-                                {{ isset($isEdit ?? '') ? $post->details : '' }}
+                                {{ isset($isEdit ?? '') ? $rant->details : '' }}
                             </textarea> --}}
                             </div>
                           </div>
-                          <button type="submit" id="submit-form" class="button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Publish @endif Topic</button>
+                          <button type="submit" id="submit-form" class="button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Publish @endif Rant</button>
                         </form>
                       </div>
                     </div>
@@ -98,14 +98,14 @@
 $(document).ready(function() {
     $('.select2').select2({
         ajax: {
-          url: "{{ route('community.api.search') }}",
+          url: "{{ route('mood.api.search') }}",
         }
     });
 });
 </script>
 
 <script>
-    var data = `{!! isset($post) ? $post->details : '' !!}`;
+    var data = `{!! isset($rant) ? $rant->details : '' !!}`;
     $(document).ready(function() {
 
         var isEdit = "{{ isset($isEdit) ? true : false }}";
@@ -123,9 +123,9 @@ $(document).ready(function() {
         $('#submit-form').click(function(e) {
           e.preventDefault();
 
-          let post = editor.getData();
+          let rant = editor.getData();
 
-          $("input[name=details]").val(post);
+          $("input[name=details]").val(rant);
 
 
           if(!myForm[0].checkValidity()) {
@@ -133,7 +133,7 @@ $(document).ready(function() {
             
           } else {
 
-            if(!post) {
+            if(!rant) {
                 UIkit.notification("<span uk-icon='icon: check'></span> <strong>Sorry, Content cannot be empty</strong>", { status:'danger' });
                 $('.editor-container').addClass('error-border')
 

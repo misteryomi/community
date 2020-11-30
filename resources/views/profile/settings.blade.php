@@ -1,44 +1,58 @@
-@extends('layouts.app')
+@extends('profile.settings_template')
 
 
-@section('content')
+@section('settings_page')
 
+    <div class="uk-card-default rounded">
+            <div class="p-3">
+                <h5 class="mb-0"> Personal Information </h5>
+            </div>
+            <hr class="m-0">
+            <form  action="{{ route('profile.settings.post') }}" method="POST" class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
+              @csrf
+                <div>
+                    <h5 class="uk-text-bold mb-2"> First Name </h5>
+                    <input type="text" class="uk-input" required placeholder="First name"  name="first_name" value="{{ $user->details->first_name }}">
+                </div>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Last Name </h5>
+                    <input type="text" class="uk-input" required placeholder="Last name" name="last_name" value="{{ $user->details->last_name }}">
+                </div>
+                <div style="width: 100%">
+                    <h5 class="uk-text-bold mb-2"> What's your location? </h5>
+                    <input type="text" class="uk-input" placeholder="Location"  name="location" value="{{ $user->details->location }}">
+                </div>
+                <div style="width: 100%">
+                    <h5 class="uk-text-bold mb-2"> Tell us about yourself</h5>
+                    <textarea name="bio" class="uk-textarea" id="bio" rows="6">{{ $user->details->bio }}</textarea>
+                </div>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Instagram Handle </h5>
+                    <input type="text" class="uk-input" name="instagram" value="{{ $user->details->instagram }}">
+                </div>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Twitter Handle </h5>
+                    <input type="text" class="uk-input" name="twitter" value="{{ $user->details->twitter }}">
+                </div>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Facebook URL </h5>
+                    <input type="text" class="uk-input" name="facebook" value="{{ $user->details->facebook }}" >
+                </div>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Your website </h5>
+                    <input type="text" class="uk-input" name="website" value="{{ $user->details->website }}" >
+                </div>
 
+                <!-- <div style="width: 100%">
+                  <div class="uk-flex uk-flex-right p-4"> -->
+                  <!-- </div> -->
 
-                                <div class="bg-grey uk-light uk-padding pb-0 rounded shadow">
-                                        <ul class="uk-tab"
-                                            uk-switcher="connect: #component-tab-left; animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
-                                            <!-- uk-tab="connect: #component-tab-right; animation: uk-animation-fade"> -->
-                                            <li class="uk-active"><a href="#"> <i
-                                                        class="icon-feather-home mr-2"></i>Profile</a>
-                                            </li>
-                                            <li><a href="#"> <i class="icon-feather-message-square mr-2"></i>
-                                                    Homepage Settings</a></li>
-                                            <li><a href="#"> <i class="icon-feather-settings mr-2"></i> Password</a>
-                                            </li>
-                                        </ul>
-                                </div>
+                  <div style="width: 100%">
+                    <button class="button primary block" type="submit">Save Changes</button>
+                  </div>
+            </form>
 
-                                @include('layouts.partials.alert')
-
-                                        <ul class="uk-switcher uk-margin" id="component-tab-left">
-                                            <!-- tab 1 -->
-                                            <li>
-                                              @include('profile.edit')
-                                            </li>
-
-                                            <!-- tab 2 -->
-                                            <li>
-                                              @include('profile.feed-settings')        
-                                            </li>
-
-                                            <!-- tab 3 -->
-                                            <li>
-                                              @include('profile.password')        
-                                            </li>
-
-                                        </ul>
-
+        </div>
 
 
 

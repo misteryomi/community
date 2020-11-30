@@ -6,7 +6,7 @@
       <h1 class="uk-heading-divider">
         
         @if(isset($title))
-          {{ $title }}
+          {{ $title }} - {{ $posts->count() }}
         @else 
           {{ isset($isHomepage) ? 'Topics Feed' : 'All Topics' }} {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}
         @endif      

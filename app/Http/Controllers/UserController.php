@@ -7,6 +7,7 @@ use \App\User;
 use Illuminate\Support\Facades\Auth;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,6 +16,7 @@ class UserController extends Controller
 
     function __construct(User $user) {
 
+        
         $this->middleware(function($request, $next) {
             $this->user = $request->user();
             $this->agent = new Agent();
@@ -41,56 +43,128 @@ class UserController extends Controller
     }
 
 
-    public function savedTopics() {
-        $agent = $this->agent;
-        $user = $this->user;
-        $posts = $this->user->bookmarkedTopics()->latest()->paginate(15);
-
-        return view('profile.show', compact('user', 'posts', 'agent'));
-    }
-
-
     public function settings() {
         $user = Auth::user();
 
         return view('profile.settings', compact('user'));
     }
 
-    public function update(Request $request) {
+
+    public function profilePicture() {
         $user = Auth::user();
 
-        $request->validate([
-            'avatar' => 'image'
-        ]);
+        return view('profile.profile-picture', compact('user'));
+    }
 
-        $requestData = $request->all();
-        if($request->has('avatar')) {
-            $path = $request->avatar->store('avatars');
+    public function feedSettings() {
+        $user = Auth::user();
 
-            Storage::setVisibility($path, 'public');
+        return view('profile.feed', compact('user'));
+    }
 
-            $requestData['avatar']  = Storage::url($path);
-        } else {
-            $requestData['avatar'] = $user->details->avatar;
-        }
+    public function password() {
+        $user = Auth::user();
 
-        \App\UserDetails::updateOrCreate(['user_id' => $user->id], $requestData);
-
-        return redirect(route('profile.settings'))->withMessage('Profile updated successfully!');
+        return view('profile.password', compact('user'));
     }
 
 
-    public function feedSettings(Request $request) {
+    public function deactivate() {
+        $user = Auth::user();
+
+        return view('profile.deactivate', compact('user'));
+    }
+
+
+    public function update(Request $request) {
+
+
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required'
+        ]);
+
+        $requestData = $request->all();
+        
+        \App\UserDetails::updateOrCreate(['user_id' => $this->user->id], $requestData);
+
+        return redirect()->back()->withMessage('Profile updated successfully!');
+    }
+
+
+    public function updateProfilePicture(Request $request) {
+
+
+        $request->validate([
+            'avatar' => 'image|required'
+        ]);
+
+        $requestData = $request->all();
+        
+        $path = $request->avatar->store('avatars');
+
+        Storage::setVisibility($path, 'public');
+
+        $requestData['avatar']  = Storage::url($path);
+
+        \App\UserDetails::updateOrCreate(['user_id' => $this->user->id], $requestData);
+
+        return redirect()->back()->withMessage('Profile picture updated successfully!');
+    }
+
+
+    public function updateFeedSettings(Request $request) {
         $request->validate([
             'feed_type' => 'required'
         ]);
 
         $request->user()->settings()->updateOrCreate($request->except('_token'));
 
-        return redirect(route('profile.settings'))->withMessage('Feed Settings updated successfully!');
+        return redirect()->back()->withMessage('Feed Settings updated successfully!');
 
     }
 
+
+
+    public function updatePassword(Request $request) {
+                
+
+            $request->validate([
+                'old_password' => 'required',
+                'password' => 'required|confirmed',
+            ]);
+
+            
+            if(!Hash::check($request->old_password, $this->user->password)){
+                return redirect()->back()->withError('Old password is incorrect');
+            }
+
+            $this->user->update(['password' => Hash::make($request->password)]);
+        
+            return redirect()->back()->withMessage('Password updated successfully!');            
+
+    }
+
+    
+    public function deactivateAccount(Request $request) {
+                
+
+        $request->validate([
+            'password' => 'required',
+        ]);
+
+        
+        if(!Hash::check($request->password, $this->user->password)){
+            return redirect()->back()->withError('Password is incorrect');
+        }
+
+        $this->user->update(['is_active' => 0]);
+
+        Auth::logout();
+
+        return redirect()->route('login')->withMessage('Account has been deactivated successfully!');            
+
+}
     
     public function apiList(Request $request) {
 
@@ -101,7 +175,7 @@ class UserController extends Controller
                 'id' => $user->username,
                 'userId' => $user->id,
                 'name' => $user->name,
-                'link' => 'http://google.com'
+                'link' => "{{ route('profile.show', ['user' => $user->username]) }}"
             ];
         });
 
