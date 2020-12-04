@@ -1,14 +1,12 @@
 @include('layouts.partials.alert')
 
-
-
     <div class="mt-3">
       <h1 class="uk-heading-divider">
         
         @if(isset($title))
           {{ $title }}
         @else 
-          {{ isset($isHomepage) ? 'Topics Feed' : 'All Topics' }} {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}
+         Latest Rants {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}
         @endif      
       </h1>
 
@@ -52,4 +50,5 @@
         @endif
     </div>
 
+@php $routeName = 'rants.show'; @endphp
 @include('templates.posts_list_template')

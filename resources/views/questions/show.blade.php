@@ -8,28 +8,28 @@
      <div class="uk-width-5-5@m m-auto">
         <div class="mt-lg-4" uk-grid>
             <div class="uk-width-3-3@m">
-                <h1 class="mb-0">{{ $post->title }}</h1>
+                <h1 class="mb-0">{{ $rant->title }}</h1>
                 <div class="group-card-content pl-0 p-sm-0 mb-0 ">
                     <p class="info"> 
-                        <a href="{{ route('community.list', ['community' => $post->community->slug]) }}" class="button small"> {{ $post->community->name }} </a>
+                        <a href="{{ route('mood.list', ['mood' => $rant->mood->slug]) }}" class="button small"> {{ $rant->mood->name }} </a>
                         <span><i class="icon-feather-eye ml-2"></i>  
-                        {{ $post->views->count() }} views </span> <span> <i class="icon-feather-message-square ml-2"></i> {{ $post->comments->count() }} comments </span>            
+                        {{ $rant->views->count() }} views </span> <span> <i class="icon-feather-message-square ml-2"></i> {{ $rant->comments->count() }} comments </span>            
                     </p>
                 </div>
                 
     
-                @if($post->canEdit())
-                   <!-- <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">Edit</a> -->
+                @if($rant->canEdit())
+                   <!-- <a href="{{ route('rants.edit', ['rant' => $rant->slug]) }}">Edit</a> -->
                 @endif
 
 
                 @if($comments->onFirstPage())
                 <div class="user-details-card py-0">
                     <div class="user-details-card-avatar" style="max-width: 40px">
-                        <img src="{{ $post->user->avatar }}" alt="">
+                        <img src="{{ $rant->user->avatar }}" alt="">
                     </div>
                     <div class="user-details-card-name">
-                        {{ ucfirst($post->user->username) }} <span> {{ $post->user->level }} <span> {{ $post->date }} </span> </span>
+                        {{ ucfirst($rant->user->username) }} <span> {{ $rant->user->level }} <span> {{ $rant->date }} </span> </span>
                     </div>
                 </div>
                 @endif
@@ -43,24 +43,18 @@
 
 
             <div class="blog-content mt-3 mt-lg-6">
-                {!! $post->details !!}
+                {!! $rant->details !!}
             </div>
     
             <div class="btn-acts mt-5">
                 <div>
-                    <a href="#" class="button white circle like {{ $post->liked() ? 'liked ' : '' }}"  uk-tooltip="{{ $post->liked() ? 'Unlike ' : 'Like' }}" title="" aria-expanded="false">
-                        <i class="uil-thumbs-up mr-1"></i> <span class="liked_text m-0 pr-1"> {{ $post->liked() ? 'Liked ' : 'Like' }}</span><span class="m-0 {{ $post->likes()->count() > 0  ? '' : 'uk-hidden'  }}"> - <span class=" m-0 likes-count">{{ $post->likes()->count() }}</span></span>
-                    </a>
                 </div>
                 <div>
-                    <a target="blank" title="Share on Facebook" uk-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ route('posts.show', ['post' => $post->slug]) }}&quote={{ $post->title }}&utm_source=facebook" class="mr-2 text-gray">
+                    <a target="blank" title="Share on Facebook" uk-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ route('rants.show', ['rant' => $rant->slug]) }}&quote={{ $rant->title }}&utm_source=facebook" class="mr-2 text-gray">
                         <i class="fa fa-facebook"></i>
                     </a>
-                    <a target="blank" title="Share on Twitter" uk-tooltip="Share on Twitter" href="http://twitter.com/share?text={{ $post->title }}&url=https://www.facebook.com/sharer/sharer.php?u={{ route('posts.show', ['post' => $post->slug]) }}&text={{ $post->title }}&utm_source=twitter" class="mr-2 text-gray">
+                    <a target="blank" title="Share on Twitter" uk-tooltip="Share on Twitter" href="http://twitter.com/share?text={{ $rant->title }}&url=https://www.facebook.com/sharer/sharer.php?u={{ route('rants.show', ['rant' => $rant->slug]) }}&text={{ $rant->title }}&utm_source=twitter" class="mr-2 text-gray">
                         <i class="fa fa-twitter"></i>
-                    </a>
-                    <a href="#" uk-tooltip="{{ $post->bookmarked() ? 'Remove from Bookmarks' : 'Save for later' }}" class="mr-2 text-gray bookmark {{ $post->bookmarked() ? 'bookmarked' : '' }} " data-toggle="tooltip" data-placement="top" title="{{ $post->bookmarked() ? 'Remove from Saved' : 'Save for later' }}">
-                        <i class="fa {{ $post->bookmarked() ? 'fa-bookmark' : 'fa-bookmark-o' }}"></i>
                     </a>
 
                     <!-- <a href="#" class="#"><i class="uil-share-alt"></i></a> -->
@@ -71,13 +65,9 @@
                             <li>
                                 <a href="#">Report </a>
                             </li>
-                            @if($post->canEdit())
+                            @if($rant->canEdit())
                             <li>
-                                @if($post->community->isRant())
-                                <a href="{{ route('rants.edit', ['post' => $post->slug]) }}">Edit</a>
-                                @else
-                                <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">Edit</a>
-                                @endif
+                                <a href="{{ route('rants.edit', ['rant' => $rant->slug]) }}">Edit</a>
                             </li>
                             @endif
                         </ul>
@@ -111,7 +101,7 @@
         <ul class="uk-list uk-list-divider">
             @foreach($related as $topic)
             <li>
-                <a href="{{ route('posts.show', ['post' => $topic->slug]) }}">{{ $topic->title }} </a>
+                <a href="{{ route('rants.show', ['rant' => $topic->slug]) }}">{{ $topic->title }} </a>
             </li>
             @endforeach
         </ul>
@@ -131,7 +121,7 @@
 </script>
 @include('templates.scripts.tinymce')
 <script>
-    var slug = "{{ $post->slug }}";
+    var slug = "{{ $rant->slug }}";
     var loggedIn = "{{ auth()->check() ? true : false }}"
 
     $(document).ready(function() {
@@ -143,13 +133,13 @@
             var likesCount = parseInt(likesCountEl.text());
 
                 if($(this).hasClass("liked")) {
-                    $.post(slug + "/unlike");
+                    $.rant(slug + "/unlike");
                     $(this).removeClass("liked");
                     $(this).find('.liked_text').text('Like');
                     $(this).attr('uk-tooltip', 'Like')
                     likesCountEl.text(likesCount - 1);
                 } else {
-                    $.post(slug + "/like");
+                    $.rant(slug + "/like");
                     $(this).addClass("liked");
                     $(this).find('.liked_text').text('Liked');
                     $(this).attr('uk-tooltip', 'Unlike')
@@ -164,12 +154,12 @@
             e.preventDefault();
 
                  if($(this).hasClass("bookmarked")) {
-                    $.post(slug + "/remove-bookmark");
+                    $.rant(slug + "/remove-bookmark");
                     $(this).removeClass('bookmarked');
                     $("a.bookmark > i").addClass("fa-bookmark-o").removeClass("fa-bookmark"),
                     $(this).attr('uk-tooltip', 'Remove from Bookmarks')
                 } else {
-                    $.post(slug + "/bookmark");
+                    $.rant(slug + "/bookmark");
                     $(this).addClass('bookmarked');
                     $("a.bookmark > i").addClass("fa-bookmark").removeClass("fa-bookmark-o"),
                     $(this).attr('uk-tooltip', 'Save for later')
@@ -180,9 +170,9 @@
         $('#submit-comment').click(function(e) {
           e.preventDefault();
 
-          let post = editor.getData();
+          let rant = editor.getData();
 
-          $("input[name=comment]").val(post);
+          $("input[name=comment]").val(rant);
 
           $('#comment-form').submit();
 
@@ -192,5 +182,5 @@
 
     })
 </script>
-<!-- <script src="{{asset('js/post-script.js')}}" ></script> -->
+<!-- <script src="{{asset('js/rant-script.js')}}" ></script> -->
 @endsection

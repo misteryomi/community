@@ -19,9 +19,8 @@ use App\Http\Controllers\Traits\PostTrait;
 use \Carbon\Carbon;
 
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\Routing\Route;
 
-class RantController extends Controller
+class QuestionController extends Controller
 {
     use PostTrait;
 

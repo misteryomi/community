@@ -1701,7 +1701,7 @@ select.uk-form-width-xsmall {
 .uk-radio:focus,
 .uk-checkbox:focus {
   outline: none;
-  border-color: #2f80ed;
+  border-color: #576577;
 }
 /*
  * Checked
@@ -1709,14 +1709,14 @@ select.uk-form-width-xsmall {
 .uk-radio:checked,
 .uk-checkbox:checked,
 .uk-checkbox:indeterminate {
-  background-color: #2f80ed;
+  background-color: #576577;
   border-color: transparent;
 }
 /* Focus */
 .uk-radio:checked:focus,
 .uk-checkbox:checked:focus,
 .uk-checkbox:indeterminate:focus {
-  background-color: #2f80ed;
+  background-color: #576577;
 }
 /*
  * Icons

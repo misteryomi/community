@@ -61,7 +61,10 @@ class PostController extends Controller
         
         $isHomepage = true;
 
-        if($request->feed_type && $this->user) {
+        if($request->feed_type) {
+
+            if(!$this->user) return redirect('login');
+
             $this->user->settings()->updateOrCreate(['user_id' => $this->user->id], ['feed_type' => $request->feed_type]);
             return redirect()->route('home');
         }
@@ -150,6 +153,7 @@ class PostController extends Controller
 
        return $trending;
     }
+
     /**
      * Display post
      * @param $post_id post_id of the post
@@ -193,12 +197,12 @@ class PostController extends Controller
         $community = $this->category->where('slug', $community)->first();
 
         if(!$community) {
-            $categories = $this->category->ordered(); //->where('is_parent', true)->
+            $communities = $this->category->ordered(); //->where('is_parent', true)->
         } else {
-            $categories = $this->category->where('parent_id', $community->id)->ordered();
+            $communities = $this->category->where('parent_id', $community->id)->ordered();
         }
 
-        return view('posts.new', compact('categories', 'community'));
+        return view('posts.new', compact('communities', 'community'));
     }
 
 
@@ -263,9 +267,9 @@ class PostController extends Controller
         }
                 //only owner or moderator can edit
 
-        $categories = $this->category->where('is_parent', true)->ordered();
+        $communities = $this->category->where('is_parent', true)->ordered();
 
-        return view('posts.new', compact('post', 'categories'))->withIsEdit(true);
+        return view('posts.new', compact('post', 'communities'))->withIsEdit(true);
     }
 
 

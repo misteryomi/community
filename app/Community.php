@@ -45,6 +45,18 @@ class Community extends Model
     }
 
 
+    public function isRant() {
+
+        $rant_category = $this->where('name', 'rants')->first();
+
+        if($this->where('parent_id', $rant_category->id)->where('id', $this->id)->count()) {
+            return true;
+        }
+
+        return false;
+    }
+
+
     public function getExcerptAttribute() {
         return 'Some text here in few seconds...';
     }

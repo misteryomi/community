@@ -24,7 +24,8 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title.required' => 'A title is required',
+            'community_id.required' => 'Please specify a community/category',
         ];
     }
 }

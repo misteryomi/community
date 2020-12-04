@@ -10,7 +10,7 @@
                 <i class="uil-users-alt p-1 text-dark bg-white circle icon-small"></i>
                 Welcome{{ auth()->user() ? ', '.auth()->user()->username : ' to ' .env('APP_NAME') }}! </h3>
             <p>  {{ env('APP_NAME') }} is an online Nigerian community to connect and discuss anything Nigerian.<br/>Remember to be nice, free and have fun!</p>
-            <a href="#" class="button white small m-1"> Find a Community</a> <a href="#" class="button white small m-1"> Ask a question</a> <a href="#" class="button white small m-1"> Rant!</a>
+            <a href="{{ route('community.all') }}" class="button white small m-1"> Find a Community</a> <a href="#" class="button white small m-1"> Ask a question</a> <a href="{{ route('rants.new') }}" class="button white small m-1"> Rant!</a>
         </div>
     </div>
 </div>

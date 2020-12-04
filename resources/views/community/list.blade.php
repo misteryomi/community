@@ -19,7 +19,18 @@
     </a>
 </div>
 
+<div class="uk-margin border-bottom border-top py-4 bg-light p-2" uk-margin="">
+    <form action="?" method="get">
+        <div class="uk-form-custom uk-first-column">
+            <input class="uk-input uk-form-width-large" name="q" type="text" placeholder="Search for Community" value="{{ request()->q }}" >
+        </div>
+        <button type="submit" class="uk-button bg-warning text-white">Search</button>
+    </form>
+</div>
 
+@if(request()->has('q'))
+    <h3>All results matching "{{ request()->q }}"</h3>
+@endif
 
     @if($communities->count() > 0)
     <ul class=" uk-child-width-1-4@m uk-child-width-1-3@s  pr-lg-1 uk-grid"
@@ -67,11 +78,17 @@
     {{ $communities->links('layouts.pagination.custom')}}
 
     @else
-        @if($routeName == 'community.joined')
-        <p>You have not joined any community yet. <a href="{{ route('community.all') }}">Join your first community</a>!</p>
+    
+        @if(request()->has('q'))
+            <p>No result matching your seeach query. <a href="{{ route('community.new') }}">Create a community</a>.</p>
         @else
-        <p>No community has been created yet. <a href="{{ route('community.new') }}">Create your first community</a>!</p>
+            @if($routeName == 'community.joined')
+            <p>You have not joined any community yet. <a href="{{ route('community.all') }}">Join your first community</a>!</p>
+            @else
+            <p>No community has been created yet. <a href="{{ route('community.new') }}">Create your first community</a>!</p>
+            @endif
         @endif
+
     @endif
 
 

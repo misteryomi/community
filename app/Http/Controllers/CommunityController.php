@@ -39,8 +39,13 @@ class CommunityController extends Controller
         return view('posts.list', compact('community', 'posts', 'agent'));
     }
 
-    public function all() {
-        $communities = $this->community->paginate(15);
+    public function all(Request $request) {
+
+        if($request->has('q')) {
+            $communities = $this->community->where('name', 'LIKE', "%$request->q%")->paginate(15);
+        } else {
+            $communities = $this->community->paginate(15);
+        }
 
         return view('community.list', compact('communities'));
     }
@@ -78,12 +83,27 @@ class CommunityController extends Controller
     }
 
     public function new() {
-        return view('community.new');
+        $communities = $this->community->take(10)->get();
+
+    
+
+        return view('community.new', compact('communities'));
     }
 
     
     public function APISearch(Request $request) {
-        $communities = $this->community->selectRaw('id, name as text')->where('name', 'LIKE', "%$request->term%")->take(15)->get();
+
+        $communities = $this->community->selectRaw('id, parent_id, name as text')->where('name', 'LIKE', "%$request->term%");
+
+        if($request->has('parent_id')) {
+            $communities = $communities->where('parent_id', $request->parent_id);
+
+//            dd($communities->get(), $request->all());
+        }
+        
+
+        $communities = $communities->take(15)->get();
+
 
         return response(['results' => $communities]);
     }

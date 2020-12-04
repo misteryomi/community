@@ -16,7 +16,7 @@ Route::get('/topics', 'PostController@all')->name('topics');
 Route::get('/latest', 'PostController@latest')->name('latest');
 Route::get('/trending', 'PostController@trending')->name('trending');
 Route::get('/jobs', 'PostController@trending')->name('jobs');
-Route::get('/rants', 'PostController@trending')->name('rants');
+Route::get('/rants', 'RantController@all')->name('rants');
 Route::get('/search', 'PostController@all')->name('search');
 
 Route::get('/generate-sitemap', 'SitemapController');
@@ -61,10 +61,9 @@ Route::name('community.')->group(function() {
     });
 });
 
+Route::get('/new-topic', 'PostController@new')->middleware('auth')->name('posts.new');
 Route::name('posts.')->prefix('topic')->group(function() {
-
     Route::middleware('auth')->group(function() {
-        Route::get('/new-topic', 'PostController@new')->name('new');
         Route::get('/{community}/new-topic', 'PostController@new')->name('community.new');
         Route::post('/new-topic/store', 'PostController@store')->name('post.new');
         Route::post('/{post}/like/', 'PostController@like')->name('like');
@@ -92,35 +91,32 @@ Route::name('posts.')->prefix('topic')->group(function() {
     // Route::post('/comments/media/upload', 'MediaManagerController')->name('comments.media.upload');
 });
 
-
-Route::name('rants.')->group(function() {
-
+Route::name('rants.')->prefix('rant')->group(function() {
     Route::middleware('auth')->group(function() {
-        Route::get('/rant', 'RantController@new')->name('new');
-        Route::post('/rant/store', 'RantController@store')->name('rant.new');
-        Route::get('/{mood}/rant', 'RantController@new')->name('mood.new');
-        // Route::rant('/{rant}/like/', 'RantController@like')->name('like');
-        // Route::rant('/{rant}/unlike/', 'RantController@unlike')->name('unlike');
-        // Route::rant('/{rant}/bookmark/', 'RantController@bookmark')->name('bookmark');
-        // Route::rant('/{rant}/remove-bookmark/', 'RantController@removeBookmark')->name('bookmark.remove');
+        Route::get('/', 'RantController@new')->name('new');
+        Route::post('/store', 'RantController@store')->name('rant.new');
     
-        // Route::rant('/{rant}/comment', 'CommentController@store')->name('comment');
-        // Route::rant('/{rant}/comment/edit', 'CommentController@store')->name('comment');
-    
-        // Route::get('/{rant}/{comment}/edit', 'CommentController@edit')->name('comment.edit');
-        // Route::rant('/{rant}/{comment}/edit', 'CommentController@storeEdit')->name('comment.edit.rant');
-    
-    
-        // Route::rant('/comment/{comment}/like/', 'CommentController@like')->name('comment.like');
-        // Route::rant('/comment/{comment}/unlike/', 'CommentController@unlike')->name('comment.unlike');
-    
-        Route::get('/{rant}/edit', 'RantController@edit')->name('edit');
-        Route::post('/{rant}/edit', 'RantController@update')->name('rant.edit');
-        Route::get('/{rant}/delete', 'RantController@delete')->name('delete');
+        Route::get('/{post}/edit', 'RantController@edit')->name('edit');
+        Route::post('/{post}/edit', 'RantController@update')->name('edit.store');
+        Route::get('/{post}/delete', 'RantController@delete')->name('delete');
     });
-    Route::get('/rant/{rant}', 'RantController@show')->name('show');
-
+    Route::get('/{post}', 'RantController@show')->name('show');
 });
+
+//Questions
+Route::get('/ask-question', 'QuestionController@new')->middleware('auth')->name('question.new');
+Route::name('questions.')->prefix('question')->group(function() {
+    Route::middleware('auth')->group(function() {
+        Route::get('/', 'QuestionController@new')->name('new');
+        Route::post('/store', 'QuestionController@store')->name('rant.new');
+    
+        Route::get('/{post}/edit', 'QuestionController@edit')->name('edit');
+        Route::post('/{post}/edit', 'QuestionController@update')->name('edit.store');
+        Route::get('/{post}/delete', 'QuestionController@delete')->name('delete');
+    });
+    Route::get('/{post}', 'QuestionController@show')->name('show');
+});
+
 
 Route::name('mood.')->group(function() {
     Route::get('/moods', 'MoodController@all')->name('all');
