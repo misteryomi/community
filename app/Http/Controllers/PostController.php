@@ -153,41 +153,7 @@ class PostController extends Controller
 
        return $trending;
     }
-
-    /**
-     * Display post
-     * @param $post_id post_id of the post
-     * @return response
-     */
-    public function show(Request $request, Post $post) {
-        $comments = $post->comments()->paginate(SELF::$PAGINATION_LIMIT);
-
-        $session_id =  $request->getSession()->getId();
-
-        $guestHasViewed = !$this->user && $post->views()->where('session_id', $session_id)->first();
-
-        $loggedInUserHasViewed = $this->user && $post->views()->where('user_id', $this->user->id)->first();
-
-        $hasViewed = $this->user ? $loggedInUserHasViewed : $guestHasViewed;
-
-        if(!$hasViewed) {
-            $post->views()->create([
-                'session_id' => $session_id,
-                'ip' => $request->getClientIp(),
-                'agent' => $request->header('User-Agent'),
-                'user_id' => $this->user ? $this->user->id : null,
-                'created_at' => now(),
-            ]);
-        }
-
-        $this->setSEO($post->title, $post->excerpt, route('posts.show', ['post' => $post->slug]));
-
-        $related = $this->post->relatedTopics($post)->take(8)->get();
-
-        return view('posts.show', compact('post', 'comments', 'related'));
-    }
-
-
+    
 
     /**
      * Create new Post
@@ -216,40 +182,10 @@ class PostController extends Controller
 
     
         $requestData = $request->all();
-        $validation =  Validator::make($requestData, [
-                        'title' => 'required|max:255',
-                        'details' => 'required',
-                        'community_id' => 'required'
-                        // 'photo' => 'mimestypes:image/jpeg,image/bmp,image/png,video/avi,video/mpeg,video/quicktime',
-        ]);
 
-        if($validation->fails()) {
-            return redirect()->back()->withErrors($validation->errors())->withInput();
-        }
+        $post = $this->preSubmit($requestData);
 
-
-    
-
-        $newID = $this->post->count() + 1;
-        $requestData['slug'] = \Str::slug($requestData['title'], '-').'-'.$newID;
-        $post = $this->user->posts()->create($requestData);
-
-
-                
-        // //Fetch images in this post
-        // $images = $this->fetchImages($request->details);
-
-        // if(count($images) > 0) {
-        //     $this->updateMedia($post, $images);
-        // }
-
-        //Notify all mentions
-        $mentions = $this->fetchMentions($request->details);
-
-        if(count($mentions) > 0) {
-            $this->notifyMentions($post, $mentions);
-        }
-
+        $this->postSubmit($request, $post);
 
         return redirect()->route('posts.show', ['post' => $post->slug]);
 
@@ -278,104 +214,12 @@ class PostController extends Controller
      * @return response
      */
     public function update(Request $request, Post $post) {
-        if(!$this->user->canEditPost($post)) {
-            abort(404);
-        }
 
-        //only owner or moderator can edit
-
-        $requestData = $request->all();
-        $validation =  Validator::make($requestData, [
-                        'title' => 'required|max:255',
-                        'details' => 'required'
-                        // 'photo' => 'mimestypes:image/jpeg,image/bmp,image/png,video/avi,video/mpeg,video/quicktime',
-        ]);
-
-        if($validation->fails()) {
-            return redirect()->back()->withErrors($validation->errors())->withInput();
-        }
-
-        $post->update($requestData);
-
-                 
-        // //Fetch images in this post
-        // $images = $this->fetchImages($request->details);
-
-        // if(count($images) > 0) {
-        //     $this->updateMedia($post, $images);
-        // }
-
+        $this->preUpdate($request, $post);
+        
         return redirect()->route('posts.show', ['post' => $post->slug]);
     }
 
     
-    public function delete(Post $post) {
-        $post->delete();
 
-        return redirect()->route('profile.show', ['user' => $this->user->username])->withMessage('Topic deleted successfully!');
-
-    }
-
-    public function like(Post $post) {
-
-        $post->likes()->firstOrCreate(['user_id' => $this->user->id], ['created_at' => now()]);
-
-        return response(['status' => true]);
-    }
-
-    public function unlike(Post $post) {
-
-        $post->likes()->where('user_id', $this->user->id)->delete();
-
-        return response(['status' => true]);
-    }
-
-
-    public function bookmark(Post $post) {
-
-        $post->bookmarks()->firstOrCreate(['user_id' => $this->user->id], ['created_at' => now()]);
-
-        return response(['status' => true]);
-    }
-
-    public function removeBookmark(Post $post) {
-
-        $post->bookmarks()->where('user_id', $this->user->id)->delete();
-
-        return response(['status' => true]);
-    }
-
-
-    
-    
-    // private function updateMedia($post, $images) {
-    //     \App\PostMedia::whereIn('url', $images)->update(['post_id' => $post->id]);
-    // }
-
-
-    // private function fetchImages($text) {
-    //     $htmlDom = new \DOMDocument;
-
-
-    //     @$htmlDom->loadHTML($text);
-        
-    //     $imageTags = $htmlDom->getElementsByTagName('img');
-        
-
-    //     //Create an array to add extracted images to.
-    //     $extractedImages = array();
-        
-    //     //Loop through the image tags that DOMDocument found.
-    //     foreach($imageTags as $imageTag){
-        
-    //         //Get the src attribute of the image.
-    //         $imgSrc = $imageTag->getAttribute('src');        
-        
-    //         //Add the image details to our $extractedImages array.
-    //         $extractedImages[] = $imgSrc;
-    //     }
-        
-    //     //var_dump our array of images.
-    //     return($extractedImages);        
-    // }
 }

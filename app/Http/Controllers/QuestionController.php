@@ -10,8 +10,8 @@ use App\Http\Resources\PostsListCollection;
 use App\Post;
 use App\User;
 use App\Mood;
-use App\RantMeta;
 use App\Community;
+use App\QuestionMeta;
 use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Traits\ContentTrait;
 use App\Http\Controllers\Traits\PostTrait;
@@ -25,20 +25,17 @@ class QuestionController extends Controller
     use PostTrait;
 
     private $post;
-    private $mood;
     private $user;
     private $agent;
 
     private static $PAGINATION_LIMIT = 20;
 
-    function __construct(Post $post, Community $community, Mood $mood, RantMeta $meta) {
+    function __construct(Post $post, Community $community, QuestionMeta $meta) {
         $this->post = $post;
-        $this->mood = $mood;
         $this->category = $community;
         $this->meta = $meta;
         $this->agent = new Agent();
-        $this->rant_community = $community->where('name', 'rants')->first();
-        $this->meta_fields = ['is_public', 'is_anonymous'];
+        $this->question_community = $community->where('name', 'questions')->first();
 
         $this->middleware(function($request, $next) {
             $this->user = Auth::user();
@@ -56,7 +53,7 @@ class QuestionController extends Controller
      */
     public function all(Request $request) {
         $agent = $this->agent;
-        $community = $this->rant_community;
+        $community = $this->question_community;
 
         $posts = $this->post->where('community_id', $community->id)->orWhereHas('community', function($query) use($community) {
 
@@ -66,9 +63,9 @@ class QuestionController extends Controller
                 
         $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
 
-        $title = 'Latest Rants';
+        $title = 'Latest Questions';
 
-        return view('rants.list', compact('posts', 'agent', 'title'));
+        return view('questions.list', compact('posts', 'agent', 'title'));
     }
 
 
@@ -81,10 +78,10 @@ class QuestionController extends Controller
      */
     public function new() {
 
-        $community = $this->rant_community;
-        $communities = $this->category->where('parent_id', $this->rant_community->id)->ordered();
+        $community = $this->question_community;
+        $communities = $this->category->where('parent_id', $this->question_community->id)->ordered();
 
-        return view('rants.new', compact('communities', 'community'));
+        return view('questions.new', compact('communities', 'community'));
     }
 
 
@@ -96,20 +93,17 @@ class QuestionController extends Controller
      */
     public function store(Request $request) {
 
-        $requestData = $request->except($this->meta_fields);
+        $requestData = $request->all();
 
         $post = $this->preSubmit($requestData);
-        
+
         $this->meta->create([
             'post_id' => $post->id,
-            'is_public' => (isset($request->is_public) && $request->is_public == true),
-            'is_anonymous' =>(isset($request->is_anonymous) && $request->is_anonymous == true)
         ]);
-
 
         $this->postSubmit($request, $post);
 
-        return redirect()->route('rants.show', ['post' => $post->slug]);
+        return redirect()->route('questions.show', ['post' => $post->slug]);
 
     }
 
@@ -125,11 +119,9 @@ class QuestionController extends Controller
         }
                 //only owner or moderator can edit
 
-        $communities = $this->category->where('parent_id', $this->rant_community->id)->ordered();
+        $communities = $this->category->where('parent_id', $this->question_community->id)->ordered();
 
-        $community = $this->rant_community;
-
-        return view('rants.new', compact('post', 'communities', 'community'))->withIsEdit(true);
+        return view('questions.new', compact('post', 'communities', 'community'))->withIsEdit(true);
     }
 
 
@@ -144,7 +136,7 @@ class QuestionController extends Controller
 
         //only owner or moderator can edit
 
-        $requestData = $request->except($this->meta_fields);
+        $requestData = $request->all();
         $validation =  Validator::make($requestData, [
                         'title' => 'required|max:255',
                         'details' => 'required'
@@ -157,14 +149,9 @@ class QuestionController extends Controller
 
         $post->update($requestData);
 
-
-        $this->meta->where('post_id', $post->id)->update([
-            'is_public' => (isset($request->is_public) && $request->is_public == true),
-            'is_anonymous' =>(isset($request->is_anonymous) && $request->is_anonymous == true)
-        ]);
       
 
-        return redirect()->route('rants.show', ['post' => $post->slug]);
+        return redirect()->route('questions.show', ['post' => $post->slug]);
     }
 
 

@@ -48,7 +48,7 @@
 $(document).ready(function() {
     $('.select2').select2({
         ajax: {
-          url: "{{ route('community.api.search').'?parent_id='.$community->id }}",
+          url: "{{ !isset($useChildCategories) ? route('community.api.search') : route('community.api.search').'?parent_id='.$community->id }}",
         }
     });
 });

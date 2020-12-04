@@ -15,7 +15,7 @@ Route::get('/', 'PostController@index')->name('home');
 Route::get('/topics', 'PostController@all')->name('topics');
 Route::get('/latest', 'PostController@latest')->name('latest');
 Route::get('/trending', 'PostController@trending')->name('trending');
-Route::get('/jobs', 'PostController@trending')->name('jobs');
+Route::get('/jobs', 'JobController@all')->name('jobs');
 Route::get('/rants', 'RantController@all')->name('rants');
 Route::get('/search', 'PostController@all')->name('search');
 
@@ -108,13 +108,26 @@ Route::get('/ask-question', 'QuestionController@new')->middleware('auth')->name(
 Route::name('questions.')->prefix('question')->group(function() {
     Route::middleware('auth')->group(function() {
         Route::get('/', 'QuestionController@new')->name('new');
-        Route::post('/store', 'QuestionController@store')->name('rant.new');
+        Route::post('/store', 'QuestionController@store')->name('new.store');
     
         Route::get('/{post}/edit', 'QuestionController@edit')->name('edit');
         Route::post('/{post}/edit', 'QuestionController@update')->name('edit.store');
         Route::get('/{post}/delete', 'QuestionController@delete')->name('delete');
     });
     Route::get('/{post}', 'QuestionController@show')->name('show');
+});
+
+//Questions
+Route::name('jobs.')->prefix('job')->group(function() {
+    Route::middleware('auth')->group(function() {
+        Route::get('/new', 'JobController@new')->name('new');
+        Route::post('/store', 'JobController@store')->name('new.store');
+    
+        Route::get('/{post}/edit', 'JobController@edit')->name('edit');
+        Route::post('/{post}/edit', 'JobController@update')->name('edit.store');
+        Route::get('/{post}/delete', 'JobController@delete')->name('delete');
+    });
+    Route::get('/{post}', 'JobController@show')->name('show');
 });
 
 

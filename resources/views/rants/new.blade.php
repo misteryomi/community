@@ -1,3 +1,5 @@
+@php $useChildCategories = true @endphp
+
 @extends('layouts.new_post')
 
 @section('form_title')
@@ -9,7 +11,7 @@
 @endsection
 @section('form_content')
 
-    <form class="mt-4" id="publish-form" action="{{ isset($isEdit) ? route('rants.edit.store', ['post' => $post->slug ]) : route('rants.rant.new') }}" method="POST" id="form">
+    <form class="mt-4" id="publish-form" action="{{ isset($isEdit) ? route('rants.edit.store', ['post' => $post->slug ]) : route('rants.new') }}" method="POST" id="form">
     @csrf
     <div class="uk-form-group">
         <div class="uk-position-relative">

@@ -83,9 +83,10 @@ trait PostTrait
     public function delete(Post $post) {
         $post->delete();
 
-        return redirect()->route('profile.show', ['user' => $this->user->username])->withMessage('Topic deleted successfully!');
+        return redirect()->back()->withMessage('Topic deleted successfully!');
 
     }
+
 
     public function like(Post $post) {
 
@@ -149,5 +150,28 @@ trait PostTrait
         if(count($mentions) > 0) {
             $this->notifyMentions($post, $mentions);
         }        
+    }
+
+
+    protected function preUpdate($request, $post) {
+        if(!$this->user->canEditPost($post)) {
+            abort(404);
+        }
+
+        //only owner or moderator can edit
+
+        $requestData = $request->except($this->meta_fields);
+        $validation =  Validator::make($requestData, [
+                        'title' => 'required|max:255',
+                        'details' => 'required'
+                        // 'photo' => 'mimestypes:image/jpeg,image/bmp,image/png,video/avi,video/mpeg,video/quicktime',
+        ]);
+
+        if($validation->fails()) {
+            return redirect()->back()->withErrors($validation->errors())->withInput();
+        }
+
+        $post->update($requestData);
+
     }
 }

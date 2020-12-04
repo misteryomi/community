@@ -19,12 +19,12 @@
     </a>
 </div>
 
-<div class="uk-margin border-bottom border-top py-4 bg-light p-2" uk-margin="">
+<div class="uk-margin border-bottom border-top p-4 bg-light" uk-margin="">
     <form action="?" method="get">
         <div class="uk-form-custom uk-first-column">
-            <input class="uk-input uk-form-width-large" name="q" type="text" placeholder="Search for Community" value="{{ request()->q }}" >
+            <input class="uk-input uk-form-width-large uk-form-large" name="q" type="text" placeholder="Search for Community" value="{{ request()->q }}" >
         </div>
-        <button type="submit" class="uk-button bg-warning text-white">Search</button>
+        <button type="submit" class="button large warning text-white">Search</button>
     </form>
 </div>
 
