@@ -1,7 +1,7 @@
 @if($posts->count() > 0)
     @foreach($posts as $post)
 
-    @php $route = route(isset($routeName) ? $routeName : 'posts.show', ['post' => $post->slug]); @endphp
+    @php $route = $post->route(); @endphp
     <a href="{{ $route }}" class="blog-post mb-sm-3">
       @if($post->featured_image && !$agent->isMobile())
         <div class="blog-post-thumbnail">

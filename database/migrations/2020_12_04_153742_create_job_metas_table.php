@@ -15,8 +15,10 @@ class CreateJobMetasTable extends Migration
     {
         Schema::create('job_metas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean('is_approved');
+            $table->integer('post_id');
+            $table->boolean('is_approved')->default(0);
             $table->string('link')->nullable();
+            $table->string('location')->nullable();
             $table->timestamp('deadline')->nullable();
             $table->timestamps();
         });

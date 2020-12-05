@@ -12,6 +12,7 @@ use App\User;
 use App\Mood;
 use App\Community;
 use App\QuestionMeta;
+use App\PostType;
 use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Traits\ContentTrait;
 use App\Http\Controllers\Traits\PostTrait;
@@ -35,6 +36,7 @@ class QuestionController extends Controller
         $this->category = $community;
         $this->meta = $meta;
         $this->agent = new Agent();
+        $this->post_type = PostType::where('name', 'questions')->first();
         $this->question_community = $community->where('name', 'questions')->first();
 
         $this->middleware(function($request, $next) {
@@ -55,10 +57,8 @@ class QuestionController extends Controller
         $agent = $this->agent;
         $community = $this->question_community;
 
-        $posts = $this->post->where('community_id', $community->id)->orWhereHas('community', function($query) use($community) {
-
-                    $query->where('parent_id', $community->id);
-
+        $posts = $this->post->where('community_id', $community->id)->orWhereHas('type', function($query)  {
+                    $query->where('name', $this->post_type->name);
                 })->latest();
                 
         $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
@@ -96,6 +96,8 @@ class QuestionController extends Controller
         $requestData = $request->all();
 
         $post = $this->preSubmit($requestData);
+
+        $post->update(['post_type' => $this->post_type->id]);
 
         $this->meta->create([
             'post_id' => $post->id,

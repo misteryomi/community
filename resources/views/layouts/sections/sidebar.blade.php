@@ -23,6 +23,7 @@
                             ['name' => 'Trending', 'routeName' => 'trending', 'icon' => 'icon-line-awesome-fire'], 
                             ['name' => 'Communities', 'routeName' => 'community.all', 'icon' => 'icon-feather-users'], 
                             ['name' => 'Rants', 'routeName' => 'rants', 'icon' => 'icon-brand-first-order-alt'], 
+                            ['name' => 'Questions', 'routeName' => 'questions', 'icon' => 'icon-line-awesome-question'], 
                             ['name' => 'Jobs', 'routeName' => 'jobs', 'icon' => 'icon-line-awesome-folder-open-o'], 
                             
                         ]

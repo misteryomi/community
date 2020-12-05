@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->text('details');
             $table->string('slug');
             $table->integer('community_id');
+            $table->integer('post_type')->nullable();
             $table->boolean('is_featured')->default(0);
             $table->text('featured_image')->nullable();
             $table->timestamps();

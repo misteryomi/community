@@ -12,6 +12,7 @@ use App\User;
 use App\Mood;
 use App\Community;
 use App\JobMeta;
+use App\PostType;
 use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Traits\ContentTrait;
 use App\Http\Controllers\Traits\PostTrait;
@@ -35,7 +36,9 @@ class JobController extends Controller
         $this->category = $community;
         $this->meta = $meta;
         $this->agent = new Agent();
+        $this->post_type = PostType::where('name', 'jobs')->first();
         $this->job_community = $community->where('name', 'jobs')->first();
+        $this->meta_fields = ['link', 'is_approved', 'deadline', 'location'];
 
         $this->middleware(function($request, $next) {
             $this->user = Auth::user();
@@ -55,11 +58,11 @@ class JobController extends Controller
         $agent = $this->agent;
         $community = $this->job_community;
 
-        $posts = $this->post->where('community_id', $community->id)->orWhereHas('community', function($query) use($community) {
-
-                    $query->where('parent_id', $community->id);
-
+        $posts = $this->post->where('community_id', $community->id)->orWhereHas('type', function($query)  {
+                    $query->where('name', $this->post_type->name);
                 })->latest();
+                
+
                 
         $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
 
@@ -93,10 +96,11 @@ class JobController extends Controller
      */
     public function store(Request $request) {
 
-        $requestData = $request->all();
+        $requestData = $request->except($this->meta_fields);
 
         $post = $this->preSubmit($requestData);
-
+        $post->update(['post_type' => $this->post_type->id]);
+        
         $this->meta->create([
             'post_id' => $post->id,
         ]);

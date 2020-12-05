@@ -79,10 +79,33 @@ class Post extends Model
         return $this->hasMany(Bookmark::class, 'post_id');
     }
 
-    public function meta() {
-        return $this->hasOne(Meta::class, 'post_id');
+    public function type() {
+        return $this->belongsTo(PostType::class, 'post_type');        
     }
 
+
+    public function meta() {
+
+        switch ($this->post_type) {
+            case 'questions':
+                return $this->hasOne(QuestionMeta::class, 'post_id');
+            case 'jobs':
+                return $this->hasOne(JobMeta::class, 'post_id');
+            case 'rants':
+                return $this->hasOne(RantMeta::class, 'post_id');
+            
+            default:
+                return $this->hasOne(Meta::class, 'post_id');
+        }
+
+    }
+
+
+    public function route($routeName = null) {
+        //route(isset($routeName) ? $routeName : 'posts.show', ['post' => $post->slug])
+        $type = $this->type ? $this->type->name : 'posts';
+        return route($type.'.show', ['post' => $this->slug]);
+    }
     /**
      * Checks if the post exists
      * @param $post_id

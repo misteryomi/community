@@ -10,8 +10,9 @@ use App\Http\Resources\PostResource;
 use App\Http\Resources\PostsListCollection;
 use App\Post;
 use App\User;
+use App\PostType;
 use Jenssegers\Agent\Agent;
-use App\Http\Controllers\Traits\ContentTrait;
+use App\Http\Controllers\Traits\PostTrait;
 
 use \Carbon\Carbon;
 
@@ -20,7 +21,7 @@ use Symfony\Component\Routing\Route;
 
 class PostController extends Controller
 {
-    use SEOTrait, ContentTrait;
+    use SEOTrait, PostTrait;
 
     private $post;
     private $community;
@@ -33,6 +34,7 @@ class PostController extends Controller
         $this->post = $post;
         $this->category = $community;
         $this->agent = new Agent();
+        $this->post_type = PostType::where('name', 'topics')->first();
 
         $this->middleware(function($request, $next) {
             $this->user = Auth::user();
@@ -74,6 +76,20 @@ class PostController extends Controller
         return view('welcome', compact('posts', 'communities', 'isHomepage', 'agent', 'trending'));
     }
 
+
+    /**
+     * Had to use this hack because I don't want users accessing other post types under the 'topics' route
+     */
+    public function showPost(Request $request, Post $post) {
+        //check post type then redirect to respective url
+
+        if($post->post_type == null || $post->type->name == 'topics') {
+            return $this->show($request, $post);
+        }
+
+        //redirect to respective route
+        return redirect()->route($post->type->name.'.show', ['post' => $post->slug]);
+    }
 
     /**
      * Display feed of all posts
@@ -153,7 +169,7 @@ class PostController extends Controller
 
        return $trending;
     }
-    
+
 
     /**
      * Create new Post

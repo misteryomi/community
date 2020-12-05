@@ -17,6 +17,7 @@ Route::get('/latest', 'PostController@latest')->name('latest');
 Route::get('/trending', 'PostController@trending')->name('trending');
 Route::get('/jobs', 'JobController@all')->name('jobs');
 Route::get('/rants', 'RantController@all')->name('rants');
+Route::get('/questions', 'QuestionController@all')->name('questions');
 Route::get('/search', 'PostController@all')->name('search');
 
 Route::get('/generate-sitemap', 'SitemapController');
@@ -86,7 +87,7 @@ Route::name('posts.')->prefix('topic')->group(function() {
         Route::get('/{post}/delete', 'PostController@delete')->name('delete');
     });
 
-    Route::get('/{post}', 'PostController@show')->name('show');
+    Route::get('/{post}', 'PostController@showPost')->name('show');
 
     // Route::post('/comments/media/upload', 'MediaManagerController')->name('comments.media.upload');
 });
