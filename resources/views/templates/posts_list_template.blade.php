@@ -43,9 +43,9 @@
 
     @else
       @if(request()->has('q'))
-      <p class="text-center text-md-left">No topic found. Be the champion, <a href="{{ route('posts.new') }}"><strong>create a topic</strong></a>.</p>
+      <p class="text-center text-md-left">No topic found. Be the champion, <a href="{{ route('topics.new') }}"><strong>create a topic</strong></a>.</p>
       @else 
-      <p class="text-center text-md-left">No topic found. Be the champion, <a href="{{ route('posts.new') }}"><strong>create a topic</strong></a>.</p>
+      <p class="text-center text-md-left">No topic found. Be the champion, <a href="{{ route('topics.new') }}"><strong>create a topic</strong></a>.</p>
       @endif
     @endif
 

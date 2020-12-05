@@ -58,8 +58,8 @@
 
                         @if($user)
                         <a href="{{ route('home') }}" class=" uk-visible@s button soft-warning disabled text-dark" style="cursor: pointer"> <i class="icon-line-awesome-money"></i> 0.0 Coins</a>
-                        <a href="{{ route('posts.new') }}" class="button outline-primary mr-1 small uk-hidden@l"> <i class="fa fa-plus"> </i></a>
-                        <a href="{{ route('posts.new') }}" class="button primary uk-visible@s ml-2"> <i class="uil-plus"> </i> Create New Topic</a>
+                        <a href="{{ route('topics.new') }}" class="button outline-primary mr-1 small uk-hidden@l"> <i class="fa fa-plus"> </i></a>
+                        <a href="{{ route('topics.new') }}" class="button primary uk-visible@s ml-2"> <i class="uil-plus"> </i> Create New Topic</a>
 
                         <!-- notificiation icon  -->
                         <a href="#" class="opts_icon uk-visible@s"  uk-tooltip="title: Notifications ; pos: bottom ;offset:7">

@@ -60,7 +60,7 @@
             </li>
           </ul>
           <hr class="mt-2"/>
-          <a href="{{ route('posts.new') }}" class="btn btn-default btn-block mb-4">
+          <a href="{{ route('topics.new') }}" class="btn btn-default btn-block mb-4">
             <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
               Create New Topic</a>
                   
@@ -113,7 +113,7 @@
                 </li>
         @else
             <li class="nav-item">
-                <a href="{{ route('posts.new') }}" class="nav-link ml-3 btn btn-icon btn-default text-white">
+                <a href="{{ route('topics.new') }}" class="nav-link ml-3 btn btn-icon btn-default text-white">
                     <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
                       <span class="d-none d-md-inline">Create New Topic</span></a>
             </li>

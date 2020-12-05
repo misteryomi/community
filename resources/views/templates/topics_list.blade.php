@@ -30,7 +30,7 @@
               </div>
               <div>
                 <div class="text-right block-mobile">
-                  <a href="{{ route('posts.new') }}" class="button primary small circle"> <i class="uil-plus"> </i> Create a New Topic
+                  <a href="{{ route('topics.new') }}" class="button primary small circle"> <i class="uil-plus"> </i> Create a New Topic
                   </a>
                 </div>
               </div>

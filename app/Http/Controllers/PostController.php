@@ -184,7 +184,7 @@ class PostController extends Controller
             $communities = $this->category->where('parent_id', $community->id)->ordered();
         }
 
-        return view('posts.new', compact('communities', 'community'));
+        return view('topics.new', compact('communities', 'community'));
     }
 
 
@@ -221,7 +221,7 @@ class PostController extends Controller
 
         $communities = $this->category->where('is_parent', true)->ordered();
 
-        return view('posts.new', compact('post', 'communities'))->withIsEdit(true);
+        return view('topics.new', compact('post', 'communities'))->withIsEdit(true);
     }
 
 

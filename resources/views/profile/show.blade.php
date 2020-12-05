@@ -6,20 +6,25 @@
                     <div class="profile-cover">
 
                         <!-- profile cover -->
-                        <img src="assets/images/avatars/profile-cover.jpg" alt="">
+                        <img src="{{ asset('assets/images/title-bg.png') }}" alt="">
 
-                        <a href="#"> <i class="uil-camera"></i> Edit </a>
+                        <!-- <a href="{{ route('profile.settings') }}"> <i class="uil-camera"></i> Edit </a> -->
 
                     </div>
 
                     <div class="profile-details">
                         <div class="profile-image">
-                            <img src="assets/images/avatars/avatar-2.jpg" alt="">
-                            <a href="#"> </a>
+                                {!! $user->displayAvatar() !!}
+                                <a href="{{ route('profile.avatar.settings') }}"> </a>
                         </div>
                         <div class="profile-details-info">
-                            <h1> Josephine Williams </h1>
-                            <p> Family , Food , Fashion , Fourever <a href="#">Edit </a></p>
+                            <h1> {{ $user->name }} </h1>
+                            @if($user->id == auth()->user()->id)
+                            <p> {{ $user->bio }}
+                            <small>Member since: {{ $user->date_joined }}</small>
+
+                            <a href="{{ route('profile.settings') }}">Edit </a></p>
+                            @endif
                         </div>
 
                     </div>
@@ -27,66 +32,38 @@
 
                     <div class="nav-profile" uk-sticky="offset:61;media : @s">
                         <div class="py-md-2 uk-flex-last">
-                            <a href="#" class="button primary mr-2"> <i class="uil-plus"></i> Add your story</a>
-                            <a href="#" class="button secondary button-icon mr-2"> <i class="uil-list-ul"> </i> </a>
-                            <a href="#" class="button secondary button-icon"> <i class="uil-ellipsis-h"> </i> </a>
+                            @if($user->id == auth()->user()->id)
+
+                            <a href="#" class="button primary mr-2"> <i class="uil-plus"></i>Post a New</a>
                             <div uk-dropdown="pos: bottom-left ; mode:hover ">
                                 <ul class="uk-nav uk-dropdown-nav">
-                                    <li><a href="#"> View as guast </a></li>
-                                    <li><a href="#"> Bloc this person </a></li>
-                                    <li><a href="#"> Report abuse</a></li>
+                                    <li><a href="{{ route('topics.new') }}"> Topic </a></li>
+                                    <li><a href="{{ route('rants.new') }}"> Rant </a></li>
+                                    <li><a href="{{ route('questions.new') }}"> Question</a></li>
                                 </ul>
                             </div>
+                            @endif
                         </div>
                         <div>
                             <nav class="responsive-tab">
                                 <ul>
-                                    <li class="uk-active"><a class="active" href="#">Timeline</a></li>
-                                    <li><a href="timeline-friends.html">About</a></li>
-                                    <li><a href="timeline-friends.html">Friend</a></li>
-                                    <li><a href="timeline-friends.html">Photoes</a></li>
-                                    <li><a href="timeline-friends.html">Videos</a></li>
+                                    <li class="uk-active"><a class="active" href="#">Topics</a></li>
+                                    <li><a href="?questions">Questions</a></li>
+                                    <li><a href="?rants">Rants</a></li>
+                                    <li><a href="?communities">Communities</a></li>
+                                    <li><a href="?followed-communities">Followed Communities</a></li>
                                 </ul>
                             </nav>
-                            <div class="uk-visible@s">
-                                <a href="#" class="nav-btn-more"> More</a>
-                                <div uk-dropdown="pos: bottom-left ; mode:click ">
-                                    <ul class="uk-nav uk-dropdown-nav">
-                                        <li><a href="#">Moves</a></li>
-                                        <li><a href="#">Likes</a></li>
-                                        <li><a href="#">Events</a></li>
-                                        <li><a href="#">Groups</a></li>
-                                        <li><a href="#">Gallery</a></li>
-                                        <li><a href="#">Sports</a></li>
-                                        <li><a href="#">Gallery</a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
                 </div>
 
+<br/>
 
 
-<div class="row">
-  <div class="col-xl-3 d-none d-md-block">
-      @if($user->id == auth()->user()->id)
-        <a href="{{ isset($community) ? route('posts.new', ['community' => $community->slug]) : route('posts.new') }}" class="btn btn-icon btn-default btn-block mb-4">
-                <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>
-                    Create New Topic
-        </a>
-      @endif
-      <div class="card my-4">
-        <!-- Card body -->
-        @include('profile.user_card')
-      </div>
-
-  </div>
-  <div class="col-xl-9 mb-xl-0">
       @php $userTopics = true @endphp
       @include('templates.topics_list')
-  </div>
 </div>
 @endsection
 
