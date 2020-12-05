@@ -20,11 +20,13 @@
 </div>
 
 <div class="uk-margin border-bottom border-top p-4 bg-light" uk-margin="">
-    <form action="?" method="get">
-        <div class="uk-form-custom uk-first-column">
+    <form action="?" class="uk-grid-small" uk-grid method="get">
+        <div class="uk-width-2-5@s">
             <input class="uk-input uk-form-width-large uk-form-large" name="q" type="text" placeholder="Search for Community" value="{{ request()->q }}" >
         </div>
-        <button type="submit" class="button large warning text-white">Search</button>
+        <div class="uk-width-1-5@s">
+            <button type="submit" class="button xlarge block warning text-white">Search</button>
+        </div>
     </form>
 </div>
 
