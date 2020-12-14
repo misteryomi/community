@@ -118,7 +118,7 @@ trait PostTrait
             ]);
         }
 
-        $this->setSEO($post->title, $post->excerpt, route('posts.show', ['post' => $post->slug]));
+        $this->setSEO($post->title, $post->excerpt, route('posts.show', ['post' => $post->slug]), $post->featured_image);
 
     }
 
