@@ -51,33 +51,14 @@ trait PostTrait
      * @return response
      */
     public function show(Request $request, Post $post) {
-
         $comments = $post->comments()->paginate(SELF::$PAGINATION_LIMIT);
-
-        $session_id =  $request->getSession()->getId();
-
-        $guestHasViewed = !$this->user && $post->views()->where('session_id', $session_id)->first();
-
-        $loggedInUserHasViewed = $this->user && $post->views()->where('user_id', $this->user->id)->first();
-
-        $hasViewed = $this->user ? $loggedInUserHasViewed : $guestHasViewed;
-
-        if(!$hasViewed) {
-            $post->views()->create([
-                'session_id' => $session_id,
-                'ip' => $request->getClientIp(),
-                'agent' => $request->header('User-Agent'),
-                'user_id' => $this->user ? $this->user->id : null,
-                'created_at' => now(),
-            ]);
-        }
-
-        $this->setSEO($post->title, $post->excerpt, route('posts.show', ['post' => $post->slug]));
-
         $related = $this->post->relatedTopics($post)->take(8)->get();
+
+        $this->preShow($request, $post);
 
         return view('posts.show', compact('post', 'comments', 'related'));
     }
+
 
 
     public function delete(Post $post) {
@@ -117,6 +98,29 @@ trait PostTrait
         return response(['status' => true]);
     }
 
+    protected function preShow($request, $post) {
+
+        $session_id =  $request->getSession()->getId();
+
+        $guestHasViewed = !$this->user && $post->views()->where('session_id', $session_id)->first();
+
+        $loggedInUserHasViewed = $this->user && $post->views()->where('user_id', $this->user->id)->first();
+
+        $hasViewed = $this->user ? $loggedInUserHasViewed : $guestHasViewed;
+
+        if(!$hasViewed) {
+            $post->views()->create([
+                'session_id' => $session_id,
+                'ip' => $request->getClientIp(),
+                'agent' => $request->header('User-Agent'),
+                'user_id' => $this->user ? $this->user->id : null,
+                'created_at' => now(),
+            ]);
+        }
+
+        $this->setSEO($post->title, $post->excerpt, route('posts.show', ['post' => $post->slug]));
+
+    }
 
     protected function preSubmit($requestData) {
 
@@ -136,6 +140,8 @@ trait PostTrait
         $requestData['slug'] = \Str::slug($requestData['title'], '-').'-'.$newID;
 
         $post = $this->user->posts()->create($requestData);
+
+        $this->user->coins->increment('balance', 5);
 
         return $post;
 

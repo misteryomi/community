@@ -57,13 +57,14 @@
                         <a href="{{ route('community.all') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-feather-bar-chart"></i> Communities</a>
 
                         @if($user)
-                        <a href="{{ route('home') }}" class=" uk-visible@s button soft-warning disabled text-dark" style="cursor: pointer"> <i class="icon-line-awesome-money"></i> 0.0 Coins</a>
+                        <a href="{{ route('home') }}" class=" uk-visible@s button soft-warning disabled text-dark" style="cursor: pointer"> <i class="icon-line-awesome-money"></i> {{ $user->coins->balance }} Coins</a>
                         <a href="{{ route('topics.new') }}" class="button outline-primary mr-1 small uk-hidden@l"> <i class="fa fa-plus"> </i></a>
                         <a href="{{ route('topics.new') }}" class="button primary uk-visible@s ml-2"> <i class="uil-plus"> </i> Create New Topic</a>
 
                         <!-- notificiation icon  -->
                         <a href="#" class="opts_icon uk-visible@s"  uk-tooltip="title: Notifications ; pos: bottom ;offset:7">
-                            <img src="{{ asset('assets/images/icons/bell.svg') }}" alt=""> <span>3</span>
+                            @php $notifications = $user->notifications->where('is_seen', 1)->count(); @endphp
+                            <img src="{{ asset('assets/images/icons/bell.svg') }}" alt=""> @if($notifications)<span>{{ $notifications }}</span>@endif
                         </a>
 
                         <!-- notificiation dropdown -->
@@ -76,98 +77,28 @@
                                 <!-- notivication header -->
                                 <div class="dropdown-notifications-headline">
                                     <h4>Notifications </h4>
-                                    <a href="#">
-                                        <i class="icon-feather-settings"
-                                            uk-tooltip="title: Notifications settings ; pos: left"></i>
+                                    <a href="{{ route('notifications') }}">
+                                        <i class="icon-feather-arrow-right"
+                                            uk-tooltip="title: View all notifications ; pos: left"></i>
                                     </a>
                                 </div>
 
                                 <!-- notiviation list -->
                                 <ul>
+                                    @foreach($user->notifications()->latest()->take(7)->get() as $notification)
                                     <li>
-                                        <a href="#">
+                                        <a href="{{ route('notification.show', ['notification' => $notification->id]) }}">
                                             <span class="notification-avatar">
-                                                <img src="{{ asset('assets/images/avatars/avatar-2.jpg') }}" alt="">
+                                                {!! $notification->fromUser->displayAvatar() !!}
                                             </span>
-                                            <span class="notification-icon bg-gradient-primary">
-                                                <i class="icon-feather-thumbs-up"></i></span>
                                             <span class="notification-text">
-                                                <strong>Adrian Moh.</strong> Like Your Comment On Video
-                                                <span class="text-primary">Learn Prototype Faster</span>
-                                                <br> <span class="time-ago"> 9 hours ago </span>
+                                                <strong>{{ $notification->fromUser->username }}</strong> {{ $notification->message }}
+                                                {{-- <span class="text-primary">Learn Prototype Faster</span> --}}
+                                                <br><span class="time-ago"> {{ $notification->date }} </span>
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="notification-avatar">
-                                                <img src="{{ asset('assets/images/avatars/avatar-3.jpg') }}" alt="">
-                                            </span>
-                                            <span class="notification-icon bg-gradient-danger">
-                                                <i class="icon-feather-star"></i></span>
-                                            <span class="notification-text">
-                                                <strong>Alex Dolgove</strong> Added New Review In Video
-                                                <span class="text-primary">Full Stack PHP Developer</span>
-                                                <br> <span class="time-ago"> 19 hours ago </span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="notification-avatar">
-                                                <img src="{{ asset('assets/images/avatars/avatar-4.jpg') }}" alt="">
-                                            </span>
-                                            <span class="notification-icon bg-gradient-success">
-                                                <i class="icon-feather-message-circle"></i></span>
-                                            <span class="notification-text">
-                                                <strong>Stella John</strong> Replay Your Comment in
-                                                <span class="text-primary">Adobe XD Tutorial</span>
-                                                <br> <span class="time-ago"> 12 hours ago </span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="notification-avatar">
-                                                <img src="{{ asset('assets/images/avatars/avatar-2.jpg') }}" alt="">
-                                            </span>
-                                            <span class="notification-icon bg-gradient-primary">
-                                                <i class="icon-feather-thumbs-up"></i></span>
-                                            <span class="notification-text">
-                                                <strong>Adrian Moh.</strong> Like Your Comment On Video
-                                                <span class="text-primary">Learn Prototype Faster</span>
-                                                <br> <span class="time-ago"> 9 hours ago </span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="notification-avatar">
-                                                <img src="{{ asset('assets/images/avatars/avatar-3.jpg') }}" alt="">
-                                            </span>
-                                            <span class="notification-icon bg-gradient-warning">
-                                                <i class="icon-feather-star"></i></span>
-                                            <span class="notification-text">
-                                                <strong>Alex Dolgove</strong> Added New Review In Video
-                                                <span class="text-primary">Full Stack PHP Developer</span>
-                                                <br> <span class="time-ago"> 19 hours ago </span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="notification-avatar">
-                                                <img src="{{ asset('assets/images/avatars/avatar-4.jpg') }}" alt="">
-                                            </span>
-                                            <span class="notification-icon bg-gradient-success">
-                                                <i class="icon-feather-message-circle"></i></span>
-                                            <span class="notification-text">
-                                                <strong>Stella John</strong> Replay Your Comment in
-                                                <span class="text-primary">Adobe XD Tutorial</span>
-                                                <br> <span class="time-ago"> 12 hours ago </span>
-                                            </span>
-                                        </a>
-                                    </li>
+                                    @endforeach
                                 </ul>
 
                             </div>
@@ -223,7 +154,7 @@
 
                             <hr class="m-0">
                             <ul class="dropdown-user-menu">
-                                <li><a href="group-feed.html" class="button soft-warning disabled"><i class="icon-line-awesome-money"></i> 0.0 Coins  </a></li>                                
+                                <li><a href="group-feed.html" class="button soft-warning disabled"><i class="icon-line-awesome-money"></i> {{ $user->coins->balance }} Coins  </a></li>                                
                                 <li><a href="{{ route('profile.show', ['user' => $user->clean_username]) }}"> <i class="uil-user"></i> Profile </a> </li>
                                 <li><a href="{{ route('topics.bookmarks') }}"> <i class="uil-bookmark"></i> Bookmarks </a></li>
                                 <li><a href="{{ route('topics.likes') }}"> <i class="uil-thumbs-up"></i> Liked Posts </a></li>

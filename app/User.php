@@ -81,6 +81,14 @@ class User extends Authenticatable
         return $this->hasOne(UserDetails::class, 'user_id');
     }
 
+    public function notifications() {
+        return $this->hasMany(Notification::class, 'user_id');
+    }
+
+    public function coins() {
+        return $this->hasOne(UserCoin::class, 'user_id');
+    }
+
     function posts() {
         return $this->hasMany(Post::class, 'user_id');
     }

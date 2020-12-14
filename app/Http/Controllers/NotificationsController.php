@@ -30,4 +30,13 @@ class NotificationsController extends Controller
 
         return view('notifications.list', compact('notifications'));
     }
+
+    public function show(Notification $notification) {
+
+        $notification->update([
+            'is_seen' => true
+        ]);
+
+        return redirect($notification->url);
+    }
 }

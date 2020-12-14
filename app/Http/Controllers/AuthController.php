@@ -48,6 +48,7 @@ class AuthController extends Controller
         $user = $this->user->create($requestData);
 
         $user->details()->create();
+        $user->coins()->create();
 
         if($request->has('utm_redirect')) {
             return redirect(route('login').'?utm_redirect='.$request->utm_redirect)->withMessage('Account created successfully. Please login to continue');            
@@ -80,6 +81,10 @@ class AuthController extends Controller
 
         if(!Auth::attempt(['username' => $user->original_username, 'password' => $request->password])){
             return redirect()->route('login')->withError('Invalid username/password');
+        }
+
+        if(!$user->coins) {
+            $user->coins()->create();
         }
 
         if($request->has('utm_redirect')) {

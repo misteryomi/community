@@ -1,40 +1,30 @@
 @extends('layouts.app')
-@section('header')
 
-@endsection
+
 @section('content')
 
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="card bg-secondary shadow">
-            <div class="card-header bg-white benquiry-0">
-              <div class="row align-items-center">
-                <div class="col-12">
-                  <h3 class="mb-0">Notifications</h3>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
+<div class="uk-grid-large uk-grid uk-grid-stack" uk-grid="">
+  <div class="uk-width-4-4@m uk-first-column">
+    <h1>Notifications</h1>
+
               @if($notifications->isEmpty())
                 <p>You have no new notification</p>
               @else
-              <ul class="list-group">
+              <ul class="uk-list uk-list-divider">
                 @foreach($notifications as $notification)     
-                  @if($notification->route) <a href="{{ route($notification->route) }}"> @endif          
-                  <li class="list-group-item"><p class="mb-0">{{ $notification->message }}</p><small>{{ $notification->created_at->diffForHumans() }}</small></li>
+                  @if($notification->route) <a href="{{ route($notification->route) }}"> @endif    
+                  <li> <strong><a href="{{  route('profile.show', ['user' =>  $notification->fromUser->clean_username]) }}">{{ $notification->fromUser->username }}</a></strong> <a href="{{ route('notification.show', $notification) }}">{{ $notification->message }}</a><br/><small>{{ $notification->created_at->diffForHumans() }}</small></li>      
                   @if($notification->route)</a> @endif          
 
                 @endforeach
               </ul>            
               @endif
-          </div>
-          <div class="justify-content-center d-flex mt-4">
-            {{ $notifications->links() }}
-          </div>
-        </div>
-      </div>
-    </div>
+          </ul>
+
+          {{ $notifications->links() }}
+
+  </div>
+</div>
 
 
 @endsection

@@ -12,13 +12,18 @@ trait ContentTrait {
         return $matches[0];
     }
 
-    private function notifyMentions($post, $mentions){
+    private function notifyMentions($post, $comment, $mentions){
 
         foreach($mentions as $mention) {
             $username = str_replace('@', '', $mention);
-            $checkExists = $this->user->where('username', $username)->count();
+            $user = $this->user->where('username', $username)->first();
 
-            if($checkExists) {
+            if($user) {
+                $user->notifications()->create([
+                    'message' => ' mentioned you in "'.$post->title.'"',
+                    'from_id' => auth()->user()->id,
+                    'url' => route('posts.show', ['post' => $post->slug]).'#'.$comment->id
+                ]);
                 //Send Notification of mention here
             }
         }

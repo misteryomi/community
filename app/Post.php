@@ -158,6 +158,10 @@ class Post extends Model
         return $this->created_at->diffInHours() > 25 ? $this->created_at->toDayDateTimeString() : $this->created_at->diffForHumans();
     }
 
+    // public function getPostTypeAttribute($value) {
+    //     return $value == null ? 1 : $value;
+    // }
+
     public function getPlCommentsAttribute() {
         $comments = $this->comments->count();
 
@@ -170,9 +174,14 @@ class Post extends Model
         return  $views.' '.\Str::plural('View',  $views);
     }
 
-
     public function canEdit() {
         return auth()->user() && auth()->user()->canEditPost($this);
+    }
+
+    public function canModerate() {
+        $user = auth()->user();
+
+        return $user && (($user->can('moderate') && $this->community->moderator_id == $user->id) || $user->hasRole('super-admin'));
     }
 
     public function generatePostId() {
@@ -187,6 +196,20 @@ class Post extends Model
 
     public function bookmarked() {
         return auth()->user() && $this->bookmarks()->where('user_id', auth()->user()->id)->first() ? true : false;
+    }
+
+    public function getPostsType($type) {
+
+        if($type == 'topics') {
+           return $this->whereHas('type', function($query) use ($type) {
+                        $query->where('name', $type);
+                    })->orWhere('post_type', null);
+        } else {
+            return $this->whereHas('type', function($query) use ($type) {
+                $query->where('name', $type);
+            });
+
+        }
     }
 
 

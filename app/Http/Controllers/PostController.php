@@ -62,6 +62,7 @@ class PostController extends Controller
         $communities = \App\Community::where('is_parent', true)->get(); //->ordered();
         
         $isHomepage = true;
+        $displayTopicsType = true;
 
         if($request->feed_type) {
 
@@ -73,7 +74,7 @@ class PostController extends Controller
 
         $trending = $this->getTrending()->take(7)->get();
 
-        return view('welcome', compact('posts', 'communities', 'isHomepage', 'agent', 'trending'));
+        return view('welcome', compact('posts', 'communities', 'isHomepage', 'agent', 'trending', 'displayTopicsType'));
     }
 
 
@@ -115,15 +116,21 @@ class PostController extends Controller
     public function latest(Request $request) {
         $agent = $this->agent;
 
-        $posts = $this->post->latest();
+
+        if($this->user && $this->user->settings && $this->user->settings->feed_type == 'communities') {
+            $posts = $this->user->communitiesTopics()->latest();
+        } else {
+            $posts = $this->post->latest();
+        }
         
         $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
 
         $communities = $this->category->where('is_featured', true)->get();
 
         $title = 'Latest Topics';
+        $displayTopicsType = true;
 
-        return view('posts.list', compact('posts', 'communities', 'title', 'agent'));
+        return view('posts.list', compact('posts', 'communities', 'title', 'agent', 'displayTopicsType'));
     }    
 
     public function trending(Request $request) {
@@ -184,7 +191,7 @@ class PostController extends Controller
             $communities = $this->category->where('parent_id', $community->id)->ordered();
         }
 
-        return view('topics.new', compact('communities', 'community'));
+        return view('posts.new', compact('communities', 'community'));
     }
 
 
@@ -237,5 +244,29 @@ class PostController extends Controller
     }
 
     
+    public function setFeatured(Request $request, Post $post) {
 
+        if(!$post->canModerate()) {
+            return redirect()->back()->withError('You are not authorized to perform this action');
+        }
+
+        $post->update([
+            'is_featured' => true
+        ]);
+
+        return redirect()->back()->withMessage('Successfully set as Featured!');
+    }
+
+    public function removeFeatured(Request $request, Post $post) {
+
+        if(!$post->canModerate()) {
+            return redirect()->back()->withError('You are not authorized to perform this action');
+        }
+
+        $post->update([
+            'is_featured' => false
+        ]);
+
+        return redirect()->back()->withMessage('Successfully removed from Featured!');
+    }
 }

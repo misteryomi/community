@@ -113,16 +113,16 @@
                     <!--  Optional Footer --> 
             <div id="foot">
 
-                <ul>
+                {{-- <ul>
                     <li> <a href="page-term.html"> About Us </a></li>
                     <li> <a href="page-setting.html"> Setting </a></li>
                     <li> <a href="page-privacy.html"> Privacy Policy </a></li>
                     <li> <a href="page-term.html"> Terms - Conditions </a></li>
                 </ul>
-
+ --}}
 
                 <div class="foot-content">
-                    <p>© 2019 <strong>JaraCentral</strong>. All Rights Reserved. </p>
+                    <p>© {{ date('Y') }} <strong>JaraCentral</strong>. All Rights Reserved. </p>
                 </div>
 
             </div> 

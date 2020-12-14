@@ -85,6 +85,8 @@ Route::name('posts.')->prefix('topic')->group(function() {
         Route::get('/{post}/edit', 'PostController@edit')->name('edit');
         Route::post('/{post}/edit', 'PostController@update')->name('post.edit');
         Route::get('/{post}/delete', 'PostController@delete')->name('delete');
+        Route::get('/{post}/set-featured', 'PostController@setFeatured')->name('set-featured');
+        Route::get('/{post}/remove-featured', 'PostController@removeFeatured')->name('remove-featured');
     });
 
     Route::get('/{post}', 'PostController@showPost')->name('show');
@@ -95,7 +97,7 @@ Route::name('posts.')->prefix('topic')->group(function() {
 Route::name('rants.')->prefix('rant')->group(function() {
     Route::middleware('auth')->group(function() {
         Route::get('/', 'RantController@new')->name('new');
-        Route::post('/store', 'RantController@store')->name('rant.new');
+        Route::post('/store', 'RantController@store')->name('store');
     
         Route::get('/{post}/edit', 'RantController@edit')->name('edit');
         Route::post('/{post}/edit', 'RantController@update')->name('edit.store');
@@ -178,6 +180,11 @@ Route::name('topics.')->prefix('topics')->middleware('auth')->group(function() {
     // Route::get('/bookmarks', 'UserController@savedTopics')->name('bookmarks');
 });
 
+Route::middleware('auth')->group(function() {
+    Route::get('/notifications', 'NotificationsController@index')->name('notifications');
+    Route::get('/notification/show/{notification}', 'NotificationsController@show')->name('notification.show');
+
+});
 Route::post('/media/upload', 'MediaManagerController')->name('media.upload')->middleware('auth');
 
 

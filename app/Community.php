@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Community extends Model
 {
@@ -22,6 +23,15 @@ class Community extends Model
 
     public function getColorAttribute($value) {
         return $value == null ? '#f5365c' : $value;
+    }
+
+    public function getNameAttribute($value) {
+        if($this->parent()->count() > 0) {
+            return $value . ' [' .$this->parent->name . ']';
+            // $this->parent->name .' →
+        }
+
+        return $value;
     }
 
     public function posts() {
@@ -58,7 +68,8 @@ class Community extends Model
 
 
     public function getExcerptAttribute() {
-        return 'Some text here in few seconds...';
+        return Str::words($this->about, 10);
+//        return 'Some text here in few seconds...';
     }
 
 

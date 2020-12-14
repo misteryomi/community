@@ -88,6 +88,24 @@ class JobController extends Controller
     }
 
 
+    /**
+     * Display post
+     * @param $post_id post_id of the post
+     * @return response
+     */
+    public function show(Request $request, Post $post) {
+
+        $this->preShow($request, $post);
+        
+        $comments = $post->comments()->paginate(SELF::$PAGINATION_LIMIT);
+        $related = $this->post->relatedTopics($post)->take(8)->get();
+
+        return view('jobs.show', compact('post', 'comments', 'related'));
+    }
+
+
+
+
 
     /**
      * Create a new post

@@ -51,11 +51,12 @@ class CommentController extends Controller
         $requestData['user_id'] = $this->user->id;
 
         $comment = $post->comments()->create($requestData);
+        $this->user->coins->increment('balance', 1);
 
         $mentions = $this->fetchMentions($request->comment);
 
         if(count($mentions) > 0) {
-            $this->notifyMentions($comment, $mentions);
+            $this->notifyMentions($post, $comment, $mentions);
         }
 
 

@@ -12,6 +12,7 @@ use App\User;
 use App\Mood;
 use App\RantMeta;
 use App\Community;
+use App\PostType;
 use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Traits\ContentTrait;
 use App\Http\Controllers\Traits\PostTrait;
@@ -32,13 +33,13 @@ class RantController extends Controller
 
     private static $PAGINATION_LIMIT = 20;
 
-    function __construct(Post $post, Community $community, Mood $mood, RantMeta $meta) {
+    function __construct(Post $post, Community $community, Mood $mood, RantMeta $meta, PostType $post_type) {
         $this->post = $post;
         $this->mood = $mood;
-        $this->category = $community;
         $this->meta = $meta;
         $this->agent = new Agent();
-        $this->rant_community = $community->where('name', 'rants')->first();
+        $this->communityObj = $community->where('name', 'rants')->first();
+        $this->post_type = $post_type->where('name', 'rants')->first();
         $this->meta_fields = ['is_public', 'is_anonymous'];
 
         $this->middleware(function($request, $next) {
@@ -57,13 +58,12 @@ class RantController extends Controller
      */
     public function all(Request $request) {
         $agent = $this->agent;
-        $community = $this->rant_community;
+ 
+        $posts = $this->post->getPostsType($this->post_type->name)->latest();
 
-        $posts = $this->post->where('community_id', $community->id)->orWhereHas('community', function($query) use($community) {
-
-                    $query->where('parent_id', $community->id);
-
-                })->latest();
+        // $posts = $this->post->where('community_id', $community->id)->orWhereHas('community', function($query) use($community) {
+        //             $query->where('parent_id', $community->id);
+        //         })->latest();
                 
         $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
 
@@ -82,10 +82,12 @@ class RantController extends Controller
      */
     public function new() {
 
-        $community = $this->rant_community;
-        $communities = $this->category->where('parent_id', $this->rant_community->id)->ordered();
+        $community = $this->communityObj;
+        $communities = $this->communityObj->where('parent_id', $community->id)->ordered();
 
-        return view('rants.new', compact('communities', 'community'));
+        $useChildCategories = true;
+
+        return view('rants.new', compact('communities', 'community', 'useChildCategories'));
     }
 
 
@@ -100,6 +102,7 @@ class RantController extends Controller
         $requestData = $request->except($this->meta_fields);
 
         $post = $this->preSubmit($requestData);
+        $post->update(['post_type' => $this->post_type->id]);
         
         $this->meta->create([
             'post_id' => $post->id,
