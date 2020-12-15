@@ -50,8 +50,19 @@
           @yield('content')
         </div>
       </div>
-
   </div>
+
+@guest
+<div id="modal-close-default" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        @include('auth.login-form')
+    </div>
+</div>    
+
+@endguest
+
+
 @include('layouts.scripts.darkmode')
 
 <script src="{{ asset('assets/js/framework.js') }}"></script>

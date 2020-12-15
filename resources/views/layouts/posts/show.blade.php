@@ -48,7 +48,7 @@
     
             <div class="btn-acts mt-5">
                 <div>
-                    <a href="#" class="button white circle like {{ $post->liked() ? 'liked ' : '' }}"  uk-tooltip="{{ $post->liked() ? 'Unlike ' : 'Like' }}" title="" aria-expanded="false">
+                    <a href="#" @guest  uk-toggle="target: #modal-close-default" class="button white circle" @else class="button white circle like {{ $post->liked() ? 'liked ' : '' }}" @endguest uk-tooltip="{{ $post->liked() ? 'Unlike ' : 'Like' }}" title="" aria-expanded="false">
                         <i class="uil-thumbs-up mr-1"></i> <span class="liked_text m-0 pr-1"> {{ $post->liked() ? 'Liked ' : 'Like' }}</span><span class="m-0 {{ $post->likes()->count() > 0  ? '' : 'uk-hidden'  }}"> - <span class=" m-0 likes-count">{{ $post->likes()->count() }}</span></span>
                     </a>
                     @yield('action_buttons')
@@ -100,7 +100,7 @@
           @else
                 <div id="comment" class="card mt-3">
                     <div class="card-body text-center">
-                        <a href="#" data-toggle="modal" data-target="#auth-modal"><strong>Login/Sign up to drop a comment</strong></a>               
+                        <a href="#" class="uk-margin-small-right" uk-toggle="target: #modal-close-default"><strong>Login/Sign up to drop a comment</strong></a>
                     </div>
                 </div>
         @endif

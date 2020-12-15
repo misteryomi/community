@@ -24,7 +24,7 @@
                             ['name' => 'Communities', 'routeName' => 'community.all', 'icon' => 'icon-feather-users'], 
                             ['name' => 'Rants', 'routeName' => 'rants', 'icon' => 'icon-brand-first-order-alt'], 
                             ['name' => 'Questions', 'routeName' => 'questions', 'icon' => 'icon-line-awesome-question'], 
-                            ['name' => 'Jobs', 'routeName' => 'jobs', 'icon' => 'icon-line-awesome-folder-open-o'], 
+                            // ['name' => 'Jobs', 'routeName' => 'jobs', 'icon' => 'icon-line-awesome-folder-open-o'], 
                             
                         ]
                     @endphp
