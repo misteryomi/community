@@ -36,20 +36,6 @@
                 </div>
               </div>
           </div>        
-
-        @if(isset($community))
-        <div class="uk-child-width-expand@s mb-4" uk-grid>
-            <div>
-
-          </div>
-            <div>
-              <div class="text-right block-mobile">
-              <a href="{{ route('posts.community.new', ['community' => $community->slug]) }}" class="button primary small circle"> <i class="uil-plus"> </i> Create a New Topic
-                </a>
-              </div>
-            </div>
-        </div>        
-        @endif
     </div>
 
 @include('templates.posts_list_template')

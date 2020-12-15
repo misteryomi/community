@@ -35,30 +35,46 @@
 @endif
 
     @if($communities->count() > 0)
-    <ul class=" uk-child-width-1-4@m uk-child-width-1-3@s  pr-lg-1 uk-grid"
-        uk-scrollspy="target: > div; cls: uk-animation-slide-bottom-small; delay: 100">
-
+    <div class="uk-child-width-1-3@m" uk-grid>
         @foreach($communities as $community)
-        <li>
-            <div class="group-card">
 
-                <!-- Group Card Thumbnail -->
-                <div class="group-card-thumbnail">
-                    <img src="{{ asset('assets/images/group/group-cover-1.jpg') }}" alt="">
+        <div>
+            <div class="friend-card">
+                <div class="uk-width-auto">
+                    <a href="{{ route('community.list', ['community' => $community->slug]) }}">
+                    {!! $community->displayAvatar() !!}
+                    </a>
                 </div>
+                <div class="uk-width-expand">
+                    <a href="{{ route('community.list', ['community' => $community->slug]) }}">
+                    <h3> {{ $community->name}} </h3>
+                    <p> <small>{{ $community->posts->count() }} Topics   - 
+                        {{ $community->followers->count() }} Followers</small> </p>
+                    </a>                        
+                    @if($community->userFollows(auth()->user()))
+                    <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button secondary small mb-1">
+                            Unfollow</a>
+                    @else
+                    <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button soft-primary small mb-1">
+                            Follow</a>
+                    @endif                          
+                </div>
+            </div>
+        </div>
 
-                <!-- Group Card Content -->
-                <div class="group-card-content">
-                    <h3><a href="{{  route('community.list', ['community' => $community->slug]) }}">{{ $community->name }}</a></h3>
 
-                    <p class="info"> <a href="{{  route('community.list', ['community' => $community->slug]) }}"> <span> {{ $community->posts->count() }} Topics  </span> </a> - 
-                        <a href="#"> <span> {{ $community->followers->count() }} Followers </span> </a>
-                    </p>
-                    <div class="uk-width-expand">
-                        <p>{{ $community->excerpt }}</p>
-                    </div>
+        {{-- 
+            <div class="friend-card">
+                <div class="uk-width-auto">
+                    {!! $community->displayAvatar() !!}
+                </div>
+                <div class="uk-width-expand">
+                    <h3> Stella Johnson </h3>
+                    <p> <small>{{ $community->posts->count() }} Topics   - 
+                        {{ $community->followers->count() }} Followers</small></p>
+                    <span> 1week ago </span>
 
-                    <div class="group-card-btns">
+                    <div class="friend-card-btns">
 
                         @if($community->userFollows(auth()->user()))
                         <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button secondary small mb-1">
@@ -66,17 +82,17 @@
                         @else
                         <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button primary small mb-1">
                                 Follow</a>
-                        @endif
-                   </div>
+                        @endif                        
+                    </div>
 
                 </div>
-            </div>
+            </div>            
+            <div class="group-card"> --}}
 
-        </li>
+
         @endforeach
 
-    </ul>
-
+    </div>
     {{ $communities->links('layouts.pagination.custom')}}
 
     @else

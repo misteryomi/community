@@ -1,32 +1,35 @@
 @include('layouts.partials.alert')
 
-    <div class="mt-3">
-      <h1 class="uk-heading-divider">
-        
-        @if(isset($title))
-          {{ $title }}
-        @else 
-         Latest Rants {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}
-        @endif      
-      </h1>
+<div class="mt-3">
+  <h1 class="uk-heading-divider">
+    
+    @if(isset($title))
+      {{ $title }}
+    @else 
+     Latest Jobs {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}
+    @endif      
+  </h1>
 
-      <a href="{{ route('jobs.new') }}" class="button primary small circle"> <i class="uil-plus"> </i> Post a new Job</a>
-        <br/><br/>
+  <a href="{{ route('jobs.new') }}" class="button primary small circle"> <i class="uil-plus"> </i> Post a new Job</a>
+    <br/>
 
-        @if(isset($community))
-        <div class="uk-child-width-expand@s mb-4" uk-grid>
-            <div>
 
-          </div>
-            <div>
-              <div class="text-right block-mobile">
-              <a href="{{ route('posts.community.new', ['community' => $community->slug]) }}" class="button primary small circle"> <i class="uil-plus"> </i> Create a New Topic
-                </a>
-              </div>
-            </div>
-        </div>        
-        @endif
+  <!-- job 1 -->
+  <div class="job-block">
+
+    @if($posts->count() > 0)
+      @foreach($posts as $post)
+      @include('jobs.post_card')
+      @endforeach
     </div>
 
-@php $routeName = 'rants.show'; @endphp
-@include('templates.posts_list_template')
+  </div>
+
+  @else
+  @if(request()->has('q'))
+  <p class="text-center text-md-left">No job found. Be the champion, <a href="{{ route('topics.new') }}"><strong>post a new job</strong></a>.</p>
+  @else 
+  <p class="text-center text-md-left">No job found. Be the champion, <a href="{{ route('topics.new') }}"><strong>post a new job</strong></a>.</p>
+  @endif
+@endif
+

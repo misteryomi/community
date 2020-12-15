@@ -141,7 +141,7 @@ trait PostTrait
 
         $post = $this->user->posts()->create($requestData);
 
-        $this->user->coins->increment('balance', 5);
+        $this->user->coins->increment('balance', 2);
 
         return $post;
 

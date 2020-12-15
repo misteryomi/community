@@ -13,7 +13,7 @@
 
     <div class="uk-alert-primary uk-alert" uk-alert="">
         <a class="uk-alert-close uk-icon uk-close" uk-close=""><svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" data-svg="close-icon"><line fill="none" stroke="#000" stroke-width="1.1" x1="1" y1="1" x2="13" y2="13"></line><line fill="none" stroke="#000" stroke-width="1.1" x1="13" y1="1" x2="1" y2="13"></line></svg></a>
-        <p>Please note: Job postings would be reviewed for approval before positng them live.
+        <p>Please note: Job postings would be reviewed for approval before posting them live.
         </p>
     </div>
 

@@ -15,6 +15,7 @@ use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Traits\PostTrait;
 
 use \Carbon\Carbon;
+use Facebook\Facebook;
 
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Routing\Route;
@@ -254,6 +255,9 @@ class PostController extends Controller
             'is_featured' => true
         ]);
 
+
+        $this->shareOnFB($post);
+
         return redirect()->back()->withMessage('Successfully set as Featured!');
     }
 
@@ -268,5 +272,22 @@ class PostController extends Controller
         ]);
 
         return redirect()->back()->withMessage('Successfully removed from Featured!');
+    }
+
+    private function shareOnFB($post) {
+
+        try {
+
+            $fb = new Facebook\Facebook([
+                'app_id' => '{app-id}',
+                'app_secret' => '{app-secret}',
+                'default_graph_version' => 'v2.10',
+            ]);
+
+            $response = $fb->post('/me/feed', ['message' => 'Foo message']);
+        } catch(\Exception $e) {
+            
+        }
+        
     }
 }

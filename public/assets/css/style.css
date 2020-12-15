@@ -8926,6 +8926,12 @@ header .opts_icon_link:hover {
   width: 100%;
   height: 110px;
 }
+.group-card-thumbnail h3 {
+  color: #fff;
+  padding-top: 20px;
+  font-size: 40px;
+}
+
 
 .group-card-thumbnail img {
   height: 100%;
@@ -12182,7 +12188,7 @@ ul.course-curriculum-list {
   border-radius: 4px !important;
   border-color: transparent;
   margin: 0;
-  border-left: 1px solid #dcdcdc;
+  /* border-left: 1px solid #dcdcdc; */
   margin-right: -4px;
   padding-right: 15px;
   padding-left: 3px;

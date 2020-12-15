@@ -6,12 +6,12 @@
         @if(isset($title))
           {{ $title }}
         @else 
-         Latest Rants {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}
+         Latest Questions {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}
         @endif      
       </h1>
 
       <a href="{{ route('questions.new') }}" class="button primary small circle"> <i class="uil-plus"> </i> Ask a new question</a>
-        <br/><br/>
+        <br/>
     </div>
 
-@include('templates.posts_list_template')
+@include('questions.questions_list_template')

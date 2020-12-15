@@ -34,7 +34,7 @@ class CommunityController extends Controller
     public function list(Community $community) {
         $agent = $this->agent;
 
-        $posts = $community->posts()->latest()->paginate(15);
+        $posts = $community->posts()->latest()->paginate(30);
 
         return view('posts.list', compact('community', 'posts', 'agent'));
     }
@@ -42,9 +42,9 @@ class CommunityController extends Controller
     public function all(Request $request) {
 
         if($request->has('q')) {
-            $communities = $this->community->where('name', 'LIKE', "%$request->q%")->paginate(15);
+            $communities = $this->community->where('name', 'LIKE', "%$request->q%")->paginate(45);
         } else {
-            $communities = $this->community->paginate(15);
+            $communities = $this->community->paginate(45);
         }
 
         return view('community.list', compact('communities'));

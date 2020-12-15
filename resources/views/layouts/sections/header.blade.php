@@ -64,7 +64,8 @@
                         <!-- notificiation icon  -->
                         <a href="#" class="opts_icon uk-visible@s"  uk-tooltip="title: Notifications ; pos: bottom ;offset:7">
                             @php $notifications = $user->notifications->where('is_seen', 1)->count(); @endphp
-                            <img src="{{ asset('assets/images/icons/bell.svg') }}" alt=""> @if($notifications)<span>{{ $notifications }}</span>@endif
+                            <i class="icon-feather-bell"></i>
+                            @if($notifications)<span>{{ $notifications }}</span>@endif
                         </a>
 
                         <!-- notificiation dropdown -->
@@ -93,14 +94,15 @@
                                             </span>
                                             <span class="notification-text">
                                                 <strong>{{ $notification->fromUser->username }}</strong> {{ $notification->message }}
-                                                {{-- <span class="text-primary">Learn Prototype Faster</span> --}}
                                                 <br><span class="time-ago"> {{ $notification->date }} </span>
                                             </span>
                                         </a>
                                     </li>
                                     @endforeach
+                                    <li class=" text-center">
+                                        <a href="{{ route('notifications') }}" class="">View all notifications &raquo;</i></a>
+                                    </li>
                                 </ul>
-
                             </div>
 
 

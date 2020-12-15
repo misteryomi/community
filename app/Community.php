@@ -27,7 +27,7 @@ class Community extends Model
 
     public function getNameAttribute($value) {
         if($this->parent()->count() > 0) {
-            return $value . ' [' .$this->parent->name . ']';
+            return $value; //. ' [' .$this->parent->name . ']';
             // $this->parent->name .' →
         }
 
@@ -81,5 +81,13 @@ class Community extends Model
             '.substr($this->name, 0, 1).'
             </span>
         ';
+    }
+
+    public function displayAvatar($size = 'sm') {
+        if(!$this->cover) {
+            return '<div class="avatar rounded-circle img-circle bg-light text-dark" style="width: 60px; height: 60px">'.\strtoupper(substr($this->name, 0, 1)).'</div>';
+        }
+
+        return '<img src="'.$this->cover.'" alt=""/>';
     }
 }

@@ -85,6 +85,25 @@ class QuestionController extends Controller
     }
 
 
+    /**
+     * Display post
+     * @param $post_id post_id of the post
+     * @return response
+     */
+    public function show(Request $request, Post $post) {
+
+        $this->preShow($request, $post);
+        
+        $comments = $post->comments()->paginate(SELF::$PAGINATION_LIMIT);
+        $related = $this->post->relatedTopics($post)->take(8)->get();
+        $best_answer = $post->comments()->find($post->meta->comment_answer_id);
+
+        if($request->has('best_answer')) {
+            $this->markAsBestAnswer($request, $post);
+        }
+
+        return view('questions.show', compact('post', 'comments', 'related', 'best_answer'));
+    }
 
     /**
      * Create a new post
@@ -156,5 +175,25 @@ class QuestionController extends Controller
         return redirect()->route('questions.show', ['post' => $post->slug]);
     }
 
+
+    private function markAsBestAnswer($request, $post) {
+
+        //check if the comment_id exists and if it doesn't belong to same original poster
+
+            $comment = $post->comments()->find($request->best_answer);
+
+            if(!$comment) {
+                return redirect()->back()->withError('Comment does not exist');
+            }
+
+            if($comment->user_id == $post->user_id) {
+                return redirect()->back()->withError('Sorry, you cannot mark your comment as best answer');
+            }
+
+            $comment->user->coins()->increment('balance', 2);
+            
+            return redirect()->back()->withMessage('Comment successfully marked as best answer');
+
+    }
 
 }

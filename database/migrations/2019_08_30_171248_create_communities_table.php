@@ -25,6 +25,8 @@ class CreateCommunitiesTable extends Migration
             $table->boolean('is_active')->default(1);
             $table->integer('moderator_id')->nullable();
             $table->string('color', 7)->nullable();
+            $table->boolean('avatar')->nullable();
+            $table->boolean('cover')->nullable();
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });
