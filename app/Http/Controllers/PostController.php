@@ -15,7 +15,7 @@ use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Traits\PostTrait;
 
 use \Carbon\Carbon;
-use Facebook\Facebook;
+use \Facebook\Facebook;
 
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Routing\Route;
@@ -278,15 +278,17 @@ class PostController extends Controller
 
         try {
 
-            $fb = new Facebook\Facebook([
-                'app_id' => '{app-id}',
-                'app_secret' => '{app-secret}',
+            $fb = new Facebook([
+                'app_id' => '4048791958483854',
+                'app_secret' => 'd98eac1cbb6ef96415e6ef7b0d34c16a',
                 'default_graph_version' => 'v2.10',
+                'default_access_token' => 'EAA5iWtZA0c44BANkYM3C10yRcYek983JdCjdxCOHOmPknXUTZAf2aT0qe9vRtCYSDyaBuT8nZAfZAOENFGC9Ioqrbp8v6fHrFeWQdEEAZA41a9uOkDZCi49RsqOUulv9gUSnsatzKFF9c3Eu9JZAcr9a3swnkj69h0xoiEBZCQDjG7oejnBPZB9eeP18cq8JCqPwZD'
             ]);
 
-            $response = $fb->post('/me/feed', ['message' => 'Foo message']);
+
+            $response = $fb->get('/150796238294196/feed', ['message' => 'Foo message']);
         } catch(\Exception $e) {
-            
+            dd($e);
         }
         
     }

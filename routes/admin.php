@@ -1,7 +1,7 @@
 <?php
 
 //Admin Routes
-Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
+Route::prefix('xo-admin')->name('admin.')->namespace('Admin')->group(function() {
     Route::get('/', 'AdminController')->name('admin');
 
     Route::namespace('Permission')->group(function() {
