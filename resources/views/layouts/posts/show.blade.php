@@ -198,19 +198,16 @@
         })
 
 
+        //Fix oembedd 
+        $('figure.media').each(function() {
+            let el = $(this);
+            let ytUrlEl = el.find('oembed');
+            let ytID = youtube_parser(ytUrlEl.attr('url'));
+
+            el.html(`<iframe width="100%" height="450" src="http://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
+        });
     })
 
-    //Fix oembedd 
-    $('figure.media').each(function() {
-        let el = $(this);
-        let ytUrlEl = el.find('oembed');
-        let ytID = youtube_parser(ytUrlEl.attr('url'));
-
-        console.log({ytID});
-        el.html(`<iframe width="100%" height="450" src="http://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
-        console.log(el);
-
-    });
 
     function youtube_parser(url){
         var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
