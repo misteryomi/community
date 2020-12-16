@@ -66,7 +66,7 @@ Route::get('/new-topic', 'PostController@new')->middleware('auth')->name('topics
 Route::name('posts.')->prefix('topic')->group(function() {
     Route::middleware('auth')->group(function() {
         Route::get('/{community}/new-topic', 'PostController@new')->name('community.new');
-        Route::post('/new-topic/store', 'PostController@store')->name('post.new');
+        Route::post('/store', 'PostController@store')->name('post.new');
         Route::post('/{post}/like/', 'PostController@like')->name('like');
         Route::post('/{post}/unlike/', 'PostController@unlike')->name('unlike');
         Route::post('/{post}/bookmark/', 'PostController@bookmark')->name('bookmark');

@@ -166,7 +166,7 @@ trait PostTrait
 
         //only owner or moderator can edit
 
-        $requestData = $request->except($this->meta_fields);
+        $requestData = isset($this->meta_fields) ? $request->except($this->meta_fields) : $request->all();
         $validation =  Validator::make($requestData, [
                         'title' => 'required|max:255',
                         'details' => 'required'

@@ -22,7 +22,7 @@
                 @if($comments->onFirstPage())
                 <div class="user-details-card py-0">
                     <div class="user-details-card-avatar" style="max-width: 40px">
-                        <img src="{{ $post->user->avatar }}" alt="">
+                        <!--{!! $post->user->displayAvatar() !!}-->
                     </div>
                     <div class="user-details-card-name">
                         {{ ucfirst($post->user->username) }} <span> {{ $post->user->level }} <span> {{ $post->date }} </span> </span>
@@ -77,6 +77,7 @@
                                 <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">Edit</a>
                             </li>
                             @endif
+                            
 
                             @if($post->canModerate())
                             <li>

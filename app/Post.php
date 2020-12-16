@@ -180,7 +180,7 @@ class Post extends Model
 
     public function canModerate() {
         $user = auth()->user();
-
+        
         return $user && (($user->can('moderate') && $this->community->moderator_id == $user->id) || $user->hasRole('super-admin'));
     }
 

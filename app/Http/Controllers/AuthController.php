@@ -129,9 +129,13 @@ class AuthController extends Controller
                 $userData = $this->user->firstOrNew(['email' => $user->email, 'username' => $username, 'google_id' => $user->id], [
                     'password' => Str::random(40),
                 ]);
+                
+                
         
             }
-
+              if(!$userData->coins) {
+                    $userData->coins()->create();
+                }
 
 
             $userData->details()->firstOrNew(['user_id' => $userData->id], [

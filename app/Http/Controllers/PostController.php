@@ -229,7 +229,7 @@ class PostController extends Controller
 
         $communities = $this->category->where('is_parent', true)->ordered();
 
-        return view('topics.new', compact('post', 'communities'))->withIsEdit(true);
+        return view('posts.new', compact('post', 'communities'))->withIsEdit(true);
     }
 
 
@@ -256,7 +256,7 @@ class PostController extends Controller
         ]);
 
 
-        $this->shareOnFB($post);
+//        $this->shareOnFB($post);
 
         return redirect()->back()->withMessage('Successfully set as Featured!');
     }
