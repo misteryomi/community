@@ -137,7 +137,7 @@ trait PostTrait
 
 
         $newID = $this->post->count() + 1;
-        $requestData['slug'] = \Str::slug($requestData['title'], '-').'-'.$newID;
+        $requestData['slug'] = \Str::slug(substr($requestData['title'], 0, 50), '-').'-'.$newID;
 
         $post = $this->user->posts()->create($requestData);
 

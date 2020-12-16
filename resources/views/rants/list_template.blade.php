@@ -16,4 +16,4 @@
 
     </div>
 
-@include('templates.posts_list_template')
+@include('rants.rants_list_template')
