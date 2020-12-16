@@ -201,14 +201,14 @@
     })
 
     //Fix oembedd 
-    $('figure.media').ready(function() {
-        console.log('ready')
-        let ytUrlEl = $(this).find('oembed');
+    $('figure.media').each(function() {
+        let el = $(this);
+        let ytUrlEl = el.find('oembed');
         let ytID = youtube_parser(ytUrlEl.attr('url'));
 
         console.log({ytID});
-
-        $(this).html(`<iframe width="100%" height="450" src="http://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
+        el.html(`<iframe width="100%" height="450" src="http://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
+        console.log(el);
 
     });
 
