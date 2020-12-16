@@ -9,7 +9,7 @@
   {!! SEO::generate() !!}
 
   <title>
-    {{ env('APP_NAME') }} - The Nigerian 411 Discussion Community
+    {{ env('APP_NAME') }} - The Nigerian Discussion Community
   </title>
   <link href="{{ asset('assets/img/favicon.png') }}" rel="icon" type="image/png">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
