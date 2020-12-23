@@ -10,7 +10,7 @@
   {!! SEO::generate() !!}
 
   <title>
-    {{ env('APP_NAME') }} - The Nigerian 411 Discussion Community
+    {{ env('APP_NAME') }} - The Nigerian Discussion Community
   </title>
   <link href="{{ asset('assets/images/favicon.png') }}" rel="icon" type="image/png">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -26,7 +26,7 @@
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
-
+<script data-ad-client="ca-pub-3576547045661858" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53641905-1"></script>
 <script>
@@ -36,7 +36,15 @@
 
   gtag('config', 'UA-53641905-1');
 </script>
-
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  window.OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "0a139ea8-73c0-4d6e-8e77-7cda287b6239",
+    });
+  });
+</script>
 
 </head>
 

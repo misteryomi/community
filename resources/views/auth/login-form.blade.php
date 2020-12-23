@@ -3,6 +3,12 @@
     <p class="my-2">New here?
     <a href="{{ route('register') }}" class="uk-link text-primary">Create an account</a> </p>
 </div>
+<div class="text-center mt-3">
+    <a href="login/google" class="button danger  text-white mb-2">
+        <i class="fa fa-google mr-3"></i> Continue with Google
+    </a>
+</div>
+<hr/>
 
 <form action="{{ route('post.login') }}{{ request()->has('utm_redirect') ? '?utm_redirect='.request()->utm_redirect : '?utm_redirect='.request()->fullUrl() }}" method="POST">
   @csrf
@@ -22,9 +28,3 @@
 </form>
 <a href="{{ route('forgot-password') }}" class="text-center uk-display-block"> Forgot your password?</a>
 
-<hr/>
-<div class="text-center mb-3">
-    <a href="login/google" class="button danger block text-white mb-2">
-        <i class="fa fa-google mr-3"></i> Continue with Google
-    </a>
-</div>
