@@ -35,5 +35,9 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => '/login/google/callback', // route('google.callback'),
     ],
+    'onesignal' => [
+        'app_id' => env('ONESIGNAL_APP_ID'),
+        'rest_api_key' => env('ONESIGNAL_REST_API_KEY')
+    ],    
 
 ];

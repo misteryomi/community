@@ -2,11 +2,15 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use \Carbon\Carbon;
 
 class Post extends Model
 {
+
+    use Notifiable;
+
     protected $guarded = [];
 
 

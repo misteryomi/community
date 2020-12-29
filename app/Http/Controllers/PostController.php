@@ -13,7 +13,8 @@ use App\User;
 use App\PostType;
 use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Traits\PostTrait;
-
+use Illuminate\Notifications\Notification;
+use App\Notifications\NewPost;
 use \Carbon\Carbon;
 use \Facebook\Facebook;
 
@@ -256,7 +257,9 @@ class PostController extends Controller
         ]);
 
 
-//        $this->shareOnFB($post);
+//        dd($post->notify(new NewPost($post)));
+
+        $this->shareOnFB($post);
 
         return redirect()->back()->withMessage('Successfully set as Featured!');
     }
@@ -281,12 +284,17 @@ class PostController extends Controller
             $fb = new Facebook([
                 'app_id' => '4048791958483854',
                 'app_secret' => 'd98eac1cbb6ef96415e6ef7b0d34c16a',
-                'default_graph_version' => 'v2.10',
-                'default_access_token' => 'EAA5iWtZA0c44BANkYM3C10yRcYek983JdCjdxCOHOmPknXUTZAf2aT0qe9vRtCYSDyaBuT8nZAfZAOENFGC9Ioqrbp8v6fHrFeWQdEEAZA41a9uOkDZCi49RsqOUulv9gUSnsatzKFF9c3Eu9JZAcr9a3swnkj69h0xoiEBZCQDjG7oejnBPZB9eeP18cq8JCqPwZD'
+//                'default_graph_version' => 'v2.10',
+                // 'default_access_token' => 'EAA5iWtZA0c44BANkYM3C10yRcYek983JdCjdxCOHOmPknXUTZAf2aT0qe9vRtCYSDyaBuT8nZAfZAOENFGC9Ioqrbp8v6fHrFeWQdEEAZA41a9uOkDZCi49RsqOUulv9gUSnsatzKFF9c3Eu9JZAcr9a3swnkj69h0xoiEBZCQDjG7oejnBPZB9eeP18cq8JCqPwZD'
             ]);
 
+            $accessToken = 'EAA5iWtZA0c44BAFOSTyA8yRgYTiHCvbXxGeNG6lrumiSCnZA1GxZAfLzfID8BnumGr0L6uwZAZCEUuRGsalvdBRgkefEOOc0QwoHEFPPkTSxTiRSSOmVSPmzSnwYXZBQPTQ4e1t8dM6fzHrHIEBRLFMjmD0KjmFmGMQZCpl41i60RKOc5jZBgOVp1Sfm9yxEGnjmfUfEUYBCwQZDZD';
 
-            $response = $fb->get('/150796238294196/feed', ['message' => 'Foo message']);
+            $url = route('posts.show', ['post' => $post->slug]); //'https://jaracentral.com';
+            $excerpt = html_entity_decode($post->excerpt);
+
+            $response = $fb->post('/150796238294196/feed', ['message' => "$post->title\n\n\n$excerpt\n\nContinue reading: $url", 'link' => $url ], $accessToken);
+
         } catch(\Exception $e) {
             dd($e);
         }

@@ -13,6 +13,7 @@
         "facebook/graph-sdk": "^5.7",
         "fideloper/proxy": "^4.0",
         "jenssegers/agent": "^2.6",
+        "laravel-notification-channels/onesignal": "^2.2",
         "laravel/framework": "^6.2",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^1.0",
