@@ -18,6 +18,7 @@ use App\Notifications\NewPost;
 use \Carbon\Carbon;
 use \Facebook\Facebook;
 
+use OneSignal;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Routing\Route;
 
@@ -257,8 +258,9 @@ class PostController extends Controller
         ]);
 
 
-//        dd($post->notify(new NewPost($post)));
+    //    dd($post->notify(new NewPost($post)));
 
+        $this->sendPushNotification($post);
         $this->shareOnFB($post);
 
         return redirect()->back()->withMessage('Successfully set as Featured!');
@@ -296,8 +298,22 @@ class PostController extends Controller
             $response = $fb->post('/150796238294196/feed', ['message' => "$post->title\n\n\n$excerpt\n\nContinue reading: $url", 'link' => $url ], $accessToken);
 
         } catch(\Exception $e) {
-            dd($e);
+            // dd($e);
         }
         
+    }
+
+    public function sendPushNotification($post) {
+        try {
+
+            OneSignal::sendNotificationToAll(
+                // "Some Message", 
+                $post->title, 
+                $url = route('posts.show', ['post' => $post->slug]), //'http://jaracentral.com/',
+                $data = null, 
+            );
+        } catch (\Exception $e) {
+            dd($e);
+        }
     }
 }

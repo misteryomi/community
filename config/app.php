@@ -168,6 +168,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        Berkayk\OneSignal\OneSignalServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,6 +232,7 @@ return [
 
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class
 
 
     ],
