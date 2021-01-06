@@ -11,6 +11,7 @@ use App\Http\Resources\PostsListCollection;
 use App\Post;
 use App\User;
 use App\PostType;
+use App\Comment;
 use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Traits\PostTrait;
 use Illuminate\Notifications\Notification;
@@ -27,14 +28,16 @@ class PostController extends Controller
     use SEOTrait, PostTrait;
 
     private $post;
+    private $comment;
     private $community;
     private $user;
     private $agent;
 
     private static $PAGINATION_LIMIT = 20;
 
-    function __construct(Post $post, Community $community) {
+    function __construct(Post $post, Community $community, User $users) {
         $this->post = $post;
+        $this->users = $users;
         $this->category = $community;
         $this->agent = new Agent();
         $this->post_type = PostType::where('name', 'topics')->first();
@@ -55,6 +58,8 @@ class PostController extends Controller
     public function index(Request $request) {
         $agent = $this->agent;
 
+
+        $engagements = $this->post->highestEngagements(Carbon::now()->subtract(7, 'years'), Carbon::now())->take(5)->get();
 
         if($this->user && $this->user->settings && $this->user->settings->feed_type == 'communities') {
             $posts = $this->user->communitiesTopics()->latest()->paginate(SELF::$PAGINATION_LIMIT);
@@ -77,7 +82,7 @@ class PostController extends Controller
 
         $trending = $this->getTrending()->take(7)->get();
 
-        return view('welcome', compact('posts', 'communities', 'isHomepage', 'agent', 'trending', 'displayTopicsType'));
+        return view('welcome', compact('posts', 'communities', 'isHomepage', 'agent', 'trending', 'displayTopicsType', 'engagements'));
     }
 
 
@@ -316,4 +321,6 @@ class PostController extends Controller
             dd($e);
         }
     }
+
+
 }

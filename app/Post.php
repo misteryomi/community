@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use \Carbon\Carbon;
+use DB;
 
 class Post extends Model
 {
@@ -255,4 +256,15 @@ class Post extends Model
         //var_dump our array of images.
         return($extractedImages);        
     }
+
+    public function highestPosters($from, $to) {
+       return $this->select('user_id', DB::raw('count(*) as total'))->groupBy('user_id')->orderBy('total', 'desc')->whereBetween('created_at', [$from, $to])->get();
+    }
+
+
+    public function highestEngagements($from, $to) {
+        return $this->whereBetween('posts.created_at', [$from, $to])->leftJoin('comments', function($query) use($from, $to) {
+            $query->on('comments.post_id', '=', 'posts.id')->whereBetween('comments.created_at', [$from, $to]);
+        })->select('posts.user_id', DB::raw('(count(posts.id) +  count(comments.id)) as total'),  DB::raw('count(posts.id) as posts_count'), DB::raw('count(comments.id) as comments_count'))->groupBy('posts.user_id')->orderBy('total', 'desc')->with('user');
+    }    
 }

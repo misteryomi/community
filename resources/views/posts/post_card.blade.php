@@ -17,10 +17,15 @@
             <span class="blog-post-info-date">{{ $post->date }}</span>
         </div>
         <h3>{!! request()->has('q') ? $post->highlightSearchQuery($post->title, request()->q) : $post->title !!}</h3>
-        @if(!$agent->isMobile())
         {!! request()->has('q') ? $post->highlightSearchQuery($post->excerpt, request()->q) : $post->excerpt !!} </span>
-        @endif
-
+        @if($agent->isMobile())
+        <div class="blog-post-thumbnail my-2 mb-3">
+            <div class="blog-post-thumbnail-inner">
+                <img src="{{ $post->featured_image }}" alt="">
+            </div>
+        </div>
+      @endif
+    
         <div class="group-card-content pl-0 p-sm-0 ">
             <p class="info"> 
             <span><i class="icon-feather-user"></i> {{ $post->user->username }} 

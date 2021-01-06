@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Comment extends Model
 {
@@ -37,4 +38,9 @@ class Comment extends Model
     public function liked() {
         return auth()->user() && $this->likes()->where('user_id', auth()->user()->id)->first() ? true : false;
     }
+
+    public function highestCommenters($from, $to) {
+        return $this->select('user_id', DB::raw('count(*) as total'))->groupBy('user_id')->orderBy('total', 'desc')->whereBetween('created_at', [$from, $to])->get();
+    }
+            
 }

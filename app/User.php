@@ -33,7 +33,7 @@ class User extends Authenticatable
      */
     public function resolveRouteBinding($value)
     {
-        return $this->where('username', $value)->firstOrFail();
+        return $this->where('username', str_replace('@', '', $value))->firstOrFail();
     }
 
 
@@ -155,5 +155,6 @@ class User extends Authenticatable
 
         return '<img src="'.$this->avatar.'" alt=""/>';
     }
+
 
 }

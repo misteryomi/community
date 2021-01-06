@@ -25,6 +25,23 @@
   <div class="uk-width-expand uk-grid-margin uk-first-column">
     <div class="sidebar-filter uk-sticky" uk-sticky="offset:70 ; media : @s: bottom: true" style="">
 
+        @if($engagements->count() > 0)
+        <div class="mb-4">
+            <h3 class="mt-2">Top Active Users this Week</h3>
+            @foreach($engagements as $engagement)
+            <div class="friend-card">
+                <div class="uk-width-auto">
+                    {!! $engagement->user->displayAvatar() !!}
+                </div>
+                <div class="uk-width-expand">
+                    <h3><a href="{{ route('profile.show', [$engagement->user->name]) }}">{{ $engagement->user->name }}</a></h3>
+                    <p> <small>{{ $engagement->posts_count }} posts | {{ $engagement->comments_count }} comments</small></p>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
+
     <h3 class="mt-2">Trending Topics</h3>
     <div class="uk-card-default rounded mb-4 p-3">
         <ul class="uk-list uk-list-divider">
