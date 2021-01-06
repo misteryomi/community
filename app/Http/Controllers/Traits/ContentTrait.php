@@ -22,7 +22,7 @@ trait ContentTrait {
                 $user->notifications()->create([
                     'message' => ' mentioned you in "'.$post->title.'"',
                     'from_id' => auth()->user()->id,
-                    'url' => route('posts.show', ['post' => $post->slug]).'#'.$comment->id
+                    'url' => $comment ?  route('posts.show', ['post' => $post->slug]).'#'.$comment->id :  route('posts.show', ['post' => $post->slug])
                 ]);
                 //Send Notification of mention here
             }

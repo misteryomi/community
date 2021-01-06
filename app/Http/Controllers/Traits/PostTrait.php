@@ -154,7 +154,7 @@ trait PostTrait
         $mentions = $this->fetchMentions($request->details);
 
         if(count($mentions) > 0) {
-            $this->notifyMentions($post, $mentions);
+            $this->notifyMentions($post, null, $mentions);
         }        
     }
 
