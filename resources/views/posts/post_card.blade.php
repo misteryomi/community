@@ -18,7 +18,7 @@
         </div>
         <h3>{!! request()->has('q') ? $post->highlightSearchQuery($post->title, request()->q) : $post->title !!}</h3>
         {!! request()->has('q') ? $post->highlightSearchQuery($post->excerpt, request()->q) : $post->excerpt !!} </span>
-        @if($agent->isMobile())
+        @if($post->featured_image && $agent->isMobile())
         <div class="blog-post-thumbnail my-2 mb-3">
             <div class="blog-post-thumbnail-inner">
                 <img src="{{ $post->featured_image }}" alt="">
