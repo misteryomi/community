@@ -31,7 +31,7 @@
             @foreach($engagements as $engagement)
             <div class="friend-card">
                 <div class="uk-width-auto">
-                    {!! $engagement->user->displayAvatar() !!}
+                    {{-- {!! $engagement->user->displayAvatar() !!} --}}
                 </div>
                 <div class="uk-width-expand">
                     <h3><a href="{{ route('profile.show', [$engagement->user->name]) }}">{{ $engagement->user->name }}</a></h3>
