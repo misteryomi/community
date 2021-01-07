@@ -303,7 +303,7 @@ class PostController extends Controller
             $response = $fb->post('/150796238294196/feed', ['message' => "$post->title\n\n\n$excerpt\n\nContinue reading: $url", 'link' => $url ], $accessToken);
 
         } catch(\Exception $e) {
-            dd($e);
+            // dd($e);
         }
         
     }
