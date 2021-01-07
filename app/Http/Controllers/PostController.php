@@ -318,7 +318,7 @@ class PostController extends Controller
                 $data = null, 
             );
         } catch (\Exception $e) {
-            dd($e);
+            // dd($e);
         }
     }
 
