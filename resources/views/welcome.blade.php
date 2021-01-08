@@ -23,7 +23,7 @@
     @include('templates.topics_list')
   </div>
   <div class="uk-width-expand uk-grid-margin uk-first-column">
-    <div class="sidebar-filter uk-sticky" uk-sticky="offset:70 ; media : @s: bottom: true" style="">
+    {{-- <div class="sidebar-filter uk-sticky" uk-sticky="offset:70 ; media : @s: bottom: true" style=""> --}}
 
         @if($engagements->count() > 0)
         <div class="mb-4">
@@ -67,7 +67,7 @@
          (adsbygoogle = window.adsbygoogle || []).push({});
     </script>    
 
-</div>
+{{-- </div> --}}
 
 
 @endsection
