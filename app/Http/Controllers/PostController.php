@@ -263,10 +263,13 @@ class PostController extends Controller
         ]);
 
 
-    //    dd($post->notify(new NewPost($post)));
+        // dd($post->notify(new NewPost($post)));
 
-        $this->sendPushNotification($post);
-        $this->shareOnFB($post);
+    //     $this->sendPushNotification($post);
+    //    dd($post->notify());
+
+        // $this->sendPushNotification($post);
+       $this->shareOnFB($post);
 
         return redirect()->back()->withMessage('Successfully set as Featured!');
     }
@@ -303,7 +306,7 @@ class PostController extends Controller
             $response = $fb->post('/150796238294196/feed', ['message' => "$post->title\n\n\n$excerpt\n\nContinue reading: $url", 'link' => $url ], $accessToken);
 
         } catch(\Exception $e) {
-            // dd($e);
+            // dd($e);d
         }
         
     }
@@ -318,7 +321,7 @@ class PostController extends Controller
                 $data = null, 
             );
         } catch (\Exception $e) {
-            // dd($e);
+            dd($e);
         }
     }
 

@@ -73,12 +73,17 @@
 
 @include('layouts.scripts.darkmode')
 
+
 <script src="{{ asset('assets/js/framework.js') }}"></script>
 <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('assets/js/simplebar.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
+
+<script> window._peq = window._peq || []; window._peq.push(["init"]); </script>
+<script src="https://clientcdn.pushengage.com/core/b78d4cce-bb83-4338-ba11-e57810cc.js" async></script>
+<script src="{{ asset('assets/js/service-worker.js') }}"></script>
 
 @yield('scripts')
 </body>
