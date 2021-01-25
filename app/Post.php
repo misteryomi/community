@@ -288,6 +288,6 @@ class Post extends Model implements Feedable
 
     public static function getAllFeedItems()
     {
-       return Post::all();
+       return Post::latest()->take(200)->get();
     }    
 }
