@@ -9,6 +9,8 @@ class SitemapController extends Controller
 {
     function __invoke()
     {
-        SitemapGenerator::create(env('APP_URL'))->writeToFile(public_path('sitemap.xml'));        
+        SitemapGenerator::create(env('APP_URL'))->writeToFile(public_path('sitemap.xml'));  
+
+        return redirect('sitemap.xml');      
     }
 }

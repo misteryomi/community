@@ -137,6 +137,7 @@ class User extends Authenticatable
 
 
     function canEditPost($post) {
+        //check "can moderate community" first oh
         return $post->user && ($this->hasRole('super-admin') || $this->hasRole('moderator') || $this->id == $post->user->id);
     }
 

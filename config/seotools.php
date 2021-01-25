@@ -49,7 +49,7 @@ return [
          */
         'defaults' => [
             'card'        => 'summary',
-            'site'        => '@jara_central',
+            'site'        => '@JaracentralHQ',
         ],
     ],
     'json-ld' => [
@@ -57,7 +57,7 @@ return [
          * The default configurations to be used by the json-ld generator.
          */
         'defaults' => [
-            'title'       => env("APP_NAME").'- The Nigerian 411 Discussion Community!', // set false to total remove
+            'title'       => env("APP_NAME").'- The Nigerian Discussion Community!', // set false to total remove
             'description' => 'The Nigerian Community', // set false to total remove
             'url'         => false, // Set null for using Url::current(), set false to total remove
             'type'        => 'WebPage',
