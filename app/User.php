@@ -137,7 +137,7 @@ class User extends Authenticatable
 
 
     function canEditPost($post) {
-        return $post->user && ($this->hasRole('moderator') || $this->id == $post->user->id);
+        return $post->user && ($this->hasRole('super-admin') || $this->hasRole('moderator') || $this->id == $post->user->id);
     }
 
     function canDeletePost($post) {
