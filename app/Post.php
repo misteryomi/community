@@ -288,6 +288,6 @@ class Post extends Model implements Feedable
 
     public static function getAllFeedItems()
     {
-       return Post::where('is_featured')->latest()->take(200)->get();
+       return Post::where('is_featured', 1)->latest()->take(200)->get();
     }    
 }
