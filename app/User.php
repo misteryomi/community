@@ -31,11 +31,13 @@ class User extends Authenticatable
     /**
      * For routing using {username}
      */
-    public function resolveRouteBinding($value)
-    {
-        return $this->where('username', str_replace('@', '', $value))->firstOrFail();
+    // public function resolveRouteBinding($value)
+    // {
+    //     return $this->where('username', str_replace('@', '', $value))->firstOrFail();
+    // }
+    public function getRouteKeyName() {
+        return 'slug';
     }
-
 
     public function getOriginalUsernameAttribute() {
         return str_replace('@', '', $this->username);

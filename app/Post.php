@@ -6,8 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use \Carbon\Carbon;
 use DB;
+use Spatie\Feed\Feedable;
+use Spatie\Feed\FeedItem;
 
-class Post extends Model
+class Post extends Model implements Feedable
 {
 
     use Notifiable;
@@ -18,11 +20,15 @@ class Post extends Model
     /**
      * For routing using {slug}
      */
-    public function resolveRouteBinding($value)
+    public function getRouteKeyName()
     {
-        return $this->where('slug', $value)->firstOrFail();
+        return 'slug';
     }
 
+    // public function resolveRouteBinding($value)
+    // {
+    //     return $this->where('slug', $value)->firstOrFail();
+    // }
 
     public function setTitleAttribute($value) {
         $title = '';
@@ -266,5 +272,22 @@ class Post extends Model
         return $this->whereBetween('posts.created_at', [$from, $to])->leftJoin('comments', function($query) use($from, $to) {
             $query->on('comments.post_id', '=', 'posts.id')->whereBetween('comments.created_at', [$from, $to]);
         })->select('posts.user_id', DB::raw('(count(posts.id) +  count(comments.id)) as total'),  DB::raw('count(posts.id) as posts_count'), DB::raw('count(comments.id) as comments_count'))->groupBy('posts.user_id')->orderBy('total', 'desc')->with('user');
+    }    
+
+
+    public function toFeedItem(): FeedItem
+    {
+        return FeedItem::create()
+            ->id($this->id)
+            ->title($this->title)
+            ->summary($this->excerpt)
+            ->updated($this->updated_at)
+            ->link($this->route())
+            ->author($this->user->name);
+    }
+
+    public static function getAllFeedItems()
+    {
+       return Post::all();
     }    
 }

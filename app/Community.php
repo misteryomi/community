@@ -11,11 +11,14 @@ class Community extends Model
     /**
      * For routing using {slug}
      */
-    public function resolveRouteBinding($value)
-    {
-        return $this->where('slug', $value)->firstOrFail();
-    }
+    // public function resolveRouteBinding($value)
+    // {
+    //     return $this->where('slug', $value)->firstOrFail();
+    // }
 
+    public function getRouteKeyName() {
+        return 'slug';
+    }
 
     public function scopeOrdered($query) {
         return $query->orderBy('name')->get();

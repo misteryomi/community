@@ -11,6 +11,8 @@
 |
 */
 
+Route::feeds();
+
 Route::get('/', 'PostController@index')->name('home');
 Route::get('/topics', 'PostController@all')->name('topics');
 Route::get('/latest', 'PostController@latest')->name('latest');
@@ -44,7 +46,7 @@ Route::name('community.')->group(function() {
     Route::get('/communities/search-api', 'CommunityController@APISearch')->name('api.search');
 
     Route::middleware('auth')->group(function() {
-        Route::get('{user}/communities', 'CommunityController@userCommunities')->name('user');
+        Route::get('{user:slug}/communities', 'CommunityController@userCommunities')->name('user');
         Route::get('/communities/joined', 'CommunityController@joined')->name('joined');    
     });
 
@@ -54,10 +56,10 @@ Route::name('community.')->group(function() {
             Route::post('/new', 'CommunityController@new')->name('post.new');
         });
 
-        Route::get('/{community}', 'CommunityController@list')->name('list');
+        Route::get('/{community:slug}', 'CommunityController@list')->name('list');
         Route::middleware('auth')->group(function() {
-            Route::get('/{community}/follow', 'CommunityController@follow')->name('follow');
-            Route::get('/{community}/unfollow', 'CommunityController@unfollow')->name('unfollow');        
+            Route::get('/{community:slug}/follow', 'CommunityController@follow')->name('follow');
+            Route::get('/{community:slug}/unfollow', 'CommunityController@unfollow')->name('unfollow');        
         });
     });
 });
@@ -65,31 +67,31 @@ Route::name('community.')->group(function() {
 Route::get('/new-topic', 'PostController@new')->middleware('auth')->name('topics.new');
 Route::name('posts.')->prefix('topic')->group(function() {
     Route::middleware('auth')->group(function() {
-        Route::get('/{community}/new-topic', 'PostController@new')->name('community.new');
+        Route::get('/{community:slug}/new-topic', 'PostController@new')->name('community.new');
         Route::post('/store', 'PostController@store')->name('post.new');
-        Route::post('/{post}/like/', 'PostController@like')->name('like');
-        Route::post('/{post}/unlike/', 'PostController@unlike')->name('unlike');
-        Route::post('/{post}/bookmark/', 'PostController@bookmark')->name('bookmark');
-        Route::post('/{post}/remove-bookmark/', 'PostController@removeBookmark')->name('bookmark.remove');
+        Route::post('/{post:slug}/like/', 'PostController@like')->name('like');
+        Route::post('/{post:slug}/unlike/', 'PostController@unlike')->name('unlike');
+        Route::post('/{post:slug}/bookmark/', 'PostController@bookmark')->name('bookmark');
+        Route::post('/{post:slug}/remove-bookmark/', 'PostController@removeBookmark')->name('bookmark.remove');
 
-        Route::post('/{post}/comment', 'CommentController@store')->name('comment');
-        // Route::post('/{post}/comment/edit', 'CommentController@store')->name('comment');
+        Route::post('/{post:slug}/comment', 'CommentController@store')->name('comment');
+        // Route::post('/{post:slug}/comment/edit', 'CommentController@store')->name('comment');
 
-        Route::get('/{post}/{comment}/edit', 'CommentController@edit')->name('comment.edit');
-        Route::post('/{post}/{comment}/edit', 'CommentController@storeEdit')->name('comment.edit.post');
+        Route::get('/{post:slug}/{comment}/edit', 'CommentController@edit')->name('comment.edit');
+        Route::post('/{post:slug}/{comment}/edit', 'CommentController@storeEdit')->name('comment.edit.post');
 
 
         Route::post('/comment/{comment}/like/', 'CommentController@like')->name('comment.like');
         Route::post('/comment/{comment}/unlike/', 'CommentController@unlike')->name('comment.unlike');
 
-        Route::get('/{post}/edit', 'PostController@edit')->name('edit');
-        Route::post('/{post}/edit', 'PostController@update')->name('post.edit');
-        Route::get('/{post}/delete', 'PostController@delete')->name('delete');
-        Route::get('/{post}/set-featured', 'PostController@setFeatured')->name('set-featured');
-        Route::get('/{post}/remove-featured', 'PostController@removeFeatured')->name('remove-featured');
+        Route::get('/{post:slug}/edit', 'PostController@edit')->name('edit');
+        Route::post('/{post:slug}/edit', 'PostController@update')->name('post.edit');
+        Route::get('/{post:slug}/delete', 'PostController@delete')->name('delete');
+        Route::get('/{post:slug}/set-featured', 'PostController@setFeatured')->name('set-featured');
+        Route::get('/{post:slug}/remove-featured', 'PostController@removeFeatured')->name('remove-featured');
     });
 
-    Route::get('/{post}', 'PostController@showPost')->name('show');
+    Route::get('/{post:slug}', 'PostController@showPost')->name('show');
 
     // Route::post('/comments/media/upload', 'MediaManagerController')->name('comments.media.upload');
 });
@@ -99,11 +101,11 @@ Route::name('rants.')->prefix('rant')->group(function() {
         Route::get('/', 'RantController@new')->name('new');
         Route::post('/store', 'RantController@store')->name('store');
     
-        Route::get('/{post}/edit', 'RantController@edit')->name('edit');
-        Route::post('/{post}/edit', 'RantController@update')->name('edit.store');
-        Route::get('/{post}/delete', 'RantController@delete')->name('delete');
+        Route::get('/{post:slug}/edit', 'RantController@edit')->name('edit');
+        Route::post('/{post:slug}/edit', 'RantController@update')->name('edit.store');
+        Route::get('/{post:slug}/delete', 'RantController@delete')->name('delete');
     });
-    Route::get('/{post}', 'RantController@show')->name('show');
+    Route::get('/{post:slug}', 'RantController@show')->name('show');
 });
 
 //Questions
@@ -113,11 +115,11 @@ Route::name('questions.')->prefix('question')->group(function() {
         Route::get('/', 'QuestionController@new')->name('new');
         Route::post('/store', 'QuestionController@store')->name('new.store');
     
-        Route::get('/{post}/edit', 'QuestionController@edit')->name('edit');
-        Route::post('/{post}/edit', 'QuestionController@update')->name('edit.store');
-        Route::get('/{post}/delete', 'QuestionController@delete')->name('delete');
+        Route::get('/{post:slug}/edit', 'QuestionController@edit')->name('edit');
+        Route::post('/{post:slug}/edit', 'QuestionController@update')->name('edit.store');
+        Route::get('/{post:slug}/delete', 'QuestionController@delete')->name('delete');
     });
-    Route::get('/{post}', 'QuestionController@show')->name('show');
+    Route::get('/{post:slug}', 'QuestionController@show')->name('show');
 });
 
 //Questions
@@ -126,11 +128,11 @@ Route::name('jobs.')->prefix('job')->group(function() {
         Route::get('/new', 'JobController@new')->name('new');
         Route::post('/store', 'JobController@store')->name('new.store');
     
-        Route::get('/{post}/edit', 'JobController@edit')->name('edit');
-        Route::post('/{post}/edit', 'JobController@update')->name('edit.store');
-        Route::get('/{post}/delete', 'JobController@delete')->name('delete');
+        Route::get('/{post:slug}/edit', 'JobController@edit')->name('edit');
+        Route::post('/{post:slug}/edit', 'JobController@update')->name('edit.store');
+        Route::get('/{post:slug}/delete', 'JobController@delete')->name('delete');
     });
-    Route::get('/{post}', 'JobController@show')->name('show');
+    Route::get('/{post:slug}', 'JobController@show')->name('show');
 });
 
 
@@ -139,7 +141,7 @@ Route::name('mood.')->group(function() {
     Route::get('/moods/search-api', 'MoodController@APISearch')->name('api.search');
 
     Route::middleware('auth')->group(function() {
-        Route::get('{user}/moods', 'MoodController@userMoods')->name('user');
+        Route::get('{user:slug}/moods', 'MoodController@userMoods')->name('user');
         Route::get('/moods/joined', 'MoodController@joined')->name('joined');    
     });
 
@@ -169,7 +171,7 @@ Route::name('profile.')->group(function() {
         Route::post('/settings/password', 'UserController@updatePassword')->name('password.settings.post');
         Route::get('/settings/deactivate', 'UserController@deactivate')->name('deactivate.settings');
         Route::post('/settings/deactivate', 'UserController@deactivateAccount')->name('deactivate.settings.post');
-        Route::get('/user/{user}', 'UserController@index')->name('show');
+        Route::get('/user/{user:slug}', 'UserController@index')->name('show');
     });
     Route::get('users/list', 'UserController@apiList')->name('users.api');
 });
