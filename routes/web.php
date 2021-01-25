@@ -11,6 +11,8 @@
 |
 */
 
+Route::feeds();
+
 Route::get('/', 'PostController@index')->name('home');
 Route::get('/topics', 'PostController@all')->name('topics');
 Route::get('/latest', 'PostController@latest')->name('latest');

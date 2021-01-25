@@ -45,16 +45,20 @@ class AuthController extends Controller
                         
         $requestData = $request->all();
         $requestData['password'] = Hash::make($requestData['password']);
+        $requestData['is_active'] = true;
         $user = $this->user->create($requestData);
 
         $user->details()->create();
         $user->coins()->create();
 
+        Auth::login($user);
+
         if($request->has('utm_redirect')) {
-            return redirect(route('login').'?utm_redirect='.$request->utm_redirect)->withMessage('Account created successfully. Please login to continue');            
+            return redirect()->intended($request->utm_redirect);
+            // return redirect(route('login').'?utm_redirect='.$request->utm_redirect)->withMessage('Account created successfully. Please login to continue');            
         }
 
-        return redirect()->route('login')->withMessage('Account created successfully. Please login to continue');
+        return redirect()->route('home')->withMessage('Account created successfully. Welcome the the JaraCentral Community!');
     }
 
     public function login() {
