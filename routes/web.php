@@ -171,7 +171,7 @@ Route::name('profile.')->group(function() {
         Route::post('/settings/password', 'UserController@updatePassword')->name('password.settings.post');
         Route::get('/settings/deactivate', 'UserController@deactivate')->name('deactivate.settings');
         Route::post('/settings/deactivate', 'UserController@deactivateAccount')->name('deactivate.settings.post');
-        Route::get('/user/{user:slug}', 'UserController@index')->name('show');
+        Route::get('/user/{user:username}', 'UserController@index')->name('show');
     });
     Route::get('users/list', 'UserController@apiList')->name('users.api');
 });

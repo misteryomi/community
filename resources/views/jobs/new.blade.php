@@ -26,18 +26,52 @@
     </div>
 
         <div class="uk-form-group">
-        <div class="uk-position-relative autosuggest">
-            <select class="select2 uk-input uk-textarea uk-form-large" name="community_id" @if(isset($isEdit)) value="{{ $post->community_id }}" @endif id="community">
-                <option value="" selected>Select a Category</option>
-                @if(isset($isEdit))
-                <option value="{{ $post->community_id }}" selected>{{ $post->community->name }}</option>
-                @elseif(isset($community) && ($community->name != 'Jobs'))
-                <option value="{{ $community->id }}" selected>{{ $community->name }}</option>
-                @endif
-                @foreach($communities as $c)
-                <option value="{{ $c->id }}">{{ $c->name }}</option>
+            <label>Job Category</label>
+            <select class="uk-select" namename="category_id">
+                <option value="">Select option</option>
+                @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="uk-form-group">
+            <label>Job type</label>
+            <select class="uk-select" namename="type_id">
+                <option value="">Select option</option>
+                @foreach($types as $type)
+                <option value="{{ $type->id }}">{{ $type->type }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="uk-form-group">
+            <label>Salary type <small>(optional)</small></label>
+            <select class="uk-select" namename="salary_type_id">
+                <option value="">Select option</option>
+                @foreach($salaries as $salaryType)
+                <option value="{{ $salaryType->id }}">{{ $salaryType->type }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="uk-form-group">
+            <label>Minimum Salary <small>(optional)</small></label>
+            <input type="number" min="0" name="min_salary" class="uk-input" placeholder=""  id="min_salary" value="{{ isset($isEdit) ? $post->meta->min_salary : '' }}" required>
+        </div>
+        <div class="uk-form-group">
+            <label>Maximum Salary <small>(optional)</small></label>
+            <input type="number" min="0" name="max_salary" class="uk-input" placeholder=""  id="max_salary" value="{{ isset($isEdit) ? $post->meta->max_salary : '' }}" required>
+        </div>
+        
+        <div class="uk-form-group">
+            <label>Location</label>
+            <input type="text" name="location" class="uk-input" placeholder="Lagos"  id="location" value="{{ isset($isEdit) ? $post->meta->locaton : '' }}" required>
+        </div>
+        <div class="uk-form-group">
+            <label>Application URL <small>(optional)</small></label>
+            <input type="url" name="url" class="uk-input" placeholder="http://"  id="url" value="{{ isset($isEdit) ? $post->meta->url : '' }}" required>
+        </div>
+        <div class="uk-form-group">
+            <label>Application Deadline <small>(optional)</small></label>
+            <input type="date" name="deadline" class="uk-input" placeholder="01/01/2021"  id="deadline" value="{{ isset($isEdit) ? $post->meta->dealine : '' }}" required>
         </div>
         <div class="uk-form-group">
             <label>Job Description</label>
@@ -46,14 +80,6 @@
                 <textarea class="uk-textarea init-editor mt-4" placeholder="Details..."> @if(isset($isEdit)){{ html_entity_decode(strip_tags($post->details)) }} @endif</textarea>
                 <input type="hidden" name="details" @if(isset($isEdit)) value="{{ $post->details }}" @endif />
             </div>
-        </div>
-        <div class="uk-form-group">
-            <label>Application Link</label>
-            <input type="url" name="link" class="uk-input" placeholder="Link"  id="link" value="{{ isset($isEdit) ? $post->meta->link : '' }}" required>
-        </div>
-        <div class="uk-form-group">
-            <label>Deadline</label>
-            <input type="date" name="deadline" class="uk-input" placeholder="Deadline"  id="link" value="{{ isset($isEdit) ? $post->meta->dealine : '' }}" required>
         </div>
         <button type="submit" id="submit-form" class="button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Publish @endif</button>
     </form>

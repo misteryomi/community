@@ -16,7 +16,9 @@ use App\PostType;
 use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Traits\ContentTrait;
 use App\Http\Controllers\Traits\PostTrait;
-
+use App\JobCategory;
+use App\JobSalaryType;
+use App\JobType;
 use \Carbon\Carbon;
 
 use Illuminate\Support\Facades\Validator;
@@ -38,7 +40,7 @@ class JobController extends Controller
         $this->agent = new Agent();
         $this->post_type = PostType::where('name', 'jobs')->first();
         $this->job_community = $community->where('name', 'jobs')->first();
-        $this->meta_fields = ['link', 'is_approved', 'deadline', 'location'];
+        $this->meta_fields = ['url', 'is_approved', 'deadline', 'location', 'category_id', 'type_id', 'min_salary', 'max_salary', 'salary_type_id'];
 
         $this->middleware(function($request, $next) {
             $this->user = Auth::user();
@@ -67,8 +69,12 @@ class JobController extends Controller
         $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
 
         $title = 'Latest Jobs Listing';
+        $types = JobType::all();
+        $categories = JobCategory::all();
+        $salaries = JobSalaryType::all();
+        $locations = $this->meta->locations();
 
-        return view('jobs.list', compact('posts', 'agent', 'title'));
+        return view('jobs.list', compact('posts', 'agent', 'title', 'types', 'categories', 'salaries', 'locations'));
     }
 
 
@@ -83,8 +89,11 @@ class JobController extends Controller
 
         $community = $this->job_community;
         $communities = $this->category->where('parent_id', $this->job_community->id)->ordered();
+        $types = JobType::all();
+        $categories = JobCategory::all();
+        $salaries = JobSalaryType::all();
 
-        return view('jobs.new', compact('communities', 'community'));
+        return view('jobs.new', compact('communities', 'community', 'types', 'categories', 'salaries'));
     }
 
 
@@ -115,6 +124,7 @@ class JobController extends Controller
     public function store(Request $request) {
 
         $requestData = $request->except($this->meta_fields);
+        $requestData['community_id'] = $this->job_community->id;
 
         $post = $this->preSubmit($requestData);
         $post->update(['post_type' => $this->post_type->id]);

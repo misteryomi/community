@@ -527,7 +527,7 @@ a.uk-link-heading:hover,
 .uk-link-heading a:hover,
 .uk-link-toggle:hover .uk-link-heading,
 .uk-link-toggle:focus .uk-link-heading {
-  color: #b43bff;
+  color: #e43a3a;
   text-decoration: none;
 }
 /* Reset
@@ -2009,7 +2009,7 @@ select.uk-form-width-xsmall {
  * Primary
  */
 .uk-button-primary {
-  background-color: #b43bff;
+  background-color: #e43a3a;
   color: #fff;
   border: 1px solid transparent;
 }
@@ -2141,7 +2141,7 @@ select.uk-form-width-xsmall {
   line-height: 1.5;
   background: none;
   /* 2 */
-  color: #b43bff;
+  color: #e43a3a;
 }
 /* Hover + Focus */
 .uk-button-link:hover,
@@ -2289,7 +2289,7 @@ select.uk-form-width-xsmall {
  * Primary
  */
 .uk-section-primary {
-  background: #b43bff;
+  background: #e43a3a;
 }
 /*
  * Secondary
@@ -2940,7 +2940,7 @@ select.uk-form-width-xsmall {
  * Primary
  */
 .uk-tile-primary {
-  background: #b43bff;
+  background: #e43a3a;
 }
 /*
  * Secondary
@@ -3070,7 +3070,7 @@ select.uk-form-width-xsmall {
  * Primary
  */
 .uk-card-primary {
-  background: #b43bff;
+  background: #e43a3a;
   color: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
@@ -3078,7 +3078,7 @@ select.uk-form-width-xsmall {
   color: #fff;
 }
 .uk-card-primary.uk-card-hover:hover {
-  background-color: #b43bff;
+  background-color: #e43a3a;
   box-shadow: 0 14px 25px rgba(0, 0, 0, 0.16);
 }
 /*
@@ -3358,7 +3358,7 @@ select.uk-form-width-xsmall {
  */
 .uk-alert-primary {
   background: #d8eafc;
-  color: #b43bff;
+  color: #e43a3a;
 }
 /*
  * Success
@@ -3415,7 +3415,7 @@ select.uk-form-width-xsmall {
   border-radius: 500px;
   vertical-align: middle;
   /* 1 */
-  background: #b43bff;
+  background: #e43a3a;
   color: #fff;
   font-size: 0.875rem;
   /* 2 */
@@ -3438,7 +3438,7 @@ select.uk-form-width-xsmall {
 .uk-label {
   display: inline-block;
   padding: 0 10px;
-  background: #b43bff;
+  background: #e43a3a;
   line-height: 1.5;
   font-size: 0.875rem;
   color: #fff;
@@ -4495,7 +4495,7 @@ ul.uk-nav-sub {
 }
 /* Active */
 .uk-subnav-pill > .uk-active > a {
-  background-color: #b43bff;
+  background-color: #e43a3a;
   color: #fff;
 }
 /* Disabled
@@ -4607,7 +4607,7 @@ ul.uk-nav-sub {
 .uk-pagination > * > :hover,
 .uk-pagination > * > :focus {
   text-decoration: none;
-  color: #ab4cd8;
+  color: #c51d1d;
   background-color: rgb(232, 240, 254);
   border-color: rgba(9, 27, 18, 0.1);
 }
@@ -4615,7 +4615,7 @@ ul.uk-nav-sub {
 .uk-pagination > .uk-active > * {
   text-decoration: none;
   color: #ffffff;
-  background-color: #ab4cd8;
+  background-color: #c51d1d;
   border-color: #3e416d;
 }
 /* Disabled */
@@ -4697,8 +4697,8 @@ ul.uk-nav-sub {
 }
 /* Active */
 .uk-tab > .uk-active > a {
-  color: #ab4cd8;
-  border-color: #ab4cd8;
+  color: #c51d1d;
+  border-color: #c51d1d;
   opacity: 1;
 }
 /* Disabled */
@@ -6109,7 +6109,7 @@ ul.uk-nav-sub {
  * Primary
  */
 .uk-notification-message-primary {
-  color: #b43bff;
+  color: #e43a3a;
 }
 /*
  * Success
@@ -6252,14 +6252,14 @@ ul.uk-nav-sub {
  * 1. Remove right border in IE11 and Edge
  */
 .uk-progress::-webkit-progress-value {
-  background-color: #b43bff;
+  background-color: #e43a3a;
   transition: width 0.6s ease;
 }
 .uk-progress::-moz-progress-bar {
-  background-color: #b43bff;
+  background-color: #e43a3a;
 }
 .uk-progress::-ms-fill {
-  background-color: #b43bff;
+  background-color: #e43a3a;
   transition: width 0.6s ease;
   /* 1 */
   border: 0;
@@ -7360,7 +7360,7 @@ ul.uk-nav-sub {
   color: #333 !important;
 }
 .uk-text-primary {
-  color: #b43bff !important;
+  color: #e43a3a !important;
 }
 .uk-text-secondary {
   color: #222 !important;
@@ -7389,11 +7389,11 @@ ul.uk-nav-sub {
   /* 2 */
   display: inline-block;
   /* 3 */
-  color: #b43bff !important;
+  color: #e43a3a !important;
 }
 @supports (-webkit-background-clip: text) {
   .uk-text-background {
-    background-color: #b43bff;
+    background-color: #e43a3a;
   }
 }
 /* Alignment modifiers
@@ -7692,7 +7692,7 @@ iframe.uk-cover {
   background-color: #f8f8f8;
 }
 .uk-background-primary {
-  background-color: #b43bff;
+  background-color: #e43a3a;
 }
 .uk-background-secondary {
   background-color: #222;

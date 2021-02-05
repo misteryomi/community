@@ -17,7 +17,12 @@ class CreateJobMetasTable extends Migration
             $table->bigIncrements('id');
             $table->integer('post_id');
             $table->boolean('is_approved')->default(0);
-            $table->string('link')->nullable();
+            $table->integer('category_id')->nullable();
+            $table->integer('type_id')->nullable();
+            $table->integer('min_salary')->nullable();
+            $table->integer('max_salary')->nullable();
+            $table->integer('salary_type_id')->nullable();
+            $table->string('url')->nullable();
             $table->string('location')->nullable();
             $table->timestamp('deadline')->nullable();
             $table->timestamps();

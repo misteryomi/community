@@ -24,26 +24,6 @@
                                 <i class="s_icon uil-search-alt"></i>
                             </div>
 
-                            <!-- Search box dropdown -->
-                            <!-- <div uk-dropdown="pos: top;mode:click;animation: uk-animation-slide-bottom-small"
-                                class="dropdown-search">
-
-                                <ul class="dropdown-search-list">
-                                    <li class="list-title"> Recent Searches </li>
-                                    <li> <a href="#"> <img src="{{ asset('assets/images/avatars/avatar-2.jpg')   }}" alt=""> Erica Jones
-                                        </a> </li>
-                                    <li> <a href="#"> <img src="{{ asset('assets/images/group/group-2.jpg') }}" alt=""> Coffee
-                                            Addicts</a> </li>
-                                    <li> <a href="#"> <img src="{{ asset('assets/images/group/group-4.jpg') }}" alt=""> Mountain Riders
-                                        </a> </li>
-                                    <li> <a href="#"> <img src="{{ asset('assets/images/group/group-5.jpg') }}" alt=""> Property Rent
-                                            And Sale </a> </li>
-                                    <li class="menu-divider"></li>
-                                    <li class="list-footer"> <a href="your-history.html"> Searches History </a>
-                                    </li>
-                                </ul>
-
-                            </div> -->
 
 
                         </form>
@@ -54,10 +34,11 @@
 
 
                         <a href="{{ route('home') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-feather-home"></i> Home</a>
-                        <a href="{{ route('community.all') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-feather-bar-chart"></i> Communities</a>
+                        <a href="{{ route('latest') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-line-awesome-paw"></i> Latest</a>
+                        <a href="{{ route('community.all') }}" class="opts_icon_link uk-visible@s text-dark mr-2"> <i class="icon-feather-bar-chart"></i> Communities</a>
 
                         @if($user)
-                        <a href="{{ route('home') }}" class=" uk-visible@s button soft-warning disabled text-dark" style="cursor: pointer"> <i class="icon-line-awesome-money"></i> {{ $user->coins->balance }} Coins</a>
+                        <a href="{{ route('home') }}" class=" uk-visible@s button button-small soft-warning disabled text-dark" style="cursor: pointer"> <i class="icon-line-awesome-money"></i> {{ $user->coins->balance }} Coins</a>
                         <a href="{{ route('topics.new') }}" class="button outline-primary mr-1 small uk-hidden@l"> <i class="fa fa-plus"> </i></a>
                         <a href="{{ route('topics.new') }}" class="button primary uk-visible@s ml-2"> <i class="uil-plus"> </i> Create New Topic</a>
 
@@ -136,7 +117,7 @@
 
                         @else
                         <!-- style="margin-top:-12px" -->
-                        <a class="opts_account mr-2" href="#" > {!! $user->displayAvatar() !!}</a>
+                        <a class="opts_account mt-2 mr-2" href="#" > {!! $user->displayAvatar() !!}</a>
                         <!-- profile dropdown-->
                         <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small"
                             class="dropdown-notifications rounded"  style="display:none">

@@ -39,8 +39,8 @@ class ComposerStaticInit50933bca2daf2979695098d2edec420b
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         'c65d09b6820da036953a371c8c73a9b1' => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook/polyfills.php',
-        '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
         'a1af1fc0cffb5f61cbaf64dbe030fdb9' => __DIR__ . '/..' . '/laravel/legacy-factories/helpers.php',
+        '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -703,7 +703,13 @@ class ComposerStaticInit50933bca2daf2979695098d2edec420b
         'App\\Http\\Resources\\PostsListCollection' => __DIR__ . '/../..' . '/app/Http/Resources/PostsListCollection.php',
         'App\\Http\\Resources\\PostsListResource' => __DIR__ . '/../..' . '/app/Http/Resources/PostsListResource.php',
         'App\\Http\\Resources\\UserResource' => __DIR__ . '/../..' . '/app/Http/Resources/UserResource.php',
+        'App\\Job' => __DIR__ . '/../..' . '/app/Job.php',
+        'App\\JobCategory' => __DIR__ . '/../..' . '/app/JobCategory.php',
+        'App\\JobIndustry' => __DIR__ . '/../..' . '/app/JobIndustry.php',
         'App\\JobMeta' => __DIR__ . '/../..' . '/app/JobMeta.php',
+        'App\\JobSalaryType' => __DIR__ . '/../..' . '/app/JobSalaryType.php',
+        'App\\JobType' => __DIR__ . '/../..' . '/app/JobType.php',
+        'App\\Jobs\\GenerateSitemap' => __DIR__ . '/../..' . '/app/Jobs/GenerateSitemap.php',
         'App\\Like' => __DIR__ . '/../..' . '/app/Like.php',
         'App\\Mail\\PasswordResetMail' => __DIR__ . '/../..' . '/app/Mail/PasswordResetMail.php',
         'App\\Mood' => __DIR__ . '/../..' . '/app/Mood.php',

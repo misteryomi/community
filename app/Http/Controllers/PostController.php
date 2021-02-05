@@ -194,9 +194,11 @@ class PostController extends Controller
         $community = $this->category->where('slug', $community)->first();
 
         if(!$community) {
-            $communities = $this->category->ordered(); //->where('is_parent', true)->
+            $communities = auth()->user()->followedCommunities()->ordered();
+            // $communities = $this->category->ordered(); //->where('is_parent', true)->
         } else {
             $communities = $this->category->where('parent_id', $community->id)->ordered();
+
         }
 
         return view('posts.new', compact('communities', 'community'));

@@ -36,7 +36,7 @@ class User extends Authenticatable
     //     return $this->where('username', str_replace('@', '', $value))->firstOrFail();
     // }
     public function getRouteKeyName() {
-        return 'slug';
+        return 'username';
     }
 
     public function getOriginalUsernameAttribute() {
@@ -104,6 +104,10 @@ class User extends Authenticatable
     }
 
     function communities() {
+        return $this->hasMany(Community::class, 'user_id');
+    }
+
+    function followedCommunities() {
         return $this->hasManyThrough(Community::class, FollowedCommunities::class, 'user_id', 'id', 'id', 'community_id');
     }    
 
@@ -152,8 +156,8 @@ class User extends Authenticatable
 
     public function displayAvatar($size = 'sm') {
         if(!$this->avatar) {
-            return '<span class="avatar rounded-circle img-circle bg-secondary text-dark">'.\strtoupper(substr($this->name, 1, 1)).'</span>';
-            return '<span class="avatar'.$size.'">Y</span>';
+            // return '<span class="avatar rounded-circle img-circle bg-secondary text-dark">'.\strtoupper(substr($this->name, 1, 1)).'</span>';
+            return '<span class="avatar-img">Y</span>';
         }
 
         return '<img src="'.$this->avatar.'" alt=""/>';

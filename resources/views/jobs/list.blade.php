@@ -8,10 +8,10 @@
   <div class="uk-width-3-4@m uk-first-column">
     @include('jobs.list_template')
   </div>
-
+    
   <div class="uk-width-expand">
 
-    <div class="sidebar-filter" uk-sticky="offset:30 ; media : @s: bottom: true">
+    <div class="sidebar-filter">
 
         <div class="sidebar-filter-contents">
 
@@ -23,40 +23,26 @@
                 <li class="uk-open">
                     <a class="uk-accordion-title" href="#"> Field </a>
                     <div class="uk-accordion-content" aria-hidden="false">
-                        <div class="uk-form-controls">
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio1" checked>
-                                <span class="test"> Beginner <span> (25) </span> </span>
-                            </label>
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio1">
-                                <span class="test"> Intermidate<span> (32) </span></span>
-                            </label>
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio1">
-                                <span class="test"> Expert <span> (12) </span></span>
-                            </label>
-                        </div>
+                        <div class="uk-margin">
+                            <label><small>Minimum</small></label>
+                            <input class="uk-input" type="text" placeholder="Input">
+                            <label><small>Maximum</small></label>
+                            <input class="uk-input" type="text" placeholder="Input">
+                        </div>                    
+                        <div class="uk-margin">
+                        </div>                    
                     </div>
                 </li>
 
                 <li class="uk-open">
-                    <a class="uk-accordion-title" href="#"> Skill Levels </a>
+                    <a class="uk-accordion-title" href="#"> Job Category </a>
                     <div class="uk-accordion-content" aria-hidden="false">
-                        <div class="uk-form-controls">
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio1" checked>
-                                <span class="test"> Beginner <span> (25) </span> </span>
-                            </label>
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio1">
-                                <span class="test"> Intermidate<span> (32) </span></span>
-                            </label>
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio1">
-                                <span class="test"> Expert <span> (12) </span></span>
-                            </label>
-                        </div>
+                        <select class="uk-select">
+                            <option value="">All Categories</option>
+                            @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </li>
 
@@ -65,25 +51,15 @@
                     <div class="uk-accordion-content" aria-hidden="false">
                         <div class="uk-form-controls">
                             <label>
-                                <input class="uk-radio" type="radio" name="radio2">
-                                <span class="test"> Freelance (42) </span>
+                                <input class="uk-radio" type="radio" checked name="radio2">
+                                <span class="test"> All </span>
                             </label>
+                            @foreach($types as $type)
                             <label>
-                                <input class="uk-radio" type="radio" name="radio2" checked>
-                                <span class="test"> Full Time </span>
+                                <input class="uk-radio" type="radio" value="{{ $type->id }}" name="radio2">
+                                <span class="test"> {{ $type->type}} </span>
                             </label>
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio2">
-                                <span class="test"> Part Time </span>
-                            </label>
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio2">
-                                <span class="test"> Temporary </span>
-                            </label>
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio2">
-                                <span class="test"> Full Time </span>
-                            </label>
+                            @endforeach
                         </div>
                     </div>
                 </li>
@@ -92,22 +68,12 @@
                     <a class="uk-accordion-title" href="#"> Location </a>
                     <div class="uk-accordion-content" aria-hidden="false">
                         <div class="uk-form-controls">
+                            @foreach($locations as $location)
                             <label>
                                 <input class="uk-radio" type="radio" name="radio3" checked>
-                                <span class="test"> +5 Hourse (23) </span>
+                                <span class="test">{{ $location->location }}</span>
                             </label>
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio3">
-                                <span class="test"> +10 Hourse (12)</span>
-                            </label>
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio3">
-                                <span class="test"> +20 Hourse (5)</span>
-                            </label>
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio3">
-                                <span class="test"> +30 Hourse (2)</span>
-                            </label>
+                            @endforeach
                         </div>
                     </div>
                 </li>

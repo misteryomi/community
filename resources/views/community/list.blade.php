@@ -25,7 +25,7 @@
             <input class="uk-input uk-form-width-large uk-form-large" name="q" type="text" placeholder="Search for Community" value="{{ request()->q }}" >
         </div>
         <div class="uk-width-1-5@s">
-            <button type="submit" class="button xlarge block warning text-white">Search</button>
+            <button type="submit" class="button xlarge block dark text-white">Search</button>
         </div>
     </form>
 </div>
@@ -35,6 +35,7 @@
 @endif
 
     @if($communities->count() > 0)
+    <div class="card">
     <div class="uk-child-width-1-3@m" uk-grid>
         @foreach($communities as $community)
 
@@ -55,7 +56,7 @@
                     <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button secondary small mb-1">
                             Unfollow</a>
                     @else
-                    <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button soft-primary small mb-1">
+                    <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button outline-primary small mb-1">
                             Follow</a>
                     @endif                          
                 </div>
@@ -92,6 +93,7 @@
 
         @endforeach
 
+    </div>
     </div>
     {{ $communities->links('layouts.pagination.custom')}}
 

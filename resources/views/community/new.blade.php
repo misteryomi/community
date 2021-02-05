@@ -5,9 +5,9 @@
 
 @section('content')
 
-<div class="uk-grid-large uk-grid uk-grid-stack" uk-grid="">
-  <div class="uk-width-3-4@m uk-first-column">
-     <div class="uk-width-5-5@m m-auto">
+<div class="uk-grid-large uk-grid uk-grid-stack" uk-grid>
+<div class="uk-width-5-6@m m-auto">
+     <!-- <div class="uk-width-3-4@m m-auto"> -->
         <div class="mt-lg-4" uk-grid>
             <div class="uk-width-3-3@m">
                     @if(isset($isEdit))
@@ -21,14 +21,14 @@
                         @csrf
                         <div class="uk-form-group">
                           <div class="uk-position-relative">
-                              <input type="text" name="title" class="uk-input uk-form-large bg-secondary text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Name of Community"  id="title" value="{{ isset($isEdit) ? $community->title : '' }}" required>
+                              <input type="text" name="title" class="uk-input uk-form-large text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Name of Community"  id="title" value="{{ isset($isEdit) ? $community->title : '' }}" required>
                           </div>
                         </div>
 
                           <div class="uk-form-group">
                             <div class="uk-position-relative autosuggest">
                                 <select class="select2 uk-input uk-textarea uk-form-large" name="community_id" @if(isset($isEdit)) value="{{ $community->community_id }}" @endif id="community">
-                                    <option value="">Select a Parent Community</option>
+                                    <option value="">Select a Category</option>
                                     @if(isset($isEdit))
                                     <option value="{{ $community->community_id }}" selected>{{ $community->category->name }}</option>
                                     @elseif(isset($community))
@@ -53,11 +53,11 @@
                                 <input type="file">
                                 <input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled="">
                             </div>                          </div>
-                          <button type="submit" id="submit-form" class="button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Publish @endif Community</button>
+                          <button type="submit" id="submit-form" class="button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Create @endif Community</button>
                         </form>
                       </div>
                     </div>
-                </div>
+                <!-- </div> -->
               </div>
         </div>
     

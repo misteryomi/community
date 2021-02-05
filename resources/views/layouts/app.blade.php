@@ -50,7 +50,7 @@
 </head>
 
 <body class="">
-  <div id="wrapper">
+  <div id="wrapper" class="collapse-sidebar">
       @include('layouts.sections.sidebar')
       @include('layouts.sections.header')
 
@@ -82,9 +82,9 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 
-<script> window._peq = window._peq || []; window._peq.push(["init"]); </script>
+<!-- <script> window._peq = window._peq || []; window._peq.push(["init"]); </script>
 <script src="https://clientcdn.pushengage.com/core/b78d4cce-bb83-4338-ba11-e57810cc.js" async></script>
-<script src="{{ asset('assets/js/service-worker.js') }}"></script>
+<script src="{{ asset('assets/js/service-worker.js') }}"></script> -->
 
 @yield('scripts')
 </body>

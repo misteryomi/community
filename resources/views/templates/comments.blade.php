@@ -1,6 +1,6 @@
 
         @if($comments->count() > 0)
-        <div class="comments mt-4" >
+        <div class="comments mt-4 card" >
             <!-- <h3>Comments
                 <span class="comments-amount">{{ $post->comments->count() }}</span>
             </h3> -->

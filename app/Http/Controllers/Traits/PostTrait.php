@@ -132,7 +132,7 @@ trait PostTrait
         ]);
 
         if($validation->fails()) {
-         return redirect()->back()->withErrors($validation->errors())->withInput();
+         return redirect()->back()->withErrors($validation->errors())->withInput()->send();
         }
 
 

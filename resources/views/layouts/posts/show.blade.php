@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="uk-grid-large uk-grid uk-grid-stack" uk-grid="">
-  <div class="uk-width-3-4@m uk-first-column">
+    <div class="uk-width-2-3@m uk-first-column">
      <div class="uk-width-5-5@m m-auto">
         <div class="mt-lg-4" uk-grid>
             <div class="uk-width-3-3@m">
@@ -12,7 +12,6 @@
                 <h1 class="mb-0">{{ $post->title }}</h1>
                 <div class="group-card-content pl-0 p-sm-0 mb-0 ">
                     <p class="info"> 
-                        <a href="{{ route('community.list', ['community' => $post->community->slug]) }}" class="button small"> {{ $post->community->name }} </a>
                         <span><i class="icon-feather-eye ml-2"></i>  
                         {{ $post->views->count() }} views </span> <span> <i class="icon-feather-message-square ml-2"></i> {{ $post->comments->count() }} comments </span>            
                     </p>
@@ -22,26 +21,28 @@
                 @if($comments->onFirstPage())
                 <div class="user-details-card py-0">
                     <div class="user-details-card-avatar" style="max-width: 40px">
-                        <!--{!! $post->user->displayAvatar() !!}-->
+                        {!! $post->user->displayAvatar() !!}
                     </div>
                     <div class="user-details-card-name">
                         {{ ucfirst($post->user->username) }} <span> {{ $post->user->level }} <span> {{ $post->date }} </span> </span>
                     </div>
                 </div>
                 @endif
+                <a href="{{ route('community.list', ['community' => $post->community->slug]) }}" class="button small"> {{ $post->community->name }} </a>
 
             </div>
         </div>
 
         @if($comments->onFirstPage())
 
-        <div class="border-bottom pb-3">
+        <div class="border-bottom pb-3 card">
 
 
             <div class="blog-content mt-3 mt-lg-6">
                 @yield('extra_info_before')
 
                 {!! $post->details !!}
+                
 
                 @yield('extra_info_after')
             </div>
@@ -113,9 +114,9 @@
 
   <div class="uk-width-expand uk-grid-margin uk-first-column">
     <div class="sidebar-filter uk-sticky" uk-sticky="offset:70 ; media : @s: bottom: true" style="">
-
-    <h3 class="mt-2">Related Topics</h3>
-    <div class="uk-card-default rounded mb-4 p-3">
+    <div class="card">
+    <h4>Related</h4>
+    <hr class="mt-0"/>
         <ul class="uk-list uk-list-divider">
             @foreach($related as $topic)
             <li>
@@ -124,7 +125,7 @@
             @endforeach
         </ul>
     </div>
-
+    </div>
 </div>
 
 
@@ -199,22 +200,47 @@
 
 
         //Fix oembedd 
-        $('figure.media').each(function() {
+        $('.blog-content figure.media').each(function() {
             let el = $(this);
             let ytUrlEl = el.find('oembed');
-            let ytID = youtube_parser(ytUrlEl.attr('url'));
+            let url = ytUrlEl.attr('url');
+            let ytID = youtube_parser(url);
+            let twtURL = twitter_parser(url);
 
-            el.html(`<iframe width="100%" height="450" src="http://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
+            if(ytID) {
+                el.html(`<iframe width="100%" height="450" src="http://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
+            } else if(twtURL) {
+                el.html(`<blockquote class="twitter-tweet"><a href="${twtURL}"></a></blockquote>`)
+            }
         });
     })
 
 
     function youtube_parser(url){
-        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-        var match = url.match(regExp);
-        return (match&&match[7].length==11)? match[7] : false;
+
+        var yt_regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        var yt_match = url.match(yt_regExp);
+
+
+        if(yt_match) {
+            return (yt_match && yt_match[7].length==11)? yt_match[7] : false;
+        }
+    }
+    
+
+    function twitter_parser(url){
+
+        var twt_regExp = /http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/;
+        var twt_match = url.match(twt_regExp);
+
+
+        if(twt_match) {
+            return twt_match['input']? twt_match['input'] : false;
+        }
     }
     
 </script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>                <!-- <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Sunsets don&#39;t get much better than this one over <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>. <a href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw">#nature</a> <a href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw">#sunset</a> <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a></p>&mdash; US Department of the Interior (@Interior) <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw">May 5, 2014</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+
 <!-- <script src="{{asset('js/post-script.js')}}" ></script> -->
 @endsection
