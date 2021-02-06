@@ -6,6 +6,20 @@
 
 <div class="uk-grid-large uk-grid uk-grid-stack" uk-grid="">
   <div class="uk-width-3-4@m uk-first-column">
+
+    @if(isset($isSearchPage))
+      <div class="uk-margin border-bottom border-top p-4 bg-light" uk-margin="">
+          <form action="{{ route('search') }}" class="uk-grid-small" uk-grid method="get">
+              <div class="uk-width-2-5@s">
+                  <input class="uk-input uk-form-width-large uk-form-large" name="q" type="text" placeholder="Search Topics" value="{{ request()->q }}" >
+              </div>
+              <div class="uk-width-1-5@s">
+                  <button type="submit" class="button xlarge block dark text-white">Search</button>
+              </div>
+          </form>
+      </div>
+
+    @endif
     @include('templates.topics_list')
   </div>
   <div class="uk-width-expand uk-grid-margin uk-first-column">

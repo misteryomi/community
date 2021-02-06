@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 use \App\User;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,7 @@ class UserController extends Controller
         });
     }
 
-    public function index(User $user) {
+    public function index(Request $request, User $user) {
 
         //Check if $user is not empty, but is logged in
         // if(!$user->id && auth()->user()) {
@@ -34,9 +35,13 @@ class UserController extends Controller
         //     return redirect()->route('login');
         // }
         
+        
+        if($request->has('type')) {
+            $posts = (new Post)->getPostsType($request->type)->latest()->paginate(15);
+        } else {
+            $posts = $user->posts()->latest()->paginate(15);
+        }
 
-
-        $posts = $user->posts()->latest()->paginate(15);
         $agent = $this->agent;
 
         return view('profile.show', compact('user', 'posts', 'agent'));

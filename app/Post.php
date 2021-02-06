@@ -162,11 +162,17 @@ class Post extends Model implements Feedable
     }
 
     public function getExcerptAttribute() {
-        return  substr(strip_tags($this->details), 0, 180).'...';
+
+        $excerpt = substr(strip_tags($this->details), 0, 180).'...';
+        return $excerpt != '...' ? $excerpt : '';
     }
 
     public function getDateAttribute() {
         return $this->created_at->diffInHours() > 25 ? $this->created_at->toDayDateTimeString() : $this->created_at->diffForHumans();
+    }
+
+    public function getDateAgoAttribute() {
+        return  $this->created_at->diffForHumans();
     }
 
     // public function getPostTypeAttribute($value) {

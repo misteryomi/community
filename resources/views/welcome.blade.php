@@ -89,7 +89,7 @@
 
     @include('templates.topics_list')
   </div>
-      <div class="uk-width-expand uk-grid-margin uk-first-column">
+      <div class="uk-width-expand mt-0">
         <div class="rounded bg-grey mb-2">
                 <div class="p-5 uk-light"  style="background-blend-mode: color-burn; background-color: rgba(62 65 109, 0.06); background-image: url({{ asset('assets/images/title-bg.png') }})" data-src="{{ asset('assets/images/title-bg.png') }}" uk-img="" >
                     <h4 class="mb-2">
@@ -119,13 +119,14 @@
             @foreach($engagements as $engagement)
             <div class="friend-card">
                 <div class="uk-width-auto">
-                    {!! $engagement->user->displayAvatar() !!} 
+                    <!-- {!! $engagement->user->displayAvatar() !!}  -->
                 </div>
                 <div class="uk-width-expand">
-                    <strong><a href="{{ route('profile.show', [$engagement->user->name]) }}">{{ $engagement->user->name }}</a></strong>
+                    <strong><a href="{{ route('profile.show', [$engagement->user->original_username]) }}">{{ $engagement->user->name }}</a></strong>
                     <p> <small>{{ $engagement->posts_count }} posts | {{ $engagement->comments_count }} comments</small></p>
                 </div>
             </div>
+            <hr class="my-1"/>
             @endforeach
         </div>
         @endif
