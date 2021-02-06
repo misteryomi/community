@@ -5,14 +5,19 @@
 
 
                     <!-- Logo-->
-                    <div class="header-btn-traiger" uk-toggle="target: #wrapper ; cls: collapse-sidebar mobile-visible">
-                        <span></span></div>
+                    <!-- <div class="header-btn-traiger" uk-toggle="target: #wrapper ; cls: collapse-sidebar mobile-visible">
+                        <span></span></div> -->
 
                     <!-- Logo-->
                     <div id="logo">
+                        <span class="uk-visible@m">
                         <a href="{{ route('home') }}"> <img src="{{ asset('assets/images/logo.png') }}" alt=""></a>
-                        <a href="{{ route('home') }}"> <img src="{{ asset('assets/images/logo.png') }}" class="logo-inverse"
-                                alt=""></a>
+                        <a href="{{ route('home') }}"> <img src="{{ asset('assets/images/logo-light.png') }}" class="logo-inverse"
+                        alt=""></a>
+                        </span>    
+                        <span class="uk-hidden@m">                   
+                        <a href="{{ route('home') }}"> <img style="width: 40px" src="{{ asset('assets/images/logo-icon.png') }}" alt=""></a>
+                        </span> 
                     </div>
 
                     <!-- form search-->
@@ -39,8 +44,15 @@
 
                         @if($user)
                         <a href="{{ route('home') }}" class=" uk-visible@s button button-small soft-warning disabled text-dark" style="cursor: pointer"> <i class="icon-line-awesome-money"></i> {{ $user->coins->balance }} Coins</a>
-                        <a href="{{ route('topics.new') }}" class="button outline-primary mr-1 small uk-hidden@l"> <i class="fa fa-plus"> </i></a>
+                        @endif
+                        <a href="{{ route('search') }}" class="opts_icon_link p-3 uk-hidden@m text-dark"> <i class="icon-feather-search icon-small"></i> </a>
+                        <a href="{{ route('latest') }}" class="opts_icon_link p-3 uk-hidden@m text-dark"> <i class="uil-newspaper icon-small"></i></a>
+                        <a href="{{ route('community.all') }}" class="opts_icon_link p-3 uk-hidden@m text-dark"> <i class="icon-feather-bar-chart icon-small"></i> </a>
+                        
+                        @if($user)
+                        <a href="{{ route('topics.new') }}" class="opts_icon_link  text-dark uk-hidden@l"> <i class="fa fa-plus"> </i> </a>
                         <a href="{{ route('topics.new') }}" class="button primary uk-visible@s ml-2"> <i class="uil-plus"> </i> Create New Topic</a>
+
 
                         <!-- notificiation icon  -->
                         <a href="#" class="opts_icon uk-visible@s"  uk-tooltip="title: Notifications ; pos: bottom ;offset:7">
@@ -95,7 +107,7 @@
                         @guest
                         <a href="{{ route('login') }}" class="button primary uk-visible@s ml-2"> Login </a>
                         <a href="{{ route('register') }}" class="button warning ml-2 uk-visible@s"> Create an account </a>
-                        <a class="opts_account uk-hidden@s mt-2" href="#"> <span class="icon-border"><i class="icon-feather-user"></i></span></a>
+                        <a class="opts_account uk-hidden@s mt-2" href="#"> <span class="icon-border"><i class="uil-user"></i></span></a>
                         <!-- profile dropdown-->
                         <div uk-dropdown="mode:click; animation: uk-animation-slide-bottom-small"
                             class="dropdown-notifications rounded" style="display:none">
@@ -117,7 +129,7 @@
 
                         @else
                         <!-- style="margin-top:-12px" -->
-                        <a class="opts_account mt-2 mr-2" href="#" > {!! $user->displayAvatar() !!}</a>
+                        <a class="opts_account mr-2" href="#" > {!! $user->displayAvatar() !!}</a>
                         <!-- profile dropdown-->
                         <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small"
                             class="dropdown-notifications rounded"  style="display:none">

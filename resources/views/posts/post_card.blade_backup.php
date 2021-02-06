@@ -4,19 +4,19 @@
     <div class="pt-2">
         <div class="blog-post-content-info pb-0">
             <span>
-            <a href="#"><span href="#" class="blog-post-info-tag button soft-danger"> R</span>  <small>{{ $post->community->name }}</small></a>
+            <a href="#"><span href="#" class="blog-post-info-tag button soft-danger"> {{ $post->community->name }} </span></a>
             </span>
-            <span class="blog-post-info-date"><a href="">{{ $post->user->username }}</a> &bull; {{ $post->date_ago }}</span>
+            <span class="blog-post-info-date"><a href="">{{ $post->user->username }}</a> &bull; {{ $post->date }}</span>
         </div>
         <a href="{{ $route }}">        
-        <div class="uk-flex-middle  ml-0" uk-grid>
-            <div class="uk-width-5-5 pl-0">
+        <div class="uk-flex-middle uk-flex-column@m uk-width-5-5@m ml-0" uk-grid>
+            <div class="@if(!empty($post->featured_image)) uk-width-4-5 @endif uk-width-auto@m uk-flex-first@m pl-0">
                 <h4 class="m-0 py-2">{!! request()->has('q') ? $post->highlightSearchQuery($post->title, request()->q) : $post->title !!}</h4>
-                <p class="m-0 py-2 uk-visible@m">{!! request()->has('q') ? $post->highlightSearchQuery($post->excerpt, request()->q) : $post->excerpt !!}</p>
             </div>
             @if(!empty($post->featured_image))
-                <div class="uk-width-5-5 pl-0 m-0">
-                    <div class="card-thumbnail mb-2" style="background-image: url({{ $post->featured_image }})">
+                <div class="uk-width-auto@m pl-0">
+                    <div class="card-thumbnail">
+                        <img src="{{ $post->featured_image }}" alt="">
                     </div>
                 </div>
             @endif

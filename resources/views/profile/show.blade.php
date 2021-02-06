@@ -1,28 +1,25 @@
+@php $isLoggedInUser = auth()->user() && ($user->id == auth()->user()->id) @endphp
 @extends('layouts.app')
 
 
 @section('content')
-<div class="profile">
+                <div class="profile">
                     <div class="profile-cover">
-
-                        <!-- profile cover -->
-                        <img src="{{ asset('assets/images/title-bg.png') }}" alt="">
-
-                        <!-- <a href="{{ route('profile.settings') }}"> <i class="uil-camera"></i> Edit </a> -->
-
                     </div>
 
                     <div class="profile-details">
                         <div class="profile-image">
-                                {!! $user->displayAvatar() !!}
+                                {!! $user->displayAvatar('lg') !!}
+                                @if($isLoggedInUser)
                                 <a href="{{ route('profile.avatar.settings') }}"> </a>
+                                @endif
                         </div>
-                        <div class="profile-details-info">
+                        <div class="profile-details-info mt-5">
                             <h1> {{ $user->name }} </h1>
-                            @if($user->id == auth()->user()->id)
                             <p> {{ $user->bio }}
                             <small>Member since: {{ $user->date_joined }}</small>
 
+                            @if($isLoggedInUser)
                             <a href="{{ route('profile.settings') }}">Edit </a></p>
                             @endif
                         </div>
@@ -32,7 +29,7 @@
 
                     <div class="nav-profile" uk-sticky="offset:61;media : @s">
                         <div class="py-md-2 uk-flex-last">
-                            @if($user->id == auth()->user()->id)
+                            @if($isLoggedInUser)
 
                             <a href="#" class="button primary mr-2"> <i class="uil-plus"></i>Post a New</a>
                             <div uk-dropdown="pos: bottom-left ; mode:hover ">
@@ -47,11 +44,11 @@
                         <div>
                             <nav class="responsive-tab">
                                 <ul>
-                                    <li class="uk-active"><a class="active" href="#">Topics</a></li>
-                                    <li><a href="?questions">Questions</a></li>
-                                    <li><a href="?rants">Rants</a></li>
-                                    <li><a href="?communities">Communities</a></li>
-                                    <li><a href="?followed-communities">Followed Communities</a></li>
+                                    <li class="uk-active"><a class="active" href="?type=topics">Topics</a></li>
+                                    <li><a href="?type=questions">Questions</a></li>
+                                    <li><a href="?type=rants">Rants</a></li>
+                                    <li><a href="?type=communities">Communities</a></li>
+                                    <li><a href="?type=followed-communities">Followed Communities</a></li>
                                 </ul>
                             </nav>
                         </div>

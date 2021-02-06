@@ -155,9 +155,11 @@ class User extends Authenticatable
     }
 
     public function displayAvatar($size = 'sm') {
+        $style = $size = 'lg' ? 'lg' : '';
+        
         if(!$this->avatar) {
             // return '<span class="avatar rounded-circle img-circle bg-secondary text-dark">'.\strtoupper(substr($this->name, 1, 1)).'</span>';
-            return '<span class="avatar-img">Y</span>';
+            return "<span class='avatar-img $style'>Y</span>";
         }
 
         return '<img src="'.$this->avatar.'" alt=""/>';

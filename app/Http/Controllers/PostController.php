@@ -117,7 +117,9 @@ class PostController extends Controller
 
         $communities = $this->category->where('is_featured', true)->get();
 
-        return view('posts.list', compact('posts', 'communities', 'agent'));
+        $isSearchPage = $request->route()->uri == 'search';
+
+        return view('posts.list', compact('posts', 'communities', 'agent', 'isSearchPage'));
     }
 
 

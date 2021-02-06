@@ -4,9 +4,9 @@
 
     <div class="mt-3 card">
         @if(isset($title))
-        <h1 class="uk-heading-divider">{{ $title }}</h1>
+        <h3 class="m-0">{{ $title }}</h3>
         @elseif(!isset($isHomepage))
-          <h1 class="uk-heading-divider">{{  'All Topics' }} {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}</h1>          
+          <h3 class="m-0">{{  'All Topics' }} {{ isset($community) ? 'in '.$community->name : '' }} {{ isset($userTopics) ? 'by '.$user->username : '' }} {{ request()->has('q')? 'relating to "'.request()->q.'"' : '' }}</h3>          
         @endif     
 
 
