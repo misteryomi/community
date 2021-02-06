@@ -32,6 +32,7 @@ $(document).ready(function() {
         toolbar: {
             items: [
                 'heading',
+                'imageUpload',
                 '|',
                 'bold',
                 'italic',
@@ -42,7 +43,6 @@ $(document).ready(function() {
                 'bulletedList',
                 'numberedList',
                 '|',
-                'imageUpload',
                 'link',
                 'blockQuote',
                 'mediaEmbed',

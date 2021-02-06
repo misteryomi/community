@@ -13445,3 +13445,12 @@ select.select2 {
     display: none!important;
   }
 }
+
+@media (max-width: 990px) {
+  .card-thumbnail {
+    object-fit: cover;
+    height: 60px;
+    width: 60px;
+    overflow: hidden;
+  }
+}

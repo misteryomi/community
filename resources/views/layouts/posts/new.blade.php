@@ -27,5 +27,5 @@
 @endsection
 
 @section('scripts')
-@include('layouts.posts.script')
+    @include('layouts.posts.script')
 @endsection

@@ -18,7 +18,7 @@ $(document).ready(function() {
     $(document).ready(function() {
 
         var isEdit = "{{ isset($isEdit) ? true : false }}";
-        var myForm = $("#publish-form");
+        var myForm = $(".publish-form");
         var initialValue = $('.init-editor').val();
 
         $('.init-editor').hide();
@@ -29,7 +29,7 @@ $(document).ready(function() {
             editor.setData(data ? data : initialValue)
         }
 
-        $('#submit-form').click(function(e) {
+        $('.submit-form').click(function(e) {
           e.preventDefault();
 
           let rant = editor.getData();

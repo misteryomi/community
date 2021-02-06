@@ -1,15 +1,4 @@
 @php $route = $post->route(); @endphp
-<div class="uk-text-center" uk-grid>
-    <div class="uk-width-auto@m">
-        <div class="uk-card uk-card-default uk-card-body">Auto</div>
-    </div>
-    <div class="uk-width-1-3@m">
-        <div class="uk-card uk-card-default uk-card-body">1-3</div>
-    </div>
-    <div class="uk-width-expand@m">
-        <div class="uk-card uk-card-default uk-card-body">Expand</div>
-    </div>
-</div>
 
 <div class="card mt-2">
     <div class="pt-2">
@@ -20,12 +9,20 @@
             <span class="blog-post-info-date"><a href="">{{ $post->user->username }}</a> &bull; {{ $post->date }}</span>
         </div>
         <a href="{{ $route }}">        
-        <h4 class="m-0 py-2">{!! request()->has('q') ? $post->highlightSearchQuery($post->title, request()->q) : $post->title !!}</h4>
-        @if(!empty($post->featured_image))
-        <div class="my-2 mb-2 card-thumbnail">
-            <img src="{{ $post->featured_image }}" alt="">
+        <div class="uk-flex-middle uk-flex-column@m uk-width-5-5@m ml-0" uk-grid>
+            <div class="@if(!empty($post->featured_image)) uk-width-4-5 @endif uk-width-auto@m uk-flex-first@m pl-0">
+                <h4 class="m-0 py-2">{!! request()->has('q') ? $post->highlightSearchQuery($post->title, request()->q) : $post->title !!}</h4>
+            </div>
+            @if(!empty($post->featured_image))
+                <div class="uk-width-1-5 uk-width-auto@m pl-0">
+                    <div class="card-thumbnail">
+                        <img src="{{ $post->featured_image }}" alt="">
+                    </div>
+                </div>
+            @endif
         </div>
-        @endif
+
+
         </a>  
         <div class="uk-flex">
             <div class="mr-2 text-dark "><small><i class="icon-feather-message-square ml-2"></i> <strong>{{ $post->comments->count() }} comments</strong></small></div>

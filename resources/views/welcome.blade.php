@@ -47,31 +47,38 @@
                             <div class="post-new-header">
 
                                 <h4> Post new stuff!</h4>
-
+                                <!-- class="uk-child-width-expand"/ -->
                                 <!-- close button-->
                                 <span class="post-new-btn-close" uk-toggle="target: body ; cls: post-focus"
                                     uk-tooltip="title:Close; pos: left "></span>
 
                             </div>
 
-                            <div class="uk-form-group">
-                                    <label>Title</label>
-                                    <input type="text" class="uk-input bg-secondary" 
-                                        placeholder="Title" autofocus>
+                            <div>
+                                    <ul class="uk-child-width-expand" uk-tab
+                                        uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
+                                        <li class="uk-active"><a href="#">Topic</a></li>
+                                        <!-- <li><a href="#">News</a></li> -->
+                                        <li><a href="#">Ask a Question</a></li>
+                                        <li><a href="#">Rant</a></li>
+                                    </ul>                    
+                                            
+                                    <ul class="uk-switcher uk-margin uk-padding-small pt-0">
+                                            <!-- tab 1 -->
+                                        <li>
+                                            @include('posts.form')
+                                        </li>
+
+                                        <!-- <li>Coming soon</li> -->
+                                        <li>@include('questions.form')</li>
+                                        <li>@include('rants.form')</li>
+                                        </ul>
+                                    
+
+
                                 </div>
 
-                                <div class="uk-position-relative editor-container">
-                                    <label>Additional text (completely optional)</label>
-                                    <div class="editor"></div>
-                                    <textarea class="uk-textarea bg-secondary init-editor" placeholder=""> </textarea>
-                                </div>
 
-
-
-                            <div class="uk-flex uk-flex-between mt-2">
-
-                                <a href="#" class="button button-block primary px-6"> Share </a>
-                            </div>
                         </div>
 
                     </div>
