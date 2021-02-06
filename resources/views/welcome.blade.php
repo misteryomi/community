@@ -12,10 +12,14 @@
                     <div class="post-new" uk-toggle="target: body ; cls: post-focus">
                         <div class="post-new-media">
                             <div class="post-new-media-user">
+                                @guest
                                 <img src="assets/images/avatars/avatar-2.jpg" alt="">
+                                @else
+                                {!! auth()->user()->displayAvatar() !!}
+                                @endguest
                             </div>
                             <div class="post-new-media-input">
-                                <input type="text" class="uk-input" placeholder="Share anything... memes, your thoughts, trending videos...">
+                                <input type="text" class="uk-input" placeholder="Share your memes, thoughts, any stuff...">
                             </div>
 
                         </div>
