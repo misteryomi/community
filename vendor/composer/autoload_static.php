@@ -727,6 +727,7 @@ class ComposerStaticInit50933bca2daf2979695098d2edec420b
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\QuestionCategory' => __DIR__ . '/../..' . '/app/QuestionCategory.php',
         'App\\QuestionMeta' => __DIR__ . '/../..' . '/app/QuestionMeta.php',
         'App\\Rant' => __DIR__ . '/../..' . '/app/Rant.php',
         'App\\RantMeta' => __DIR__ . '/../..' . '/app/RantMeta.php',

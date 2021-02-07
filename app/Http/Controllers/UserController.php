@@ -42,6 +42,7 @@ class UserController extends Controller
             $posts = $user->posts()->latest()->paginate(15);
         }
 
+
         $agent = $this->agent;
 
         return view('profile.show', compact('user', 'posts', 'agent'));

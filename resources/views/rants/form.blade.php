@@ -9,19 +9,19 @@
 
         <div class="uk-form-group">
         <div class="uk-position-relative autosuggest">
-            <select class="select2 uk-input uk-textarea uk-form-large" name="community_id" @if(isset($isEdit)) value="{{ $post->community_id }}" @endif id="community">
+            <select class=" uk-input uk-textarea uk-form-large" name="community_id" @if(isset($isEdit)) value="{{ $post->community_id }}" @endif id="community">
                 <option value="" selected>Select a Category</option>
                 @if(isset($isEdit))
                 <option value="{{ $post->community_id }}" selected>{{ $post->community->name }}</option>
                 @elseif(isset($community) && ($community->name != 'Rants'))
                 <option value="{{ $community->id }}" selected>{{ $community->name }}</option>
                 @endif
-                @foreach($communities as $c)
+                @foreach(auth()->user()->communities()->get() as $c)
                 <option value="{{ $c->id }}">{{ $c->name }}</option>
                 @endforeach
             </select>
         </div>
-    <div class="uk-form-group">
+    <div class="uk-form-group mt-4">
         <div class="uk-position-relative editor-container">
         <div class="editor"></div>
         <textarea class="uk-textarea init-editor mt-4" placeholder="Details..."> @if(isset($isEdit)){{ html_entity_decode(strip_tags($post->details)) }} @endif</textarea>

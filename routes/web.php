@@ -158,23 +158,6 @@ Route::name('mood.')->group(function() {
 
 
 
-Route::name('profile.')->group(function() {
-    Route::middleware('auth')->group(function() {
-        // Route::get('/profile', 'UserController@index')->name('index');
-        Route::get('/settings', 'UserController@settings')->name('settings');
-        Route::post('/settings', 'UserController@update')->name('settings.post');
-        Route::get('/settings/homepage', 'UserController@feedSettings')->name('feed.settings');
-        Route::post('/settings/homepage', 'UserController@updateFeedSettings')->name('feed.settings.post');
-        Route::get('/settings/profile-picture', 'UserController@profilePicture')->name('avatar.settings');
-        Route::post('/settings/profile-picture', 'UserController@updateProfilePicture')->name('avatar.settings.post');
-        Route::get('/settings/password', 'UserController@password')->name('password.settings');
-        Route::post('/settings/password', 'UserController@updatePassword')->name('password.settings.post');
-        Route::get('/settings/deactivate', 'UserController@deactivate')->name('deactivate.settings');
-        Route::post('/settings/deactivate', 'UserController@deactivateAccount')->name('deactivate.settings.post');
-    });
-    Route::get('users/list', 'UserController@apiList')->name('users.api');
-    Route::get('/user/{user:username}', 'UserController@index')->name('show');
-});
 
 Route::name('topics.')->prefix('topics')->middleware('auth')->group(function() {
     Route::get('/bookmarks', 'PostController@saved')->name('bookmarks');
@@ -190,5 +173,22 @@ Route::middleware('auth')->group(function() {
 Route::post('/media/upload', 'MediaManagerController')->name('media.upload')->middleware('auth');
 
 
+Route::name('profile.')->group(function() {
+    Route::middleware('auth')->group(function() {
+        // Route::get('/profile', 'UserController@index')->name('index');
+        Route::get('/settings', 'UserController@settings')->name('settings');
+        Route::post('/settings', 'UserController@update')->name('settings.post');
+        Route::get('/settings/homepage', 'UserController@feedSettings')->name('feed.settings');
+        Route::post('/settings/homepage', 'UserController@updateFeedSettings')->name('feed.settings.post');
+        Route::get('/settings/profile-picture', 'UserController@profilePicture')->name('avatar.settings');
+        Route::post('/settings/profile-picture', 'UserController@updateProfilePicture')->name('avatar.settings.post');
+        Route::get('/settings/password', 'UserController@password')->name('password.settings');
+        Route::post('/settings/password', 'UserController@updatePassword')->name('password.settings.post');
+        Route::get('/settings/deactivate', 'UserController@deactivate')->name('deactivate.settings');
+        Route::post('/settings/deactivate', 'UserController@deactivateAccount')->name('deactivate.settings.post');
+    });
+    Route::get('users/list', 'UserController@apiList')->name('users.api');
+    Route::get('/{user:username}', 'UserController@index')->name('show');
+});
 
 

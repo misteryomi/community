@@ -5,7 +5,7 @@
 
     <div class="job-block-description">
         <a href="{{$route = $post->route()}}">
-        <h4>By {{ $post->user->name }} </h4>
+        <h4>By <a href="#">{{ $post->user->name }}</a> </h4>
         <h3> {{ $post->title }} </h3>
         <p class="job-block-text"> {{ $post->excerpt }}</p>
         </a>

@@ -106,7 +106,7 @@
                         <!-- profile -image -->
                         @guest
                         <a href="{{ route('login') }}" class="button primary uk-visible@s ml-2"> Login </a>
-                        <a href="{{ route('register') }}" class="button warning ml-2 uk-visible@s"> Create an account </a>
+                        <a href="{{ route('register') }}" class="button dark ml-2 uk-visible@s"> Create an account </a>
                         <a class="opts_account uk-hidden@s mt-2" href="#"> <span class="icon-border"><i class="uil-user"></i></span></a>
                         <!-- profile dropdown-->
                         <div uk-dropdown="mode:click; animation: uk-animation-slide-bottom-small"

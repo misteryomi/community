@@ -2,9 +2,9 @@
 
 
 @section('content')
-<div class="main_content_inner p-sm-0 ml-sm-4">
+<div class=" p-sm-0 ml-sm-4">
 
-<h1 c> Setting </h1>
+<h1 c> Settings </h1>
 
 @include('layouts.partials.alert')
 
@@ -19,7 +19,7 @@
                 ['name' => 'Profile', 'routeName' => 'profile.settings', 'icon' => 'uil-user'],  
                 ['name' => 'Password', 'routeName' => 'profile.password.settings', 'icon' => 'uil-unlock-alt'],                               
                 ['name' => 'Profile Picture', 'routeName' => 'profile.avatar.settings', 'icon' => 'icon-feather-users'], 
-                ['name' => 'Coins', 'routeName' => 'trending', 'icon' => 'uil-dollar-alt'], 
+               /* ['name' => 'Coins', 'routeName' => 'profile.settings.coins', 'icon' => 'uil-dollar-alt'], */
                 ['name' => 'Homepage', 'routeName' => 'profile.feed.settings', 'icon' => 'uil-home'], 
                 ['name' => 'Deactivate Account', 'routeName' => 'profile.deactivate.settings', 'icon' => 'uil-trash-alt']
             ]

@@ -31,24 +31,26 @@
                         <div class="py-md-2 uk-flex-last">
                             @if($isLoggedInUser)
 
-                            <a href="#" class="button primary mr-2"> <i class="uil-plus"></i>Post a New</a>
+                            <!-- <a href="#" class="button primary mr-2"> <i class="uil-plus"></i>Post a New</a>
                             <div uk-dropdown="pos: bottom-left ; mode:hover ">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li><a href="{{ route('topics.new') }}"> Topic </a></li>
                                     <li><a href="{{ route('rants.new') }}"> Rant </a></li>
                                     <li><a href="{{ route('questions.new') }}"> Question</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
                             @endif
                         </div>
                         <div>
                             <nav class="responsive-tab">
                                 <ul>
-                                    <li class="uk-active"><a class="active" href="?type=topics">Topics</a></li>
-                                    <li><a href="?type=questions">Questions</a></li>
-                                    <li><a href="?type=rants">Rants</a></li>
-                                    <li><a href="?type=communities">Communities</a></li>
-                                    <li><a href="?type=followed-communities">Followed Communities</a></li>
+                                    <li class="uk-active"><a class="{{ request()->type == 'topics' }}" href="?type=topics">Topics</a></li>
+                                    <li><a class="{{ request()->type == 'questions' }}" href="?type=questions">Questions</a></li>
+                                    <li><a class="{{ request()->type == 'rants' }}" href="?type=rants">Rants</a></li>
+                                    <li><a href="{{ route('community.user', ['user' => $user->original_username]) }}">Communities</a></li>
+                                    @if($isLoggedInUser)
+                                    <li><a href="{{ route('community.joined') }}">Followed Communities</a></li>
+                                    @endif
                                 </ul>
                             </nav>
                         </div>
@@ -58,6 +60,9 @@
 
 <br/>
 
+@if($isLoggedInUser)
+    @include('posts.share')
+@endif
 
       @php $userTopics = true @endphp
       @include('templates.topics_list')
