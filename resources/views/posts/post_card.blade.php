@@ -6,7 +6,7 @@
             <span>
             <a href="#"><span href="#" class="blog-post-info-tag button soft-danger"> R</span>  <small>{{ $post->community->name }}</small></a>
             </span>
-            <span class="blog-post-info-date"><a href="">{{ $post->user->username }}</a> &bull; {{ $post->date_ago }}</span>
+            <span class="blog-post-info-date"><a href="{{ $post->user->profileRoute() }}">{{ $post->user->username }}</a> &bull; {{ $post->date_ago }}</span>
         </div>
         <a href="{{ $route }}">        
         <div class="uk-flex-middle  ml-0" uk-grid>

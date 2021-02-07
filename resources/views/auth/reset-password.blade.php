@@ -3,7 +3,7 @@
 @section('content')
   <div uk-height-viewport="expand: true" class="uk-flex uk-flex-middle">
         <div class="uk-width-1-3@m uk-width-1-2@s m-auto">
-            <div class="px-2 uk-animation-scale-up">
+            <div class="p-4 uk-animation-scale-up bg-white shadow-xl rounded-md">
                 <div class="my-4 uk-text-center">
                     <h1 class="mb-2"> Reset Password an Account  </h1>
                     <p class="my-2">Enter your new password to continue</p>

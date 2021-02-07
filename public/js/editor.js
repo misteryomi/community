@@ -17,7 +17,7 @@ function getFeedItems( queryText ) {
 
             return new Promise( resolve => {
                 apiFetch(queryText).then(itemsToDisplay => {
-                    console.log({itemsToDisplay});
+                    // console.log({itemsToDisplay});
                     resolve( JSON.parse(itemsToDisplay) );
                 })
             } );
@@ -26,79 +26,83 @@ function getFeedItems( queryText ) {
 }
 
 $(document).ready(function() {
-    ClassicEditor
-    .create( document.querySelector( '.editor' ), {
-        
-        toolbar: {
-            items: [
-                'heading',
-                'imageUpload',
-                '|',
-                'bold',
-                'italic',
-                'underline',
-                'strikethrough',
-                'superscript',
-                'subscript',
-                'bulletedList',
-                'numberedList',
-                '|',
-                'link',
-                'blockQuote',
-                'mediaEmbed',
-                '|',
-                'code',
-                'codeBlock',
-                '|',
-                'undo',
-                'redo'
-            ]
-        },
-        language: 'en',
-        image: {
-            toolbar: [
-                'imageTextAlternative',
-                'imageStyle:full',
-                'imageStyle:side'
-            ]
-        },
-        table: {
-            contentToolbar: [
-                'tableColumn',
-                'tableRow',
-                'mergeTableCells'
-            ]
-        },
-        licenseKey: '',
-        simpleUpload: {
-            // The URL that the images are uploaded to.
-            uploadUrl: uploadURL ? uploadURL : '/media/upload',
+    let editors = document.querySelectorAll( '.editor' );
 
-        // Headers sent along with the XMLHttpRequest to the upload server.
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        },
+    for(let i = 0; i < editors.length; i++) {
+        ClassicEditor
+        .create( editors[i], {
+            
+            toolbar: {
+                items: [
+                    'heading',
+                    'imageUpload',
+                    '|',
+                    'bold',
+                    'italic',
+                    'underline',
+                    'strikethrough',
+                    'superscript',
+                    'subscript',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'link',
+                    'blockQuote',
+                    'mediaEmbed',
+                    '|',
+                    'code',
+                    'codeBlock',
+                    '|',
+                    'undo',
+                    'redo'
+                ]
+            },
+            language: 'en',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells'
+                ]
+            },
+            licenseKey: '',
+            simpleUpload: {
+                // The URL that the images are uploaded to.
+                uploadUrl: uploadURL ? uploadURL : '/media/upload',
 
-        mention: {
-            feeds: [
-                {
-                    marker: '@',
-                    feed: getFeedItems,
-                    minimumCharacters: 2
+            // Headers sent along with the XMLHttpRequest to the upload server.
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            ]
-        }
-        
-        
-    } )
-    .then( editor => {
-        window.editor = editor;
+            },
 
-        console.log({editor})
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
+            mention: {
+                feeds: [
+                    {
+                        marker: '@',
+                        feed: getFeedItems,
+                        minimumCharacters: 2
+                    }
+                ]
+            }
+            
+            
+        } )
+        .then( editor => {
+            window.editor = editor;
+
+            // console.log({editor})
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+    }
 
 });
