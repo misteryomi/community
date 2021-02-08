@@ -16,6 +16,7 @@ class CreateRantMetasTable extends Migration
         Schema::create('rant_metas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('post_id');
+            $table->integer('category_id');
             $table->boolean('is_anonymous')->default(0);
             $table->boolean('is_public')->default(1);
             $table->timestamps();

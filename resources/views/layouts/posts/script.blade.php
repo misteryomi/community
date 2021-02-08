@@ -14,58 +14,62 @@ $(document).ready(function() {
 </script>
 
 <script>
-    var data = `{!! isset($post) ? $post->details : '' !!}`;
-    $(document).ready(function() {
 
+var data = `{!! isset($post) ? $post->details : '' !!}`;
+
+
+function submitForm(e, editorClass, submitFormEl) {
+    e.preventDefault();
+
+    let editor = editors[editorClass];
+    let formEl = $(submitFormEl)[0]
+
+    var text = editor.getData();
+
+
+    $(submitFormEl).find("input[name=details]").val(text);
+
+
+    if(!formEl.checkValidity()) {
+        formEl.reportValidity();              
+        
+    } else {
+
+        // console.log({rant: $(this).html()})
+        if(!text) {
+            UIkit.notification("<span uk-icon='icon: check'></span> <strong>Sorry, Content cannot be empty</strong>", { status:'danger' });
+            $(submitFormEl).find('.editor-container').addClass('error-border')
+
+        } else {
+            
+            $('.submit-form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+            $('.submit-form-btn').attr('disabled', true);
+
+           formEl.submit();
+        }
+    }
+
+    return false;
+
+}
+
+function prePopulateForm(editorClass) {
         var isEdit = "{{ isset($isEdit) ? true : false }}";
-        var myForm = $(".publish-form");
         var initialValue = $('.init-editor').val();
+        var editor = editors[editorClass];
 
         $('.init-editor').hide();
 
-        if(isEdit) {
-            editor.setData(data)
-        } else {
-            editor.setData(data ? data : initialValue)
+        if(editor) {
+            if(isEdit) {
+                editor.setData(data)
+            } else {
+                editor.setData(data ? data : initialValue)
+            }
+
         }
 
-        $('.submit-form').click(function(e) {
-          e.preventDefault();
-
-          let rant = editor.getData();
-
-          $("input[name=details]").val(rant);
-
-
-          if(!myForm[0].checkValidity()) {
-            myForm[0].reportValidity();              
-            
-          } else {
-
-            if(!rant) {
-                UIkit.notification("<span uk-icon='icon: check'></span> <strong>Sorry, Content cannot be empty</strong>", { status:'danger' });
-                $('.editor-container').addClass('error-border')
-
-            } else {
-                
-                $('.submit-form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
-                $('.submit-form-btn').attr('disabled', true);
-
-                myForm.submit();
-            }
-          }
-
-          return false;
-        })
-
-        $('.autosuggest input').focus(function() {
-            $('.autosuggest .dropdown-list').show();
-        })
-
-        $('.autosuggest input').blur(function() {
-            $('.autosuggest .dropdown-list').hide();
-        })
-
-
-    })
+}
 </script>
+
+@yield('form_script')

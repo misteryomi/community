@@ -39,7 +39,17 @@ class Post extends Model implements Feedable
                 $new_arr = !ctype_upper($arr) ? \ucwords(\strtolower($arr)) : $arr;
                 $title .= ' '.$new_arr;
         }
+
         $this->attributes['title'] = $title;
+    }
+
+    public function getTitleAttribute($title) {
+
+        if($this->type && $this->type->name != 'topic') {
+            $title = $title.' ['.\Str::singular($this->type->name).'] ';
+        }
+
+        return $title;
     }
 
     /**
@@ -159,6 +169,14 @@ class Post extends Model implements Feedable
             }
         }
 
+    }
+
+    public function getYoutubeIDAttribute() {
+        
+
+        preg_match("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", $this->details, $match);
+
+        return $match ? $match[1] : false;
     }
 
     public function getExcerptAttribute() {
@@ -296,4 +314,8 @@ class Post extends Model implements Feedable
     {
        return Post::where('is_featured', 1)->latest()->take(200)->get();
     }    
+
+    public function isQuestion() {
+        return $this->type && $this->type->name == 'questions';
+    }
 }

@@ -1,5 +1,5 @@
         <div class="my-4 uk-text-center">
-            <h1 class="mb-2"> Sign in  </h1>
+            <h1 class="mb-2 text-sm uk-text-lead"> Login to continue  </h1>
             <p class="my-2">New here?
             <a href="{{ route('register') }}" class="uk-link text-primary">Create an account</a> </p>
         </div>

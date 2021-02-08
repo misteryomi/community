@@ -159,7 +159,7 @@ class User extends Authenticatable
         
         if(!$this->avatar) {
             // return '<span class="avatar rounded-circle img-circle bg-secondary text-dark">'.\strtoupper(substr($this->name, 1, 1)).'</span>';
-            return "<span class='avatar-img $style'>Y</span>";
+            return "<span class='avatar-img $style'>".\strtoupper(substr($this->name, 1, 1))."</span>";
         }
 
         return '<img src="'.$this->avatar.'" alt=""/>';

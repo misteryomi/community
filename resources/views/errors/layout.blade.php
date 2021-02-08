@@ -7,7 +7,7 @@
         <div class="my-4 uk-text-center">
             <h1 class="mb-2">@yield('code') - @yield('title')  </h1>
             <p class="my-2">@yield('message')</p>
-            <a href="{{ route('home') }}" class="uk-link text-primary">Take me back to the homepage</a> 
+            <a href="{{ route('home') }}" class="uk-link text-primary">Take me back home</a> 
         </div>
 </div>
 </div>

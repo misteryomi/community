@@ -4,7 +4,7 @@
     <div class="pt-2">
         <div class="blog-post-content-info pb-0">
             <span>
-            <a href="#"><span href="#" class="blog-post-info-tag button soft-danger"> {{ $post->community->name }} </span></a>
+                {!! $post->community->displayButton() !!}
             </span>
             <span class="blog-post-info-date"><a href="">{{ $post->user->username }}</a> &bull; {{ $post->date }}</span>
         </div>

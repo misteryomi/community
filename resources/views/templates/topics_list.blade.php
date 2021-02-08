@@ -1,7 +1,5 @@
 @include('layouts.partials.alert')
 
-
-
     <div class="mt-3 card">
         @if(isset($title))
         <h3 class="m-0">{{ $title }}</h3>
@@ -16,14 +14,13 @@
               @php
                 $displayCommunityFeed = (auth()->user() && auth()->user()->settings && auth()->user()->settings->feed_type == 'communities') ? true : false;
               @endphp
-              <div>
-                <nav class="responsive-tab style-2 ">
+                <nav class="responsive-tab style-1 ">
                     <ul>
                         <li @if(!$displayCommunityFeed) class="uk-active" @endif><a href="?feed_type=featured"> Featured</a></li>
-                        <li @if($displayCommunityFeed) class="uk-active" @endif><a href="?feed_type=communities"> Followed Communities </a></li>
+                        <li @if($displayCommunityFeed) class="uk-active" @endif><a href="?feed_type=communities"> Followed </a></li>
+                        <li><a href="{{ route('latest') }}">Latest</a></li>
                     </ul>
                 </nav>
-              </div>
               @endif
 
               <!-- <div>

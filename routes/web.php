@@ -188,7 +188,7 @@ Route::name('profile.')->group(function() {
         Route::post('/settings/deactivate', 'UserController@deactivateAccount')->name('deactivate.settings.post');
     });
     Route::get('users/list', 'UserController@apiList')->name('users.api');
-    Route::get('/{user:username}', 'UserController@index')->name('show');
+    Route::get('/profile/{user:username}', 'UserController@index')->name('show');
 });
 
 

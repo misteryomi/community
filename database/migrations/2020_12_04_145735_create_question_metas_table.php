@@ -16,6 +16,7 @@ class CreateQuestionMetasTable extends Migration
         Schema::create('question_metas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('post_id');
+            $table->integer('category_id');
             $table->integer('comment_answer_id')->nullable();
             $table->timestamps();
         });

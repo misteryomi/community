@@ -459,7 +459,7 @@ html {
 
 .responsive-tab .uk-active:hover,
 .responsive-tab .uk-active a {
-  color: #c51d1d !important;
+  /* color: #c51d1d !important; */
   opacity: 1;
 }
 
@@ -479,7 +479,7 @@ html {
 
 .uk-light .responsive-tab .uk-active a,
 .uk-light .responsive-tab li a:hover {
-  color: white !important;
+  /* color: white !important; */
 }
 
 .uk-light .responsive-tab .uk-active a:before {
@@ -8606,7 +8606,7 @@ header .opts_icon_link:hover {
 }
 
 .responsive-tab.style-1 li.uk-active a {
-  background-color: #fff;
+  background-color: #cb3535;
   border-color: 1px solid #c51d1d;
   color: white;
 }
@@ -10091,12 +10091,17 @@ header .opts_icon_link:hover {
   border: 2px solid white;
 }
 
-.profile-details .profile-image img {
+.profile-details .profile-image img{
   width: 125px;
   height: 125px;
+  margin: 0 auto;
   border-radius: 100%;
   border: 3px solid white;
 }
+/* .profile-details .profile-image img {
+  width: 100%;
+  object-fit: cover;
+} */
 
 .profile-details .profile-details-info h1 {
   margin-bottom: 7px;
@@ -10205,7 +10210,7 @@ header .opts_icon_link:hover {
   }
 
   .profile-details .profile-image img {
-    width: 80px
+    /* width: 80px */
   }
 
   .profile-details {
@@ -12880,407 +12885,6 @@ ul.story-side-list li a .story-user-innr p span.story-time-ago{
 
 
 
-/* ---------------------------------- */
-/*  games card 
-------------------------------------- */
-.game-card {
-  transition: 0.3s;
-  position: relative;
-  box-shadow: 0px 1px 7px -3px #d2d2d2;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.game-card-thumbnail {
-  flex: 0 0 auto;
-  max-width: none;
-  max-height: 100%;
-  position: relative;
-  width: 100%;
-  height: 170px;
-}
-
-.game-card-thumbnail img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.game-card-content {
-  padding: 10px;
-}
-
-.game-card-content h3 {
-  font-size: 16px;
-  line-height: 22px;
-  color: #333 !important;
-  margin-bottom: 0px;
-  display: block;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
- 
-
-.game-card-content p.info {
-  margin-top: -3px;
-  margin-bottom: -4px;
-}
-
-.game-card-content p.info span {
-  color: #929292;
-  font-size: 13px;
-}
-
-.game-card-member-wrap {
-  display: flex;
-  justify-content: space-between;
-}
-
-.game-card-member-wrap p {
-  padding: 0;
-  margin: 0;
-  display: block;
-  color: #808080;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.game-card-btns {
-  display: flex;
-  margin-top: 10px;
-}
-
-.game-card-btns a {
-  flex: 1;
-  margin-right: 8px;
-}
-
-.game-card-btns a:last-child {
-  margin-right: 0;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ---------------------------------- */
-/* Movei card
-------------------------------------- */
-
-.mov-card {
-  position: relative;
-  background: #000;
-  overflow: hidden;
-  height: 250px;
-  border-radius: 8px;
-}
-
-.mov-card .poster {
-  position: relative;
-  overflow: hidden;
-}
-
-.mov-card .poster:before {
-  content: "";
-  position: absolute;
-  bottom: -120px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(0deg,#000 50%, transparent);
-  transition: 0.5s;
-  z-index: 1;
-}
-
-.mov-card:hover .poster:before {
-  bottom: 0;
-}
-
-.mov-card .poster img {
-  width: 100%;
-  transition: 0.5s;
-}
-
-.mov-card:hover .poster img {
-  filter: blur(2px);
-  transform: translateY(-30px);
-}
-
-.mov-card-details  {
-  position: absolute;
-  padding: 16px;
-  width: 100%;
-  height: 100%;
-  bottom: -157px;
-  left: 0;
-  box-sizing: border-box;
-  transition: 0.5s;
-  z-index: 2;
-  border-radius: 8px;
-}
-
-.mov-card:hover .mov-card-details  {
-  bottom: 0px;
-}
-
-.mov-card-details h2 {
-  color: #fff;
-  margin: 0;
-  padding: 0;
-  font-size: 20px; 
-}
-
-.mov-card:hover .mov-card-details h2{
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.mov-card-details h6{
-  font-size: 14px;
-  color: #ff9800;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin-bottom: 3px;
-}
-
-.mov-card-rating {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 2px 0;
-}
-
-.mov-card-rating i {
-  color: #f7f406;
-  margin-right: 2px;
-  font-size: 16px;
-}
-
-.mov-card-rating span {
-  color: #fff;
-  padding: 0 5px;
-  font-size: 12px;
-}
-
-.mov-card-tags {
-  position: relative;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.mov-card-tags span {
-  padding: 2px 5px;
-  margin-right: 2px;
-  color: #fff;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.mov-card-tags span.fantasy {
-  background: #7206f7;
-}
-
-.mov-card-tags span.scifi {
-  background: #f70661;
-}
-
-.mov-card-info {
-  color: #ddd;
-  font-size: 12px;
-  height: 59px;
-  overflow: hidden;
-  line-height: 1.2;
-}
- 
-.mov-card-act {
-  position: relative;
-}
-
-.mov-card-act h4 {
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  color: #f7f406;
-}
-
-.mov-card-act ul {
-  margin: 5px 0 0;
-  padding: 0;
-  display: flex;
-}
-
-.mov-card-act ul li {
-  list-style: none;
-  width: 40px; 
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 6px;
-}
-
-.mov-card-act ul li img {
-  width: 100%;
-  width: 23px;
-  height: 24px;
-  object-fit: contain;
-}
-
-@media (max-width:960px) {
-  .mov-card {
-    height: 195px;
-  }
-
-  .mov-card-info,
-  .mov-card-rating span {
-    display: none
-  }
-
-  .mov-card-details {
-    bottom: -115px;
-  }
-
-  .mov-card-details h2 {
-    font-size: 14px;
-  }
-}
-
-
-/* Single movie */
-.main-moviewatch {
-  min-height: 100%;
-  max-height: 100%;
-  position: relative;
-  display: block;
-  height: 0;
-  padding: 0;
-  border-radius: 10px;
-  overflow: hidden;
-  min-height: 400px;
-}
-.main-moviewatch:before {
-  position: absolute;
-  content: '';
-  z-index: 1;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60%;
-  opacity: 0.5;
-  border-radius: inherit;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #212529 60%);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #212529 60%);
-  background-blend-mode: color-burn;
-}
-.main-moviewatch img {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  bottom: 0;
-  left: 50%;
-  display: block;
-  transform: translate(-50%,-50%);
-  object-fit: cover;
-}
-.main-moviewatch  .main-moviewatch-content {
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: max-content;
-  max-width: 100%;
-  position: absolute;
-  z-index: 100;
-}
-/* single movie contents */
-.moviecontent {
-  position: relative;
-  z-index: 9;
-  margin: -90px 30px 0 30px;
-  background-color: #ffffff;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
-}
-.moviecontent-infos {
-  display: flex;
-}
-
-.moviecontent-infos .mve_thmb {
-  position: relative;
-  width: 200px;
-  min-width: 200px;
-  height: 0;
-  padding-bottom: 290px;
-}
-.moviecontent-infos .mve_thmb img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-}
-.moviecontent-infos .mve_nfo {
-  padding-left: 25px;
-}
-
-.moviecontent-infos .mve_nfo .about-film {
-  font-size: 15px;
-  line-height: 25px;
-}
-.moviecontent-infos .mve_nfo ul {
-  padding-left: 0;
-  list-style: none;
-}
-.moviecontent-infos .mve_nfo ul li  p {
-  font-size: 15px;
-  line-height: 25px;
-}
-
-@media (max-width: 960px) {
-  .main-moviewatch { 
-  border-radius: 5px; 
-  min-height: 200px;
-  }
-  .moviecontent {
-    margin: 0px;
-    padding: 20px;
-    padding-top: 20px;
-    border-radius: 0;
-    }
-    .moviecontent-infos .mve_thmb{
-      display:none
-    }
-    .moviecontent-infos .mve_nfo{
-      padding:0
-    }
-    .main-moviewatch .main-moviewatch-content {
-     top: 70%; 
-    }
-}
-
-
 
 .chat-plus-btn {
   position: fixed;
@@ -13456,6 +13060,15 @@ select.select2 {
 }
 .card-thumbnail img {
   height: 100%;
+}
+.lead-text {
+  font-size: 26px;
+}
+.ck-editor__editable {
+  min-height: 200px !important;
+}
+.ck.ck-content, .init-editor {
+  height: 200px;
 }
 @media (min-width: 990px) {
    .main_sidebar, .header-btn-traiger {

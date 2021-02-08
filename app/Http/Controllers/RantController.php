@@ -40,7 +40,7 @@ class RantController extends Controller
         $this->agent = new Agent();
         $this->communityObj = $community->where('name', 'rants')->first();
         $this->post_type = $post_type->where('name', 'rants')->first();
-        $this->meta_fields = ['is_public', 'is_anonymous'];
+        $this->meta_fields = ['is_public', 'is_anonymous', 'category'];
 
         $this->middleware(function($request, $next) {
             $this->user = Auth::user();
@@ -99,15 +99,30 @@ class RantController extends Controller
      */
     public function store(Request $request) {
 
-        $requestData = $request->except($this->meta_fields);
+        $requestData = $request->all(); //$request->except($this->meta_fields);
+        $requestData['community'] = $this->post_type->id;
 
-        $post = $this->preSubmit($requestData);
+        $validationFields = [
+            'title' => 'required|max:255',
+            'details' => 'required',
+            'category' => 'required|exists:App\RantCategory,id'
+        ];
+
+        $validation =  Validator::make($requestData, $validationFields);
+
+        if($validation->fails()) {
+             return redirect()->back()->withErrors($validation->errors())->withInput()->send();
+        }
+
+        $post = $this->preSubmit($requestData, false, $validationFields);
+
         $post->update(['post_type' => $this->post_type->id]);
         
         $this->meta->create([
             'post_id' => $post->id,
             'is_public' => (isset($request->is_public) && $request->is_public == true),
-            'is_anonymous' =>(isset($request->is_anonymous) && $request->is_anonymous == true)
+            'is_anonymous' =>(isset($request->is_anonymous) && $request->is_anonymous == true),
+            'category_id' => $request->category,
         ]);
 
 

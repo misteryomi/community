@@ -127,20 +127,22 @@ class PostController extends Controller
         $agent = $this->agent;
 
 
-        if($this->user && $this->user->settings && $this->user->settings->feed_type == 'communities') {
-            $posts = $this->user->communitiesTopics()->latest();
-        } else {
-            $posts = $this->post->latest();
-        }
-        
+        // if($this->user && $this->user->settings && $this->user->settings->feed_type == 'communities') {
+        //     $posts = $this->user->communitiesTopics()->latest();
+        // } else {
+        //     $posts = $this->post->latest();
+        // }
+
+        $posts = $this->post->latest();
+
         $posts =  $posts->paginate(SELF::$PAGINATION_LIMIT);
 
         $communities = $this->category->where('is_featured', true)->get();
 
         $title = 'Latest Topics';
-        $displayTopicsType = true;
+        // $displayTopicsType = true;
 
-        return view('posts.list', compact('posts', 'communities', 'title', 'agent', 'displayTopicsType'));
+        return view('posts.list', compact('posts', 'communities', 'title', 'agent'));
     }    
 
     public function trending(Request $request) {
@@ -195,6 +197,7 @@ class PostController extends Controller
     public function new($community = null) {
         $community = $this->category->where('slug', $community)->first();
 
+
         if(!$community) {
             $communities = auth()->user()->followedCommunities()->ordered();
             // $communities = $this->category->ordered(); //->where('is_parent', true)->
@@ -202,6 +205,8 @@ class PostController extends Controller
             $communities = $this->category->where('parent_id', $community->id)->ordered();
 
         }
+
+        
 
         return view('posts.new', compact('communities', 'community'));
     }
@@ -215,8 +220,20 @@ class PostController extends Controller
      */
     public function store(Request $request) {
 
-    
         $requestData = $request->all();
+
+
+        $validationFields = [
+            'title' => 'required|max:255',
+            'details' => 'required',
+            'community' => 'required|exists:App\Community,id'
+        ];
+
+        $validation =  Validator::make($requestData, $validationFields);
+
+        if($validation->fails()) {
+             return redirect()->back()->withErrors($validation->errors())->withInput()->send();
+        }
 
         $post = $this->preSubmit($requestData);
 
@@ -250,6 +267,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post) {
 
+        // dd($request->all());
         $this->preUpdate($request, $post);
         
         return redirect()->route('posts.show', ['post' => $post->slug]);

@@ -25,7 +25,7 @@ class Community extends Model
     }
 
     public function getColorAttribute($value) {
-        return $value == null ? '#f5365c' : $value;
+        return $value == null ? '#f5365cAA' : $value;
     }
 
     public function getNameAttribute($value) {
@@ -77,20 +77,33 @@ class Community extends Model
 
 
     public function icon($size = 'small') {
+        return '<span class="blog-post-info-tag button text-white "  style="background-color: '.$this->color.'">';
         // <div class="icon icon-shape icon-'.$size.' text-white rounded-circle shadow" style="background-color: '.$this->color.'">
         // <div class="p-1 text-dark bg-white icon-border text-white" style="background-color: '.$this->color.'">        
-        return '
-            <span class="cat-icon">
-            '.substr($this->name, 0, 1).'
-            </span>
-        ';
+        // return '
+        //     <span class="cat-icon">
+        //     '.substr($this->name, 0, 1).'
+        //     </span>
+        // ';
     }
 
     public function displayAvatar($size = 'sm') {
         if(!$this->cover) {
-            return '<div class="avatar rounded-circle img-circle bg-light text-dark" style="width: 60px; height: 60px">'.\strtoupper(substr($this->name, 0, 1)).'</div>';
+            return '<div class="avatar rounded-circle img-circle" style="width: 60px; height: 60px; background-color: '.$this->color.'!important">'.\strtoupper(substr($this->name, 0, 1)).'</div>';
         }
 
         return '<img src="'.$this->cover.'" alt=""/>';
     }
+
+    public function displayButton($isBold = false) {
+        if($isBold) {
+            return '<a href="'.$this->route().'">'.$this->icon().\strtoupper(substr($this->name, 0, 1)).'</span>  <small><strong>'. $this->name.'</strong></small></a>';
+        }
+        return '<a href="'.$this->route().'">'.$this->icon().\strtoupper(substr($this->name, 0, 1)).'</span>  <small>'. $this->name.'</small></a>';
+    }
+
+    public function route() {
+        return route('community.list', ['community' => $this->slug ]);
+    }
+
 }

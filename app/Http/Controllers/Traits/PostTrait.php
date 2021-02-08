@@ -124,22 +124,21 @@ trait PostTrait
 
     protected function preSubmit($requestData) {
 
+        $newID = $this->post->count() + 1;
+        $slug = \Str::slug(substr($requestData['title'], 0, 50), '-').'-'.$newID;
 
-        $validation =  Validator::make($requestData, [
-            'title' => 'required|max:255',
-            'details' => 'required',
-            'community_id' => 'required'
-        ]);
+        $data = [
+                    'title' => $requestData['title'],
+                    'details' => $requestData['details'],
+                    'slug' => $slug,                
+                ];
 
-        if($validation->fails()) {
-         return redirect()->back()->withErrors($validation->errors())->withInput()->send();
+        if(isset($requestData['community'])) {
+            $data['community_id'] = $requestData['community'];
         }
 
 
-        $newID = $this->post->count() + 1;
-        $requestData['slug'] = \Str::slug(substr($requestData['title'], 0, 50), '-').'-'.$newID;
-
-        $post = $this->user->posts()->create($requestData);
+        $post = $this->user->posts()->create($data);
 
         $this->user->coins->increment('balance', 2);
 
