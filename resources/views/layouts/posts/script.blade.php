@@ -15,6 +15,7 @@ $(document).ready(function() {
 
 <script>
     var data = `{!! isset($post) ? $post->details : '' !!}`;
+    
     $(document).ready(function() {
 
         var isEdit = "{{ isset($isEdit) ? true : false }}";
@@ -27,6 +28,7 @@ $(document).ready(function() {
             editor.setData(data)
         } else {
             editor.setData(data ? data : initialValue)
+            console.log({editor});
         }
 
         $('.submit-form').click(function(e) {

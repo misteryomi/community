@@ -9,14 +9,24 @@
         <div class="mt-lg-4" uk-grid>
             <div class="uk-width-3-3@m">
                 @include('layouts.partials.alert')
-                <h1 class="mb-0">{{ $post->title }}</h1>
-                <div class="group-card-content pl-0 p-sm-0 mb-0 ">
+                
+                <h1 class="mt-3 lead-text text-dark mb-0">{{ $post->title }}</h1>
+
+                
+
+        <div class="uk-flex mt-2">            
+            <div class="mr-2 text-dark ">{!! $post->community->displayButton(true) !!}</div>
+            <div class="mr-2 text-dark "><small><i class="icon-feather-message-square ml-2"></i> <strong>{{ $post->comments->count() }} comments</strong></small></div>
+            <div class="mr-2 text-dark "><small><i class="icon-feather-eye"></i> <strong>{{ $post->views->count() }} views</strong></small></div>
+        </div>
+
+                <!-- <div class="group-card-content pl-0 p-sm-0 mb-0 ">
                     <p class="info"> 
                         <span><i class="icon-feather-eye ml-2"></i>  
                         {{ $post->views->count() }} views </span> <span> <i class="icon-feather-message-square ml-2"></i> {{ $post->comments->count() }} comments </span>            
                     </p>
                 </div>
-                
+                 -->
 
                 @if($comments->onFirstPage())
                 <div class="user-details-card py-0">
@@ -28,7 +38,6 @@
                     </div>
                 </div>
                 @endif
-                <a href="{{ route('community.list', ['community' => $post->community->slug]) }}" class="button small"> {{ $post->community->name }} </a>
 
             </div>
         </div>
@@ -100,10 +109,9 @@
           @if(auth()->user())
           @include('templates.comment')
           @else
-                <div id="comment" class="card mt-3">
-                    <div class="card-body text-center">
-                        <a href="#" class="uk-margin-small-right" uk-toggle="target: #modal-close-default"><strong>Login/Sign up to drop a comment</strong></a>
-                    </div>
+                <div id="comment" class="card">
+                    <textarea uk-toggle="target: #modal-close-default" class="uk-textarea" rows="5" placeholder="Drop a comment"></textarea>
+                        <!-- <a href="#" class="uk-margin-small-right" uk-toggle="target: #modal-close-default"><strong>Login/Sign up to drop a comment</strong></a> -->
                 </div>
         @endif
 

@@ -34,12 +34,12 @@ $(document).ready(function() {
             
             toolbar: {
                 items: [
-                    'heading',
-                    'imageUpload',
-                    '|',
+                    // 'heading',
                     'bold',
                     'italic',
                     'underline',
+                    'imageUpload',
+                    '|',
                     'strikethrough',
                     'superscript',
                     'subscript',

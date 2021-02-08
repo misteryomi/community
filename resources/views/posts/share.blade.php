@@ -4,7 +4,7 @@
     <div class="post-new-media">
         <div class="post-new-media-user">
             @guest
-            <img src="assets/images/avatars/avatar-2.jpg" alt="">
+            <span class="icon-border mt-3"><i class="uil-user"></i></span>
             @else
             {!! auth()->user()->displayAvatar() !!}
             @endguest
@@ -35,8 +35,13 @@
 <div class="post-pop">
 
     <div class="post-new-overyly" uk-toggle="target: body ; cls: post-focus"></div>
-
     <div class="post-new uk-animation-slide-top-small">
+
+        @guest
+
+            @include('auth.login-form')
+
+        @else 
 
 
         <div class="post-new-header">
@@ -66,14 +71,12 @@
                     <li>@include('questions.form')</li>
                     <li>@include('rants.form')</li>
                     </ul>
-                
-
-
             </div>
 
 
-    </div>
+            @endguest
 
+    </div>
 </div>
 
 </div>

@@ -459,7 +459,7 @@ html {
 
 .responsive-tab .uk-active:hover,
 .responsive-tab .uk-active a {
-  color: #c51d1d !important;
+  /* color: #c51d1d !important; */
   opacity: 1;
 }
 
@@ -479,7 +479,7 @@ html {
 
 .uk-light .responsive-tab .uk-active a,
 .uk-light .responsive-tab li a:hover {
-  color: white !important;
+  /* color: white !important; */
 }
 
 .uk-light .responsive-tab .uk-active a:before {
@@ -8606,7 +8606,7 @@ header .opts_icon_link:hover {
 }
 
 .responsive-tab.style-1 li.uk-active a {
-  background-color: #fff;
+  background-color: #cb3535;
   border-color: 1px solid #c51d1d;
   color: white;
 }
@@ -10091,12 +10091,17 @@ header .opts_icon_link:hover {
   border: 2px solid white;
 }
 
-.profile-details .profile-image img {
+.profile-details .profile-image img{
   width: 125px;
   height: 125px;
+  margin: 0 auto;
   border-radius: 100%;
   border: 3px solid white;
 }
+/* .profile-details .profile-image img {
+  width: 100%;
+  object-fit: cover;
+} */
 
 .profile-details .profile-details-info h1 {
   margin-bottom: 7px;
@@ -10205,7 +10210,7 @@ header .opts_icon_link:hover {
   }
 
   .profile-details .profile-image img {
-    width: 80px
+    /* width: 80px */
   }
 
   .profile-details {
@@ -13456,6 +13461,9 @@ select.select2 {
 }
 .card-thumbnail img {
   height: 100%;
+}
+.lead-text {
+  font-size: 26px;
 }
 @media (min-width: 990px) {
    .main_sidebar, .header-btn-traiger {

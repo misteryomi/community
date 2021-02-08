@@ -17,8 +17,8 @@
                     @elseif(isset($community))
                     <option value="{{ $community->id }}" selected>{{ $community->name }}</option>
                     @endif
-                    @foreach(auth()->user()->communities()->get() as $c)
-                    <option value="">{{ $c->name }}</option>
+                    @foreach(auth()->user()->followedCommunities()->ordered() as $c)
+                    <option  value="{{ $c->id }}" >{{ $c->name }}</option>
                     @endforeach
                 </select>
 
@@ -26,13 +26,9 @@
         <div class="uk-form-group">
             <div class="uk-position-relative editor-container">
             <div class="editor"></div>
-            <textarea class="uk-textarea init-editor mt-4" placeholder="Details..."> @if(isset($isEdit)){{ html_entity_decode(strip_tags($post->details)) }} @endif</textarea>
+            <textarea class="uk-textarea init-editor mt-4" placeholder="Details... (optional)"> @if(isset($isEdit)){{ html_entity_decode(strip_tags($post->details)) }} @endif</textarea>
             <input type="hidden" name="details" @if(isset($isEdit)) value="{{ $post->details }}" @endif />
-            {{-- <label class="form-control-label" for="details">Details</label>
-            <textarea class="form-control" name="details" id="textarea" rows="3">
-                {{ isset($isEdit ?? '') ? $post->details : '' }}
-            </textarea> --}}
             </div>
             </div>
-            <button type="submit" id="submit-form" class="button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Publish @endif Topic</button>
+            <button type="submit" class="button primary block submit-form" class="button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Publish @endif Topic</button>
         </form>

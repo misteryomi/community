@@ -161,6 +161,14 @@ class Post extends Model implements Feedable
 
     }
 
+    public function getYoutubeIDAttribute() {
+        
+
+        preg_match("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", $this->details, $match);
+
+        return $match ? $match[1] : false;
+    }
+
     public function getExcerptAttribute() {
 
         $excerpt = substr(strip_tags($this->details), 0, 180).'...';

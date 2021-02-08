@@ -4,7 +4,7 @@
     <div class="pt-2">
         <div class="blog-post-content-info pb-0">
             <span>
-            <a href="#"><span href="#" class="blog-post-info-tag button soft-danger"> R</span>  <small>{{ $post->community->name }}</small></a>
+            {!! $post->community->displayButton() !!}
             </span>
             <span class="blog-post-info-date"><a href="{{ $post->user->profileRoute() }}">{{ $post->user->username }}</a> &bull; {{ $post->date_ago }}</span>
         </div>
@@ -14,7 +14,13 @@
                 <h4 class="m-0 py-2">{!! request()->has('q') ? $post->highlightSearchQuery($post->title, request()->q) : $post->title !!}</h4>
                 <p class="m-0 py-2 uk-visible@m">{!! request()->has('q') ? $post->highlightSearchQuery($post->excerpt, request()->q) : $post->excerpt !!}</p>
             </div>
-            @if(!empty($post->featured_image))
+            @if(!empty($post->youtube_id))
+                <div class="uk-width-5-5 pl-0 m-0">
+                    <div class="card-thumbnail mb-2">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{$post->youtube_id}}"></iframe>
+                    </div>
+                </div>
+            @elseif(!empty($post->featured_image))
                 <div class="uk-width-5-5 pl-0 m-0">
                     <div class="card-thumbnail mb-2" style="background-image: url({{ $post->featured_image }})">
                     </div>

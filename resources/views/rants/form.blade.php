@@ -16,7 +16,7 @@
                 @elseif(isset($community) && ($community->name != 'Rants'))
                 <option value="{{ $community->id }}" selected>{{ $community->name }}</option>
                 @endif
-                @foreach(auth()->user()->communities()->get() as $c)
+                @foreach(auth()->user()->followedCommunities()->ordered() as $c)
                 <option value="{{ $c->id }}">{{ $c->name }}</option>
                 @endforeach
             </select>
