@@ -225,7 +225,7 @@ class PostController extends Controller
 
         $validationFields = [
             'title' => 'required|max:255',
-            'details' => 'required',
+            // 'details' => 'required',
             'community' => 'required|exists:App\Community,id'
         ];
 

@@ -24,9 +24,7 @@
         </div>
 
       
-        {{-- @if($community->children->count() > 0)
-        <p class="mt-4"><strong>Sub Communities</strong><p>
-        @endif --}}
+     
       @else
       <a href="{{ isset($community) ? route('topics.new', ['community' => $community->slug]) : route('topics.new') }}" class="btn btn-icon btn-default btn-block mb-4">
             <span class="btn-inner--icon"><i class="fa fa-plus"></i></span>

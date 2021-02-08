@@ -16,9 +16,10 @@
               @endphp
                 <nav class="responsive-tab style-1 ">
                     <ul>
-                        <li @if(!$displayCommunityFeed) class="uk-active" @endif><a href="?feed_type=featured"> Featured</a></li>
-                        <li @if($displayCommunityFeed) class="uk-active" @endif><a href="?feed_type=communities"> Followed </a></li>
-                        <li><a href="{{ route('latest') }}">Latest</a></li>
+                        <li @if(!$displayCommunityFeed) class="uk-active" @endif><a href="?feed_type=featured"><i class="icon-feather-activity"></i> Featured</a></li>
+                        <li @if($displayCommunityFeed) class="uk-active" @endif><a href="?feed_type=communities"><i class="icon-feather-users"></i> Followed </a></li>
+                        <li @if($displayCommunityFeed) class="uk-active" @endif><a href="{{ route('trending')}}"><i class="uil-fire"></i> Trending </a></li>
+                        <li><a href="{{ route('latest') }}"><i class="icon-feather-chevrons-down"></i>Latest</a></li>
                     </ul>
                 </nav>
               @endif

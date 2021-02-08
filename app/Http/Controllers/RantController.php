@@ -83,7 +83,7 @@ class RantController extends Controller
     public function new() {
 
         $community = $this->communityObj;
-        $communities = $this->communityObj->where('parent_id', $community->id)->ordered();
+        // $communities = $this->communityObj->where('parent_id', $community->id)->ordered();
 
         $useChildCategories = true;
 
@@ -100,11 +100,11 @@ class RantController extends Controller
     public function store(Request $request) {
 
         $requestData = $request->all(); //$request->except($this->meta_fields);
-        $requestData['community'] = $this->post_type->id;
+        $requestData['community'] = $this->communityObj->id;
 
         $validationFields = [
             'title' => 'required|max:255',
-            'details' => 'required',
+            // 'details' => 'required',
             'category' => 'required|exists:App\RantCategory,id'
         ];
 

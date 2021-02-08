@@ -36,17 +36,17 @@ function submitForm(e, editorClass, submitFormEl) {
     } else {
 
         // console.log({rant: $(this).html()})
-        if(!text) {
-            UIkit.notification("<span uk-icon='icon: check'></span> <strong>Sorry, Content cannot be empty</strong>", { status:'danger' });
-            $(submitFormEl).find('.editor-container').addClass('error-border')
+        // if(!text) {
+        //     UIkit.notification("<span uk-icon='icon: check'></span> <strong>Sorry, Content cannot be empty</strong>", { status:'danger' });
+        //     $(submitFormEl).find('.editor-container').addClass('error-border')
 
-        } else {
+        // } else {
             
             $('.submit-form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
             $('.submit-form-btn').attr('disabled', true);
 
            formEl.submit();
-        }
+        // }
     }
 
     return false;

@@ -40,55 +40,34 @@
         @foreach($communities as $community)
 
         <div>
-            <div class="friend-card">
-                <div class="uk-width-auto">
-                    <a href="{{ route('community.list', ['community' => $community->slug]) }}">
-                    {!! $community->displayAvatar() !!}
-                    </a>
-                </div>
-                <div class="uk-width-expand">
-                    <a href="{{ route('community.list', ['community' => $community->slug]) }}">
-                    <h3> {{ $community->name}} </h3>
-                    <p> <small>{{ $community->posts->count() }} Topics   - 
-                        {{ $community->followers->count() }} Followers</small> </p>
-                    </a>                        
-                    @if($community->userFollows(auth()->user()))
-                    <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button secondary small mb-1">
-                            Unfollow</a>
-                    @else
-                    <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button outline-primary small mb-1">
-                            Follow</a>
-                    @endif                          
-                </div>
-            </div>
-        </div>
+                         <div class="friend-card px-3">
+                            <div class="uk-width-auto">
+                                <a href="{{ route('community.list', ['community' => $community->slug]) }}">
+                                {!! $community->displayAvatar('sm') !!}
+                                </a>
+                            </div>
+                            <div class="uk-width-expand">
+                                <a href="{{ route('community.list', ['community' => $community->slug]) }}">
+                                <p><strong> {{ $community->name}}</strong> </p>
+                                <p> <small>{{ $community->posts->count() }} Topics   - 
+                                    {{ $community->followers->count() }} Followers</small> </p>
+                                </a>                        
+                            </div>
+                            <div class="uk-width-auto">
+               
+                                @if($community->userFollows(auth()->user()))
+                                <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button secondary small mb-1">
+                                        Unfollow</a>
+                                @else
+                                <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button outline-light small mb-1">
+                                        Follow</a>
+                                @endif     
 
 
-        {{-- 
-            <div class="friend-card">
-                <div class="uk-width-auto">
-                    {!! $community->displayAvatar() !!}
-                </div>
-                <div class="uk-width-expand">
-                    <h3> Stella Johnson </h3>
-                    <p> <small>{{ $community->posts->count() }} Topics   - 
-                        {{ $community->followers->count() }} Followers</small></p>
-                    <span> 1week ago </span>
+                            </div>
+                        </div>
 
-                    <div class="friend-card-btns">
-
-                        @if($community->userFollows(auth()->user()))
-                        <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button secondary small mb-1">
-                                Unfollow</a>
-                        @else
-                        <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button primary small mb-1">
-                                Follow</a>
-                        @endif                        
-                    </div>
-
-                </div>
-            </div>            
-            <div class="group-card"> --}}
+         </div>
 
 
         @endforeach
@@ -105,7 +84,7 @@
             @if($routeName == 'community.joined')
             <p>You have not joined any community yet. <a href="{{ route('community.all') }}">Join your first community</a>!</p>
             @else
-            <p>No community has been created yet. <a href="{{ route('community.new') }}">Create your first community</a>!</p>
+            <p>No community has been created yet. <a href="{{ route('community.new') }}"><strong>Create your first community</strong></a>!</p>
             @endif
         @endif
 

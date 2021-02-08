@@ -40,8 +40,12 @@
             <div class="blog-content mt-3 mt-lg-6">
                 @yield('extra_info_before')
 
+
+                @if(!$post->details)
+                   {{ $post->title }}
+                @else 
                 {!! $post->details !!}
-                
+                @endif
 
                 @yield('extra_info_after')
             </div>
@@ -135,6 +139,8 @@
 
     $(document).ready(function() {
 
+        // prePopulateForm('#comment-form');
+
         $('a.like').click(function(e) {
             e.preventDefault();
 
@@ -179,7 +185,7 @@
         $('#submit-comment').click(function(e) {
           e.preventDefault();
 
-          let post = editor.getData();
+          let post = editors["editor_comments"].getData();
 
           $("input[name=comment]").val(post);
 

@@ -33,7 +33,7 @@
         <div class="uk-flex">
             <div class="mr-2 text-dark "><small><i class="icon-feather-message-square ml-2"></i> <strong>{{ $post->comments->count() }} comments</strong></small></div>
             <div class="mr-2"><small> 
-                    <a href="#bookmark" class="mr-2 text-gray bookmark {{ $post->bookmarked() ? 'bookmarked' : '' }} " data-toggle="tooltip" data-placement="top" title="{{ $post->bookmarked() ? 'Remove from Saved' : 'Save for later' }}">
+                    <a href="#bookmark" data-slug="{{ $post->slug }}" class="mr-2 text-gray bookmark {{ $post->bookmarked() ? 'bookmarked' : '' }} " data-toggle="tooltip" data-placement="top" title="{{ $post->bookmarked() ? 'Remove from Saved' : 'Save for later' }}">
                         <i class="fa {{ $post->bookmarked() ? 'fa-bookmark' : 'fa-bookmark-o' }}"></i> <strong>{{ $post->bookmarked() ? 'Remove from Bookmarks' : 'Save for later' }} </strong>
                     </a>
                 </small>
@@ -62,3 +62,27 @@
 
     </div>
 </div>
+
+@section('script')
+<script>
+
+$("a.bookmark").click(function(e) {
+
+    e.preventDefault();
+    let slug = $(this).data('slug');
+
+     if($(this).hasClass("bookmarked")) {
+        $.post(slug + "/remove-bookmark");
+        $(this).removeClass('bookmarked');
+        $("a.bookmark > i").addClass("fa-bookmark-o").removeClass("fa-bookmark"),
+        $(this).attr('uk-tooltip', 'Remove from Bookmarks')
+    } else {
+        $.post(slug + "/bookmark");
+        $(this).addClass('bookmarked');
+        $("a.bookmark > i").addClass("fa-bookmark").removeClass("fa-bookmark-o"),
+        $(this).attr('uk-tooltip', 'Save for later')
+    }
+});
+
+</script>
+@endsection
