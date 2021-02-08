@@ -40,17 +40,17 @@
 
                         <a href="{{ route('home') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-feather-home"></i> Home</a>
                         <a href="{{ route('latest') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-line-awesome-paw"></i> Latest</a>
-                        <a href="{{ route('community.all') }}" class="opts_icon_link uk-visible@s text-dark mr-2"> <i class="icon-feather-bar-chart"></i> Communities</a>
+                        <a href="{{ route('community.all') }}" class="opts_icon_link uk-visible@s text-dark mr-2"> <i class="icon-feather-users"></i> Communities</a>
 
                         @if($user)
                         <a href="{{ route('home') }}" class=" uk-visible@s button button-small soft-warning disabled text-dark" style="cursor: pointer"> <i class="icon-line-awesome-money"></i> {{ $user->coins->balance }} Coins</a>
                         @endif
                         <a href="{{ route('search') }}" class="opts_icon_link p-3 uk-hidden@m text-dark"> <i class="icon-feather-search icon-small"></i> </a>
                         <a href="{{ route('latest') }}" class="opts_icon_link p-3 uk-hidden@m text-dark"> <i class="uil-newspaper icon-small"></i></a>
-                        <a href="{{ route('community.all') }}" class="opts_icon_link p-3 uk-hidden@m text-dark"> <i class="icon-feather-bar-chart icon-small"></i> </a>
+                        <a href="{{ route('community.all') }}" class="opts_icon_link p-3 uk-hidden@m text-dark"> <i class="icon-feather-users icon-small"></i> </a>
                         
                         @if($user)
-                        <a href="{{ route('topics.new') }}" class="opts_icon_link  text-dark uk-hidden@l"> <i class="fa fa-plus"> </i> </a>
+                        <a href="{{ route('topics.new') }}" class="opts_icon_link  text-dark uk-hidden@s"> <i class="fa fa-plus"> </i> </a>
                         <a href="{{ route('topics.new') }}" class="button primary uk-visible@s ml-2"> <i class="uil-plus"> </i> Create New Topic</a>
 
 

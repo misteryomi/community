@@ -87,9 +87,15 @@ class Community extends Model
         // ';
     }
 
-    public function displayAvatar($size = 'sm') {
+    public function displayAvatar($size) {
+
+        $size = "width: 60px; height: 60px;";
+
+        if($size == 'md') {
+            $size = "width: 40px; height: 40px;";
+        }
         if(!$this->cover) {
-            return '<div class="avatar rounded-circle img-circle" style="width: 60px; height: 60px; background-color: '.$this->color.'!important">'.\strtoupper(substr($this->name, 0, 1)).'</div>';
+            return '<div class="avatar rounded-circle img-circle" style=" background-color: '.$this->color.'!important">'.\strtoupper(substr($this->name, 0, 1)).'</div>';
         }
 
         return '<img src="'.$this->cover.'" alt=""/>';

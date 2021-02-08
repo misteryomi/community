@@ -115,11 +115,11 @@ class QuestionController extends Controller
     public function store(Request $request) {
 
         $requestData = $request->all(); //$request->except($this->meta_fields);
-        $requestData['community'] = $this->post_type->id;
+        $requestData['community'] = $this->question_community->id;
 
         $validationFields = [
             'title' => 'required|max:255',
-            'details' => 'required',
+            // 'details' => 'required',
             'category' => 'required|exists:App\RantCategory,id'
         ];
 
@@ -156,9 +156,9 @@ class QuestionController extends Controller
         }
                 //only owner or moderator can edit
 
-        $communities = $this->category->where('parent_id', $this->question_community->id)->ordered();
+        // $categories = $this->category->ordered();
 
-        return view('questions.new', compact('post', 'communities', 'community'))->withIsEdit(true);
+        return view('questions.new', compact('post', 'community'))->withIsEdit(true);
     }
 
 
@@ -176,7 +176,7 @@ class QuestionController extends Controller
         $requestData = $request->all();
         $validation =  Validator::make($requestData, [
                         'title' => 'required|max:255',
-                        'details' => 'required'
+                        // 'details' => 'required'
                         // 'photo' => 'mimestypes:image/jpeg,image/bmp,image/png,video/avi,video/mpeg,video/quicktime',
         ]);
 

@@ -1,4 +1,4 @@
-<form class="mt-4 publish-form" id="topic-form" action="{{ isset($isEdit) ? route('posts.post.edit', ['post' => $post->slug ]) : route('posts.post.new') }}" method="POST" id="form">
+<form class="mt-4 publish-form" id="topic-form" action="{{ isset($isEdit) ? route('posts.post.edit', ['post' => $post->slug ]) : route('posts.post.new') }}" method="POST">
         @csrf
         <div class="uk-form-group">
             <div class="uk-position-relative">

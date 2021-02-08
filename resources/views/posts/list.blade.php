@@ -5,7 +5,7 @@
 
 
 <div class="uk-grid-large uk-grid uk-grid-stack" uk-grid="">
-  <div class="uk-width-3-4@m uk-first-column">
+  <div class="uk-width-3-4@m ">
 
     @if(isset($isSearchPage))
       <div class="uk-margin border-bottom border-top p-4 bg-light" uk-margin="">
@@ -22,14 +22,12 @@
     @endif
     @include('templates.topics_list')
   </div>
-  <div class="uk-width-expand uk-grid-margin uk-first-column">
-    <div class="sidebar-filter uk-sticky" uk-sticky="offset:30 ; media : @s: bottom: true" style="">
+  <div class="uk-width-1-4 uk-first-column">
 
         @if(isset($community))
 
 
-        <div class="uk-card-default rounded mb-4">
-            <div class="uk-card-default rounded uk-overflow-hidden">
+        <div class="card mb-4">
                 <div class="p-4 text-center">
         
                     <h4 class="uk-text-bold"> About {{ $community->name}} </h4>
@@ -48,7 +46,6 @@
                     <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button block soft-primary  mb-1">
                             Follow</a>
                     @endif                          
-                </div>
                 </div>
         
         

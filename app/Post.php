@@ -43,10 +43,12 @@ class Post extends Model implements Feedable
         $this->attributes['title'] = $title;
     }
 
-    public function getTitleAttribute($title) {
+    public function getTypeTitleAttribute() {
+        $title = $this->title;
 
         if($this->type && $this->type->name != 'topic') {
-            $title = $title.' ['.\Str::singular($this->type->name).'] ';
+           $title = '['.\Str::singular($this->type->name).'] '.$title;
+              
         }
 
         return $title;

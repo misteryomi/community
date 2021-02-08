@@ -34,6 +34,7 @@ $(document).ready(function() {
         'editor_topics', 
         'editor_questions', 
         'editor_comments', 
+        'editor'
         // document.querySelector('.editor')
     ];//document.querySelectorAll( '.editor' );
 
