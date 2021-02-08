@@ -176,7 +176,7 @@ class Post extends Model implements Feedable
     public function getYoutubeIDAttribute() {
         
 
-        preg_match("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i", $this->details, $match);
+        preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/\s]{11})%i', $this->details, $match);
 
         return $match ? $match[1] : false;
     }
