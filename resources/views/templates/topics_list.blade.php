@@ -1,12 +1,5 @@
 @include('layouts.partials.alert')
 
-      @if(auth()->user() && (auth()->user()->followedCommunities()->count() == 0))
-      <div class="uk-alert-danger" uk-alert>
-          <a class="uk-alert-close" uk-close></a>
-          <p><strong>You are not following any community at the moment. <a href="{{ route('community.all') }}" class="text-dark">Find a community</a></strong></p>
-          </p>
-      </div>
-      @endif
     <div class="mt-3 card">
         @if(isset($title))
         <h3 class="m-0">{{ $title }}</h3>

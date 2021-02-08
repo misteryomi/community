@@ -1,4 +1,4 @@
-@extends('layouts.new_post')
+@extends('layouts.posts.new')
 
 @section('form_title')
     @if(isset($isEdit))

@@ -1,4 +1,4 @@
-<div class="comments">
+<div class="mt-4">
     <h3>Reply </h3>
         <form method="post" id="comment-form" action="{{ route('posts.comment', ['post' => $post->slug ]) }}">
             @csrf

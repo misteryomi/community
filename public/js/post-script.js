@@ -84,7 +84,7 @@
         }
         )),
         $("a.like").click((function(t) {
-            console.log($(this))
+            // console.log($(this))
             return t.preventDefault(),
             loggedIn ? ($(this).shake(),
             $(this).hasClass("liked") ? ($(this).removeClass("liked").addClass("liked"),

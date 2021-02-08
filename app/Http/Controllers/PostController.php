@@ -220,9 +220,20 @@ class PostController extends Controller
      */
     public function store(Request $request) {
 
-
-    
         $requestData = $request->all();
+
+
+        $validationFields = [
+            'title' => 'required|max:255',
+            'details' => 'required',
+            'community' => 'required|exists:App\Community,id'
+        ];
+
+        $validation =  Validator::make($requestData, $validationFields);
+
+        if($validation->fails()) {
+             return redirect()->back()->withErrors($validation->errors())->withInput()->send();
+        }
 
         $post = $this->preSubmit($requestData);
 

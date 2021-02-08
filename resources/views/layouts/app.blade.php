@@ -30,6 +30,8 @@
 <script data-ad-client="ca-pub-3576547045661858" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53641905-1"></script>
+<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -76,7 +78,6 @@
 
 
 <script src="{{ asset('assets/js/framework.js') }}"></script>
-<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
 <!-- <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script> -->
 <script src="{{ asset('assets/js/simplebar.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>

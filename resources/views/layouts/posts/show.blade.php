@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="uk-grid-large uk-grid uk-grid-stack" uk-grid="">
-    <div class="uk-width-2-3@m uk-first-column">
+    <div class="uk-width-2-3@m">
      <div class="uk-width-5-5@m m-auto">
         <div class="mt-lg-4" uk-grid>
             <div class="uk-width-3-3@m">
@@ -14,37 +14,27 @@
 
                 
 
-        <div class="uk-flex mt-2">            
-            <div class="mr-2 text-dark ">{!! $post->community->displayButton(true) !!}</div>
-            <div class="mr-2 text-dark "><small><i class="icon-feather-message-square ml-2"></i> <strong>{{ $post->comments->count() }} comments</strong></small></div>
-            <div class="mr-2 text-dark "><small><i class="icon-feather-eye"></i> <strong>{{ $post->views->count() }} views</strong></small></div>
-        </div>
-
-                <!-- <div class="group-card-content pl-0 p-sm-0 mb-0 ">
-                    <p class="info"> 
-                        <span><i class="icon-feather-eye ml-2"></i>  
-                        {{ $post->views->count() }} views </span> <span> <i class="icon-feather-message-square ml-2"></i> {{ $post->comments->count() }} comments </span>            
-                    </p>
+                <div class="uk-flex mt-2">            
+                    <div class="mr-2 text-dark ">{!! $post->community->displayButton(true) !!}</div>
+                    <div class="mr-2 text-dark "><small><i class="icon-feather-message-square ml-2"></i> <strong>{{ $post->comments->count() }} comments</strong></small></div>
+                    <div class="mr-2 text-dark "><small><i class="icon-feather-eye"></i> <strong>{{ $post->views->count() }} views</strong></small></div>
                 </div>
-                 -->
 
-                @if($comments->onFirstPage())
-                <div class="user-details-card py-0">
-                    <div class="user-details-card-avatar" style="max-width: 40px">
-                        {!! $post->user->displayAvatar() !!}
-                    </div>
-                    <div class="user-details-card-name">
-                        {{ ucfirst($post->user->username) }} <span> {{ $post->user->level }} <span> {{ $post->date }} </span> </span>
-                    </div>
-                </div>
-                @endif
 
             </div>
         </div>
 
         @if($comments->onFirstPage())
 
-        <div class="border-bottom pb-3 card">
+        <div class="mt-2 card">
+                <div class="user-details-card py-0">
+                    <div class="user-details-card-avatar" style="max-width: 40px">
+                        {!! $post->user->displayAvatar() !!}
+                    </div>
+                    <div class="user-details-card-name">
+                        {{ ucfirst($post->user->username) }} <span> {{ $post->user->level }}<span><small>{{ $post->date }}</small> </span> </span>
+                    </div>
+                </div>
 
 
             <div class="blog-content mt-3 mt-lg-6">
@@ -59,29 +49,20 @@
             <div class="btn-acts mt-5">
                 <div>
                     <a href="#" @guest  uk-toggle="target: #modal-close-default" class="button white circle" @else class="button white circle like {{ $post->liked() ? 'liked ' : '' }}" @endguest uk-tooltip="{{ $post->liked() ? 'Unlike ' : 'Like' }}" title="" aria-expanded="false">
-                        <i class="uil-thumbs-up mr-1"></i> <span class="liked_text m-0 pr-1"> {{ $post->liked() ? 'Liked ' : 'Like' }}</span><span class="m-0 {{ $post->likes()->count() > 0  ? '' : 'uk-hidden'  }}"> - <span class=" m-0 likes-count">{{ $post->likes()->count() }}</span></span>
+                       <small> <i class="uil-thumbs-up mr-1"></i> <span class="liked_text m-0 pr-1"> {{ $post->liked() ? 'Liked ' : 'Like' }}</span><span class="m-0 {{ $post->likes()->count() > 0  ? '' : 'uk-hidden'  }}"> - <span class=" m-0 likes-count">{{ $post->likes()->count() }}</span></span></small>
                     </a>
                     @yield('action_buttons')
                 </div>
                 <div>
-                    <a target="blank" title="Share on Facebook" uk-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ route('posts.show', ['post' => $post->slug]) }}&quote={{ $post->title }}&utm_source=jaracentral.com" class="mr-2 text-gray">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                    <a target="blank" title="Share on Twitter" uk-tooltip="Share on Twitter" href="http://twitter.com/share?text={{ $post->title }}&url={{ route('posts.show', ['post' => $post->slug]) }}&utm_source=jaracentral.com" class="mr-2 text-gray">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-                    <a href="#" uk-tooltip="{{ $post->bookmarked() ? 'Remove from Bookmarks' : 'Save for later' }}" class="mr-2 text-gray bookmark {{ $post->bookmarked() ? 'bookmarked' : '' }} " data-toggle="tooltip" data-placement="top" title="{{ $post->bookmarked() ? 'Remove from Saved' : 'Save for later' }}">
-                        <i class="fa {{ $post->bookmarked() ? 'fa-bookmark' : 'fa-bookmark-o' }}"></i>
-                    </a>
-
+                @include('layouts.posts.share')
                     <!-- <a href="#" class="#"><i class="uil-share-alt"></i></a> -->
                     <a href="#" class="#"><i class="uil-ellipsis-h"></i></a>
 
                     <div uk-dropdown="mode: click">
                         <ul class="uk-list uk-list-divider">
-                            <li>
+                            <!-- <li>
                                 <a href="#">Report </a>
-                            </li>
+                            </li> -->
                             @if($post->canEdit())
                             <li>
                                 <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">Edit</a>
@@ -100,6 +81,7 @@
                             @endif
                         </ul>
                     </div>                
+                
                 </div>
             </div>
         </div>

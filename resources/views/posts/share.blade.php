@@ -1,3 +1,12 @@
+      @if(auth()->user() && (auth()->user()->followedCommunities()->count() == 0))
+      <div class="uk-alert-danger" uk-alert>
+          <a class="uk-alert-close" uk-close></a>
+          <p><strong>You are not following any community at the moment. <a href="{{ route('community.all') }}" class="text-dark">Find a community</a></strong></p>
+          </p>
+      </div>
+      @endif
+      
+
 <div class="post-newer">
 
 <div class="post-new" uk-toggle="target: body ; cls: post-focus">
@@ -17,15 +26,15 @@
     <hr>
     <div class="post-new-type">
 
-        <a href="#">
+        <a href="{{ route('rants.new') }}">
             <i class="uil-angry pr-2"></i> Rant!
         </a>
 
-        <a href="#">
+        <a href="{{ route('questions.new') }}">
             <i class="uil-comment-alt-question pr-2"></i> Question
         </a>
 
-        <a href="#">
+        <a href="{{ route('topics.new') }}">
             <i class="uil-briefcase-alt pr-2"></i> Stuff
         </a>
 
@@ -64,7 +73,15 @@
                 <ul class="uk-switcher uk-margin uk-padding-small pt-0">
                         <!-- tab 1 -->
                     <li>
+                    @if(auth()->user() && (auth()->user()->followedCommunities()->count() == 0))
+                        <div class="uk-alert-danger text-center" uk-alert>
+                            <p><strong>You are not following any community at the moment. <br/><a href="{{ route('community.all') }}" class="text-dark">Find a community</a></strong></p>
+                            </p>
+                        </div>
+                    @else 
                         @include('posts.form')
+                    @endif
+                                        
                     </li>
 
                     <!-- <li>Coming soon</li> -->

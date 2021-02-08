@@ -1,39 +1,31 @@
 
         @if($comments->count() > 0)
-        <div class="comments mt-4 card" >
-            <!-- <h3>Comments
-                <span class="comments-amount">{{ $post->comments->count() }}</span>
-            </h3> -->
-
+        <div class="comments m-0" >
             <ul>
                 @foreach ($comments as $comment)
-                <li class="border-bottom pb-4" id="#{{ $comment->id }}">
-                    <!-- <div class="comments-avatar"><img src="{{ $comment->user->avatar }}" alt="">
-                    </div> -->
+                <li class="border-bottom my-2 card" id="#{{ $comment->id }}">
                     <div class="">
-                        <a href="#" class="user-details-card pt-0">
+                        <div class="user-details-card py-0 mb-3">
                             <div class="user-details-card-avatar" style="max-width: 40px">
-                                <img src="{{ $comment->user->avatar }}" alt="">
+                                {!! $post->user->displayAvatar() !!}
                             </div>
                             <div class="user-details-card-name">
-                                {{ ucfirst($comment->user->username) }} <span> {{ $comment->user->level }} <span> {{ $post->date }} </span> </span>
+                                {{ ucfirst($post->user->username) }} <span> {{ $post->user->level }}<span><small>{{ $post->date }}</small> </span> </span>
                             </div>
-                        </a>
-                        <!-- <div class="comment-by">{{ ucfirst($comment->user->username) }}<span>{{ $comment->date}}</span> -->
-                        <!-- {{ $comment->user->level}} -->
-                            <!-- <a href="#" class="reply"><i class="icon-line-awesome-undo"></i> Reply</a> -->
+                        </div>
+
                         {!! $comment->comment !!}
                     </div>
                     <div class="btn-acts mt-5">
                         <div>
-                            <a href="#" class="button white circle like {{ $comment->liked() ? 'liked ' : '' }}"  uk-tooltip="{{ $comment->liked() ? 'Unlike ' : 'Like' }}" title="" aria-expanded="false">
-                                <i class="uil-thumbs-up mr-1"></i> <span class="liked_text m-0 pr-1"> {{ $comment->liked() ? 'Liked ' : 'Like' }}</span><span class="m-0 {{ $comment->likes()->count() > 0  ? '' : 'uk-hidden'  }}"> - <span class=" m-0 likes-count">{{ $comment->likes()->count() }}</span></span>
+                            <a href="#" class="button white circle pr-1 like {{ $comment->liked() ? 'liked ' : '' }}"  uk-tooltip="{{ $comment->liked() ? 'Unlike ' : 'Like' }}" title="" aria-expanded="false">
+                              <small><i class="uil-thumbs-up mr-1"></i> <span class="liked_text m-0 pr-1"> {{ $comment->liked() ? 'Liked ' : 'Like' }}</span><span class="m-0 {{ $comment->likes()->count() > 0  ? '' : 'uk-hidden'  }}"> - <span class=" m-0 likes-count">{{ $comment->likes()->count() }}</span></span></small>
                             </a>
-                            {{-- @if($post->type->name == 'questions' && $comment->user_id != $post->user->id) --}}
-                            <a href="?best_answer={{ $comment->id }}" class="button white circle" title="" aria-expanded="false">
-                                Mark as Best Answer
+                            @if($post->isQuestion() && $comment->user_id != $post->user->id) 
+                            <a href="?best_answer={{ $comment->id }}" title="" class="button white circle pr-1" aria-expanded="false"><small><strong>
+                                Mark as Best Answer</strong></small>
                             </a>
-                            {{-- @endif --}}
+                            @endif
                         </div>
                         <div>
                             <a target="blank" title="Share on Facebook" uk-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ route('posts.show', ['post' => $post->slug]) }}&quote={{ $post->title }}&utm_source=jaracentral.com" class="mr-2 text-gray">
@@ -42,8 +34,13 @@
                             <a target="blank" title="Share on Twitter" uk-tooltip="Share on Twitter" href="http://twitter.com/share?text={{ $post->title }}&url={{ route('posts.show', ['post' => $post->slug]) }}&text={{ $post->title }}&utm_source=jaracentral.com" class="mr-2 text-gray">
                                 <i class="fa fa-twitter"></i>
                             </a>
+                            <a target="blank" class="uk-hidden@m mr-2" title="Share on WhatsApp" uk-tooltip="Share on WhatsApp" href="whatsapp://send?text=?{{ \urlencode($post->title.'<br/>'.route('posts.show', ['post' => $post->slug])) }}" class="mr-2 text-gray">
+                                <i class="fa fa-whatsapp"></i>
+                            </a>
+                            <a target="blank" class="uk-visible@m mr-2" title="Share on WhatsApp" uk-tooltip="Share on WhatsApp" href="http://wa.me?text={{ \urlencode($post->title.' '.route('posts.show', ['post' => $post->slug])) }}" class="mr-2 text-gray">
+                                <i class="fa fa-whatsapp"></i>
+                            </a>
 
-                            <!-- <a href="#" class="#"><i class="uil-share-alt"></i></a> -->
                             <a href="#" class="#"><i class="uil-ellipsis-h"></i></a>
 
                             <div uk-dropdown="mode: click">

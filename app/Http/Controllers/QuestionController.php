@@ -16,7 +16,7 @@ use App\PostType;
 use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Traits\ContentTrait;
 use App\Http\Controllers\Traits\PostTrait;
-
+use App\QuestionCategory;
 use \Carbon\Carbon;
 
 use Illuminate\Support\Facades\Validator;
@@ -31,13 +31,13 @@ class QuestionController extends Controller
 
     private static $PAGINATION_LIMIT = 20;
 
-    function __construct(Post $post, Community $community, QuestionMeta $meta) {
+    function __construct(Post $post, QuestionCategory $category, QuestionMeta $meta) {
         $this->post = $post;
-        $this->category = $community;
+        $this->category = $category;
         $this->meta = $meta;
         $this->agent = new Agent();
         $this->post_type = PostType::where('name', 'questions')->first();
-        $this->question_community = $community->where('name', 'questions')->first();
+        $this->question_community = Community::where('name', 'questions')->first();
 
         $this->middleware(function($request, $next) {
             $this->user = Auth::user();
@@ -79,9 +79,11 @@ class QuestionController extends Controller
     public function new() {
 
         $community = $this->question_community;
-        $communities = $this->category->where('parent_id', $this->question_community->id)->ordered();
+        $categories = $this->category->ordered();
 
-        return view('questions.new', compact('communities', 'community'));
+        // $categories = $this->category->where('parent_id', $this->question_community->id)->ordered();
+
+        return view('questions.new', compact('categories', 'community'));
     }
 
 
@@ -112,7 +114,20 @@ class QuestionController extends Controller
      */
     public function store(Request $request) {
 
-        $requestData = $request->all();
+        $requestData = $request->all(); //$request->except($this->meta_fields);
+        $requestData['community'] = $this->post_type->id;
+
+        $validationFields = [
+            'title' => 'required|max:255',
+            'details' => 'required',
+            'category' => 'required|exists:App\RantCategory,id'
+        ];
+
+        $validation =  Validator::make($requestData, $validationFields);
+
+        if($validation->fails()) {
+             return redirect()->back()->withErrors($validation->errors())->withInput()->send();
+        }
 
         $post = $this->preSubmit($requestData);
 
@@ -120,6 +135,7 @@ class QuestionController extends Controller
 
         $this->meta->create([
             'post_id' => $post->id,
+            'category_id' => $requestData['category']
         ]);
 
         $this->postSubmit($request, $post);

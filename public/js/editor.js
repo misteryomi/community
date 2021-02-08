@@ -25,12 +25,22 @@ function getFeedItems( queryText ) {
 
 }
 
-$(document).ready(function() {
-    let editors = document.querySelectorAll( '.editor' );
+var editors = {}; 
 
-    for(let i = 0; i < editors.length; i++) {
+
+$(document).ready(function() {
+    let _editors = [
+        'editor_rants', 
+        'editor_topics', 
+        'editor_questions', 
+        'editor_comments', 
+        // document.querySelector('.editor')
+    ];//document.querySelectorAll( '.editor' );
+
+
+    for(let i = 0; i < _editors.length; i++) {
         ClassicEditor
-        .create( editors[i], {
+        .create( document.querySelector('#'+_editors[i]), {
             
             toolbar: {
                 items: [
@@ -96,12 +106,14 @@ $(document).ready(function() {
             
         } )
         .then( editor => {
-            window.editor = editor;
+            // console.log({editor})
+            // window.editor = editor;
+            editors[ _editors[i] ] = editor;
 
             // console.log({editor})
         } )
         .catch( error => {
-            console.error( error );
+            // console.error( error );
         } );
     }
 

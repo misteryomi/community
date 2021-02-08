@@ -15,6 +15,9 @@ class CreateRantCategoriesTable extends Migration
     {
         Schema::create('rant_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('slug');
+            $table->integer('moderator_id')->nullable();
             $table->timestamps();
         });
     }
