@@ -120,7 +120,7 @@ class QuestionController extends Controller
         $validationFields = [
             'title' => 'required|max:255',
             // 'details' => 'required',
-            'category' => 'required|exists:App\RantCategory,id'
+            'category' => 'required|exists:App\QuestionCategory,id'
         ];
 
         $validation =  Validator::make($requestData, $validationFields);
