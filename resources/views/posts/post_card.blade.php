@@ -6,7 +6,7 @@
             <span>
             {!! $post->community->displayButton() !!}
             </span>
-            <span class="blog-post-info-date"><a href="{{ $post->user->profileRoute() }}">{{ $post->user->username }}</a> &bull; {{ $post->date_ago }}</span>
+            <span class="blog-post-info-date">{!! $post->displayUserLink() !!} &bull; {{ $post->date_ago }}</span>
         </div>
         <a href="{{ $route }}">        
         <div class="uk-flex-middle  ml-0" uk-grid>

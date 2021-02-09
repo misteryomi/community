@@ -67,7 +67,8 @@ Route::name('community.')->group(function() {
     });
 });
 
-Route::get('/new-topic', 'PostController@new')->middleware('auth')->name('topics.new');
+Route::get('/new-topic', 'PostController@newTopic')->middleware('auth')->name('topics.new-topic');
+Route::get('/new', 'PostController@newPost')->middleware('auth')->name('topics.new');
 Route::name('posts.')->prefix('topic')->group(function() {
     Route::middleware('auth')->group(function() {
         Route::get('/{community:slug}/new-topic', 'PostController@new')->name('community.new');

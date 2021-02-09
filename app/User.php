@@ -154,12 +154,16 @@ class User extends Authenticatable
         return $comment->user && ($this->hasRole('moderator') || $this->id == $comment->user->id);
     }
 
-    public function displayAvatar($size = 'sm') {
-        $style = $size = 'lg' ? 'lg' : '';
-        
+    public function displayAvatar($size = null) {
+
+        if($size == 'sm') {
+            $size = 'icon-border-sm';
+        }
+
         if(!$this->avatar) {
             // return '<span class="avatar rounded-circle img-circle bg-secondary text-dark">'.\strtoupper(substr($this->name, 1, 1)).'</span>';
-            return "<span class='avatar-img $style'>".\strtoupper(substr($this->name, 1, 1))."</span>";
+            return '<span class="icon-border  '.$size.' text-center"><i class="uil-user"></i></span>';
+            // return "<span class='avatar-img $style'>".\strtoupper(substr($this->name, 1, 1))."</span>";
         }
 
         return '<img src="'.$this->avatar.'" alt=""/>';

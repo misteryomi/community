@@ -7254,9 +7254,11 @@ ul.dropdown-user-menu .menu-divider {
 
 .user-details-card-avatar {
   display: inline-block;
+  display: inline-block;
   border-radius: 50%;
+  width: 55px;
+  height: 55px;
   position: relative;
-  max-width: 50px;
 }
 
 .user-details-card-avatar img {
@@ -7265,6 +7267,10 @@ ul.dropdown-user-menu .menu-divider {
   display: inline-block;
   border-radius: 50%;
   image-rendering: -webkit-optimize-contrast;
+}
+.user-details-card-avatar-sm {
+  width: 35px;
+  height: 35px;
 }
 
 .user-details-card-name {
@@ -12954,6 +12960,13 @@ ul.story-side-list li a .story-user-innr p span.story-time-ago{
   height: 40px;
   padding: 5px 7px;
   border: 1px solid #929292;
+  overflow: hidden;
+  object-fit: cover;
+}
+.icon-border.icon-border-sm {
+  width: 18px;
+  height: 20px;
+  font-weight: bold;
 }
 .cat-icon {
   margin-right: 22px;

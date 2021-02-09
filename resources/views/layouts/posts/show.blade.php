@@ -28,11 +28,16 @@
 
         <div class="mt-3 card">
                 <div class="user-details-card py-0">
-                    <div class="user-details-card-avatar" style="max-width: 40px">
-                        {!! $post->user->displayAvatar() !!}
+                <!-- style="max-width: 40px" -->
+                    @if(!$post->is_anonymous)
+                    <div class="user-details-card-avatar user-details-card-avatar-sm">
+                        <a href="{{ $post->user->profileRoute() }}">
+                            {!! $post->user->displayAvatar('sm') !!}
+                        </a>
                     </div>
+                    @endif
                     <div class="user-details-card-name">
-                        {{ ucfirst($post->user->username) }} <span> {{ $post->user->level }}<span><small>{{ $post->date }}</small> </span> </span>
+                        {!! $post->displayUserLink() !!} <span>{{ $post->user->level }}<span><small>{{ $post->date }}</small> </span> </span>
                     </div>
                 </div>
 
@@ -204,7 +209,7 @@
             let twtURL = twitter_parser(url);
 
             if(ytID) {
-                el.html(`<iframe width="100%" height="450" src="http://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
+                el.html(`<iframe width="100%" height="380" src="http://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
             } else if(twtURL) {
                 el.html(`<blockquote class="twitter-tweet"><a href="${twtURL}"></a></blockquote>`)
             }

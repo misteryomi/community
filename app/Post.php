@@ -138,6 +138,22 @@ class Post extends Model implements Feedable
         return $this->where('slug', $slug)->first();
     }
 
+    public function displayUserLink() {
+        if($this->isAnonymous) {
+            return 'Anonymous';
+        } else {
+            return '<a href="'.$this->user->profileRoute().'">'.$this->user->username.'</a>';
+        }
+    }
+    
+
+    public function getIsAnonymousAttribute() {
+        if(!$this->type || !$this->meta) {
+            return false;
+        }
+        return $this->type && $this->type->name == 'rants' && $this->meta->is_anonymous;
+    }
+
     public function relatedTopics($post) {
         $keywords = explode(' ', $post->title);
 

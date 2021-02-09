@@ -189,12 +189,17 @@ class PostController extends Controller
        return $trending;
     }
 
+    public function newPost($community = null) {       
+
+        return view('new', compact('community'));
+    }
+
 
     /**
      * Create new Post
      * @return view
      */
-    public function new($community = null) {
+    public function newTopic($community = null) {
         $community = $this->category->where('slug', $community)->first();
 
 

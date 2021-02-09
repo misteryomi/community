@@ -87,7 +87,7 @@ class Community extends Model
         // ';
     }
 
-    public function displayAvatar($size) {
+    public function displayAvatar($size = null) {
 
         $size = "width: 60px; height: 60px;";
 

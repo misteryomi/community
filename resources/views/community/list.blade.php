@@ -95,5 +95,5 @@
 
 @endsection
 @section('scripts')
-@include('follow-script')
+@include('community.follow-script')
 @endsection
