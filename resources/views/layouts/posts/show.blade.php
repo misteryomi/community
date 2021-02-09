@@ -6,11 +6,11 @@
 <div class="uk-grid-large uk-grid uk-grid-stack" uk-grid="">
     <div class="uk-width-2-3@m">
      <div class="uk-width-5-5@m m-auto">
-        <div class="mt-lg-4" uk-grid>
+        <div class="" uk-grid>
             <div class="uk-width-3-3@m">
                 @include('layouts.partials.alert')
                 
-                <h1 class="mt-3 lead-text text-dark mb-0">{{ $post->title }}</h1>
+                <h1 class="my-3 lead-text text-dark">{{ $post->title }}</h1>
 
                 
 
@@ -26,7 +26,7 @@
 
         @if($comments->onFirstPage())
 
-        <div class="mt-2 card">
+        <div class="mt-3 card">
                 <div class="user-details-card py-0">
                     <div class="user-details-card-avatar" style="max-width: 40px">
                         {!! $post->user->displayAvatar() !!}
@@ -108,7 +108,7 @@
 
   <div class="uk-width-expand uk-grid-margin uk-first-column">
     <div class="sidebar-filter uk-sticky" uk-sticky="offset:70 ; media : @s: bottom: true" style="">
-    <div class="card">
+    <div class="card mt-3">
     <h4>Related</h4>
     <hr class="mt-0"/>
         <ul class="uk-list uk-list-divider">

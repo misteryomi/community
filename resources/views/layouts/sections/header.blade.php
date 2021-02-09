@@ -16,7 +16,8 @@
                         alt=""></a>
                         </span>    
                         <span class="uk-hidden@m">                   
-                        <a href="{{ route('home') }}"> <img style="width: 40px" src="{{ asset('assets/images/logo-icon.png') }}" alt=""></a>
+                            <a href="{{ route('home') }}"> <img style="width: 40px" src="{{ asset('assets/images/logo-icon.png') }}" alt=""></a>
+                            <a href="{{ route('home') }}"> <img style="width: 40px" src="{{ asset('assets/images/logo-icon.png') }}" alt=""  class="logo-inverse"></a>
                         </span> 
                     </div>
 

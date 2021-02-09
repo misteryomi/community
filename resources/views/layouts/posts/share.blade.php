@@ -11,7 +11,7 @@
                     <a target="blank" class="uk-visible@m mr-2" title="Share on WhatsApp" uk-tooltip="Share on WhatsApp" href="http://wa.me?text={{ \urlencode($post->title.' '.route('posts.show', ['post' => $post->slug])) }}" class="mr-2 text-gray">
                         <i class="fa fa-whatsapp"></i>
                     </a>
-                    <a href="#" uk-tooltip="{{ $post->bookmarked() ? 'Remove from Bookmarks' : 'Save for later' }}" class="mr-2 text-gray bookmark {{ $post->bookmarked() ? 'bookmarked' : '' }} " data-toggle="tooltip" data-placement="top" title="{{ $post->bookmarked() ? 'Remove from Saved' : 'Save for later' }}">
+                    <a href="#" uk-tooltip="{{ $post->bookmarked() ? 'Saved' : 'Save for later' }}" class="mr-2 text-gray bookmark {{ $post->bookmarked() ? 'bookmarked' : '' }} " data-toggle="tooltip" data-placement="top" title="{{ $post->bookmarked() ? 'Remove from Saved' : 'Save for later' }}">
                         <i class="fa {{ $post->bookmarked() ? 'fa-bookmark' : 'fa-bookmark-o' }}"></i>
                     </a>
 

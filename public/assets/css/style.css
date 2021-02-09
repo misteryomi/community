@@ -13049,6 +13049,11 @@ select.select2 {
   background-color: #fff;
   border: 1px solid #e3e3e3;
 }
+.night-mode .card {
+  background-color: transparent;
+  border-color: #575b6d;
+  border-radius: 3px;
+}
 .card-thumbnail {
   width: 100%;
   height: 350px;
@@ -13057,6 +13062,9 @@ select.select2 {
   background-size: cover;
   box-sizing: border-box;
   box-shadow: rgb(0 0 0 / 5%) 0px 0px 0px 1px inset;
+}
+.night-mode .card-thumbnail {
+   background-color: #575757;
 }
 .card-thumbnail img {
   height: 100%;

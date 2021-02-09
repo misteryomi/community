@@ -59,7 +59,10 @@ Route::name('community.')->group(function() {
         Route::get('/{community:slug}', 'CommunityController@list')->name('list');
         Route::middleware('auth')->group(function() {
             Route::get('/{community:slug}/follow', 'CommunityController@follow')->name('follow');
-            Route::get('/{community:slug}/unfollow', 'CommunityController@unfollow')->name('unfollow');        
+            Route::get('/{community:slug}/unfollow', 'CommunityController@unfollow')->name('unfollow'); 
+
+            Route::post('/{community:slug}/api-follow', 'CommunityController@apiFollow')->name('api-follow');
+            Route::post('/{community:slug}/api-unfollow', 'CommunityController@apiUnfollow')->name('api-unfollow');        
         });
     });
 });

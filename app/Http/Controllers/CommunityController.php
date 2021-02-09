@@ -82,6 +82,20 @@ class CommunityController extends Controller
         return redirect()->back()->withMessage('You have successfully unfollowed '. $community->name .'!');
     }
 
+    public function apiFollow(Community $community) {
+
+        $community->followers()->create(['user_id' => $this->user->id]);
+
+        return response(['status' => true]);
+    }
+
+    public function apiUnfollow(Community $community) {
+        $community->followers()->where('user_id', $this->user->id)->delete();
+
+        return response(['status' => true]);
+    }
+
+
     public function new() {
         $communities = $this->community->take(10)->get();
 

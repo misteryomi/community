@@ -56,10 +56,10 @@
                             <div class="uk-width-auto">
                
                                 @if($community->userFollows(auth()->user()))
-                                <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button secondary small mb-1">
+                                <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button secondary small mb-1 follow following" data-slug="{{ $community->slug }}">
                                         Unfollow</a>
                                 @else
-                                <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button outline-light small mb-1">
+                                <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button outline-light small mb-1 follow" data-slug="{{ $community->slug }}">
                                         Follow</a>
                                 @endif     
 
@@ -93,4 +93,7 @@
 
 
 
+@endsection
+@section('scripts')
+@include('follow-script')
 @endsection

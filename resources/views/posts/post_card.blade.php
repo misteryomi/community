@@ -31,11 +31,19 @@
 
         </a>  
         <div class="uk-flex">
-            <div class="mr-2 text-dark "><small><i class="icon-feather-message-square ml-2"></i> <strong>{{ $post->comments->count() }} comments</strong></small></div>
+                
+
+            <div class="mr-2 text-dark ">
+                <a href="{{ $route }}">
+                <small><i class="icon-feather-message-square ml-2"></i> <strong>{{ $post->comments->count() }} comments</strong></small>
+                </a>
+            </div>
             <div class="mr-2"><small> 
+                    <strong>
                     <a href="#bookmark" data-slug="{{ $post->slug }}" class="mr-2 text-gray bookmark {{ $post->bookmarked() ? 'bookmarked' : '' }} " data-toggle="tooltip" data-placement="top" title="{{ $post->bookmarked() ? 'Remove from Saved' : 'Save for later' }}">
-                        <i class="fa {{ $post->bookmarked() ? 'fa-bookmark' : 'fa-bookmark-o' }}"></i> <strong>{{ $post->bookmarked() ? 'Remove from Bookmarks' : 'Save for later' }} </strong>
+                        <i class="fa {{ $post->bookmarked() ? 'fa-bookmark' : 'fa-bookmark-o' }}"></i> <span>{{ $post->bookmarked() ? 'Saved' : 'Save for later' }}</span>
                     </a>
+                    </strong>
                 </small>
             </div>
             <div>
@@ -63,7 +71,7 @@
     </div>
 </div>
 
-@section('script')
+@section('scripts')
 <script>
 
 $("a.bookmark").click(function(e) {
@@ -71,15 +79,19 @@ $("a.bookmark").click(function(e) {
     e.preventDefault();
     let slug = $(this).data('slug');
 
+
      if($(this).hasClass("bookmarked")) {
-        $.post(slug + "/remove-bookmark");
+        $.post('/topic/'+ slug + "/remove-bookmark");
         $(this).removeClass('bookmarked');
-        $("a.bookmark > i").addClass("fa-bookmark-o").removeClass("fa-bookmark"),
-        $(this).attr('uk-tooltip', 'Remove from Bookmarks')
+        $(this).find("i.fa-bookmark").addClass("fa-bookmark-o").removeClass("fa-bookmark"),
+        $(this).find('span').text('Saved for later')
+        $(this).attr('uk-tooltip', 'Saved')
+        
     } else {
-        $.post(slug + "/bookmark");
+        $.post('topic/' + slug + "/bookmark");
         $(this).addClass('bookmarked');
-        $("a.bookmark > i").addClass("fa-bookmark").removeClass("fa-bookmark-o"),
+        $(this).find("i.fa-bookmark-o").addClass("fa-bookmark").removeClass("fa-bookmark-o"),
+        $(this).find('span').text('Saved')
         $(this).attr('uk-tooltip', 'Save for later')
     }
 });
