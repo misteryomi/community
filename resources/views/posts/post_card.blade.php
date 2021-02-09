@@ -38,6 +38,7 @@
                 <small><i class="icon-feather-message-square ml-2"></i> <strong>{{ $post->comments->count() }} comments</strong></small>
                 </a>
             </div>
+            @if(auth()->user())
             <div class="mr-2"><small> 
                     <strong>
                     <a href="#bookmark" data-slug="{{ $post->slug }}" class="mr-2 text-gray bookmark {{ $post->bookmarked() ? 'bookmarked' : '' }} " data-toggle="tooltip" data-placement="top" title="{{ $post->bookmarked() ? 'Remove from Saved' : 'Save for later' }}">
@@ -46,6 +47,7 @@
                     </strong>
                 </small>
             </div>
+            @endif
             <div>
                     <small><a class="dropdown-arrow" type="button"><strong><i class="fa fa-share"></i> Share</strong></a></small>
                     <div uk-dropdown="mode: click, pos:top-right">
