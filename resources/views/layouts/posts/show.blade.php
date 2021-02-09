@@ -52,6 +52,7 @@
                 {!! $post->details !!}
                 @endif
 
+
                 @yield('extra_info_after')
             </div>
     
@@ -208,9 +209,13 @@
             let ytID = youtube_parser(url);
             let twtURL = twitter_parser(url);
 
+            console.log({twtURL});
+
             if(ytID) {
                 el.html(`<iframe width="100%" height="380" src="http://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
-            } else if(twtURL) {
+            }  
+            
+            if(twtURL) {
                 el.html(`<blockquote class="twitter-tweet"><a href="${twtURL}"></a></blockquote>`)
             }
         });
@@ -241,7 +246,8 @@
     }
     
 </script>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>                <!-- <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Sunsets don&#39;t get much better than this one over <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>. <a href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw">#nature</a> <a href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw">#sunset</a> <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a></p>&mdash; US Department of the Interior (@Interior) <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw">May 5, 2014</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>  
+              <!-- <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Sunsets don&#39;t get much better than this one over <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>. <a href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw">#nature</a> <a href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw">#sunset</a> <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a></p>&mdash; US Department of the Interior (@Interior) <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw">May 5, 2014</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
 
 <!-- <script src="{{asset('js/post-script.js')}}" ></script> -->
 @endsection

@@ -88,6 +88,7 @@
 <script src="{{ asset('assets/js/service-worker.js') }}"></script> -->
 
 @yield('scripts')
+@yield('additional_scripts')
 </body>
 
 </html>

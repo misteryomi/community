@@ -42,7 +42,6 @@
                         <a href="{{ route('home') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-feather-home"></i> Home</a>
                         <a href="{{ route('latest') }}" class="opts_icon_link uk-visible@s text-dark"> <i class="icon-line-awesome-paw"></i> Latest</a>
                         <a href="{{ route('community.all') }}" class="opts_icon_link uk-visible@s text-dark mr-2"> <i class="icon-feather-users"></i> Communities</a>
-
                         @if($user)
                         <a href="{{ route('home') }}" class=" uk-visible@s button button-small soft-warning disabled text-dark" style="cursor: pointer"> <i class="icon-line-awesome-money"></i> {{ $user->coins->balance }} Coins</a>
                         @endif
@@ -108,6 +107,8 @@
                         @guest
                         <a href="{{ route('login') }}" class="button primary uk-visible@s ml-2"> Login </a>
                         <a href="{{ route('register') }}" class="button dark ml-2 uk-visible@s"> Create an account </a>
+
+
                         <a class="opts_account uk-hidden@s mt-2" href="#"> <span class="icon-border"><i class="uil-user"></i></span></a>
                         <!-- profile dropdown-->
                         <div uk-dropdown="mode:click; animation: uk-animation-slide-bottom-small"
@@ -116,14 +117,14 @@
                             <ul class="dropdown-user-menu">
                                 <li><a href="{{ route('login') }}"> <i class="uil-user"></i> Login </a> </li>
                                 <li><a href="{{ route('register') }}"> <i class="uil-bookmark"></i> Create an account </a></li>
-                                <li>
-                                    <a href="#" id="night-mode" class="btn-night-mode">
-                                        <i class="uil-moon"></i> Night mode
-                                        <span class="btn-night-mode-switch">
-                                            <span class="uk-switch-button"></span>
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="#" id="night-mode" class="btn-night-mode">
+                                            <i class="uil-moon"></i> Night mode
+                                            <span class="btn-night-mode-switch">
+                                                <span class="uk-switch-button"></span>
+                                            </span>
+                                        </a>
+                                    </li>
                             </ul>
 
                         </div>

@@ -71,30 +71,3 @@
     </div>
 </div>
 
-@section('scripts')
-<script>
-
-$("a.bookmark").click(function(e) {
-
-    e.preventDefault();
-    let slug = $(this).data('slug');
-
-
-     if($(this).hasClass("bookmarked")) {
-        $.post('/topic/'+ slug + "/remove-bookmark");
-        $(this).removeClass('bookmarked');
-        $(this).find("i.fa-bookmark").addClass("fa-bookmark-o").removeClass("fa-bookmark"),
-        $(this).find('span').text('Saved for later')
-        $(this).attr('uk-tooltip', 'Saved')
-        
-    } else {
-        $.post('topic/' + slug + "/bookmark");
-        $(this).addClass('bookmarked');
-        $(this).find("i.fa-bookmark-o").addClass("fa-bookmark").removeClass("fa-bookmark-o"),
-        $(this).find('span').text('Saved')
-        $(this).attr('uk-tooltip', 'Save for later')
-    }
-});
-
-</script>
-@endsection

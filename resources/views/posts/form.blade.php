@@ -32,16 +32,3 @@
             </div>
             <button type="submit" class="button primary block submit-form" class="button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Publish @endif Topic</button>
         </form>
-
-@section('form_script')
-<script>
-    $(document).ready(function () {
-        prePopulateForm('#topic-form');
-
-        $('#topic-form').submit(function(e) {
-            submitForm(e, 'editor_topics', '#topic-form');
-        });
-
-    })
-</script>
-@endsection

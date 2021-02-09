@@ -23,15 +23,6 @@
                 </div>
         </div>
 
-      <!-- <div class="p-5 uk-light"  style="background-blend-mode: color-burn; background-color: rgba(62 65 109, 0.06); background-image: url({{ asset('assets/images/title-bg.png') }})" data-src="{{ asset('assets/images/title-bg.png') }}" uk-img="" >
-            <div class="uk-width-4-5">
-                <h3 class="mb-2">
-                    <i class="uil-users-alt p-1 text-dark bg-white circle icon-small"></i>
-                    Groups </h3>
-                <p> New ways to find and join communications .</p>
-                <a href="#" class="button white small"> Find your groups</a>
-            </div>
-        </div>         -->
 
 
   

@@ -5,11 +5,31 @@
 @include('templates.scripts.select2')
 <script>
 $(document).ready(function() {
-    $('.select2').select2({
-        ajax: {
-          url: "{{ !isset($useChildCategories) ? route('community.api.search') : route('community.api.search').'?parent_id='.$community->id }}",
-        }
+    // $('.select2').select2({
+    //     ajax: {
+    //       url: "{{ !isset($useChildCategories) ? route('community.api.search') : route('community.api.search').'?parent_id='.$community->id }}",
+    //     }
+    // });
+
+    prePopulateForm('#topic-form');
+
+    $('#topic-form').submit(function(e) {
+        submitForm(e, 'editor_topics', '#topic-form');
     });
+
+    prePopulateForm('#rants-form');
+
+    $('#rant-form').submit(function(e) {
+        submitForm(e, 'editor_rants', '#rant-form');
+    });
+
+    prePopulateForm('#question-form');
+
+    $('#question-form').submit(function(e) {
+        e.preventDefault()
+        submitForm(e, 'editor_questions', '#question-form');
+    });
+
 });
 </script>
 
@@ -72,4 +92,3 @@ function prePopulateForm(editorClass) {
 }
 </script>
 
-@yield('form_script')

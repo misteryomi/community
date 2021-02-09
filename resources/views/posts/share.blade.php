@@ -21,7 +21,7 @@
             @endguest
         </div>
         <div class="post-new-media-input">
-            <input type="text" class="uk-input" placeholder="Share your memes, thoughts, any stuff!">
+            <input type="text" class="uk-input" disabled placeholder="Share your memes, thoughts, any stuff!">
         </div>
 
     </div>
@@ -59,7 +59,7 @@
 
             <h4> Post new stuff!</h4>
             <span class="post-new-btn-close" uk-toggle="target: body ; cls: post-focus"
-                uk-tooltip="title:Close; pos: left "></span>
+                uk-tooltip="pos: left "></span>
 
         </div>
 

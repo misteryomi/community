@@ -31,15 +31,3 @@
         <button type="submit" class="submit-form button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Publish @endif</button>
     </form>
 
-@section('form_script')
-<script>
-    $(document).ready(function () {
-        prePopulateForm('#rants-form');
-
-        $('#rant-form').submit(function(e) {
-            submitForm(e, 'editor_rants', '#rant-form');
-        });
-
-    })
-</script>
-@endsection
