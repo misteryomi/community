@@ -51,6 +51,15 @@
                     <div uk-dropdown="mode: click, pos:top-right">
                         <ul class="uk-nav uk-dropdown-nav p-0">
                             <li>
+                                <a target="blank" class="uk-hidden@m mr-2" href="whatsapp://send?text=?{{ \urlencode($post->title.'<br/>'.route('posts.show', ['post' => $post->slug])) }}" class="mr-2 text-gray">
+                                    <i class="fa fa-whatsapp"></i> <small><strong>WhatsApp</strong></small>
+                                </a>
+                                <a target="blank" class="uk-visible@m mr-2" href="http://wa.me?text={{ \urlencode($post->title.' '.route('posts.show', ['post' => $post->slug])) }}" class="mr-2 text-gray">
+                                    <i class="fa fa-whatsapp"></i> <small><strong>WhatsApp</strong></small>
+                                </a>
+                            </li>
+                            <li class="uk-nav-divider"></li>
+                            <li>
                                 <a target="blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('posts.show', ['post' => $post->slug]) }}&quote={{ $post->title }}&utm_source=jaracentral.com" class="mr-2 text-gray">
                                     <i class="fa fa-facebook"></i> <small><strong>Facebook</strong></small>
                                 </a>
@@ -61,6 +70,7 @@
                                     <i class="fa fa-twitter"></i> <small><strong>Twitter</strong></small>
                                 </a>
                             </li>
+
                         </ul>
                     </div>
                 
