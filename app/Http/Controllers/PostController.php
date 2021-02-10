@@ -287,7 +287,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->back();
+        return redirect()->route('home');
     }
    
 
