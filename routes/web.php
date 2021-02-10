@@ -53,7 +53,7 @@ Route::name('community.')->group(function() {
     Route::prefix('community')->group(function() {
         Route::middleware('auth')->group(function() {
             Route::get('/new', 'CommunityController@new')->name('new');
-            Route::post('/new', 'CommunityController@new')->name('post.new');
+            Route::post('/store', 'CommunityController@store')->name('post.new');
         });
 
         Route::get('/{community:slug}', 'CommunityController@list')->name('list');

@@ -8280,6 +8280,8 @@ header .opts_icon_link:hover {
     padding: 25px;
     margin-bottom: 20px;
     animation: r;
+    overflow-wrap: break-word
+
   }
 
   .collapse-sidebar .main_content_inner {

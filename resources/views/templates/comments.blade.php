@@ -7,10 +7,10 @@
                     <div class="">
                         <div class="user-details-card py-0 mb-3">
                             <div class="user-details-card-avatar" style="max-width: 40px">
-                                {!! $post->user->displayAvatar() !!}
+                                {!! $comment->user->displayAvatar() !!}
                             </div>
                             <div class="user-details-card-name">
-                                {{ ucfirst($post->user->username) }} <span> {{ $post->user->level }}<span><small>{{ $post->date }}</small> </span> </span>
+                                {{ ucfirst($comment->user->username) }} <span> {{ $comment->user->level }}<span><small>{{ $comment->date }}</small> </span> </span>
                             </div>
                         </div>
 

@@ -17,7 +17,7 @@
                     @endif
                     @include('layouts.partials.alert')
 
-                        <form class="mt-4" id="publish-form" action="{{ isset($isEdit) ? route('community.edit', ['community' => $community->slug ]) : route('community.new') }}" method="POST" id="form">
+                        <form class="mt-4" id="publish-form" action="{{ isset($isEdit) ? route('community.edit', ['community' => $community->slug ]) : route('community.post.new') }}" method="POST" id="form">
                         @csrf
                         <div class="uk-form-group">
                           <div class="uk-position-relative">
@@ -74,71 +74,6 @@
 </script>
 @include('templates.scripts.tinymce')
 @include('templates.scripts.select2')
-<script>
-$(document).ready(function() {
-    $('.select2').select2({
-        ajax: {
-          url: "{{ route('community.api.search') }}",
-        }
-    });
-});
-</script>
 
-<script>
-    var data = `{!! isset($community) ? $community->details : '' !!}`;
-    $(document).ready(function() {
-
-        var isEdit = "{{ isset($isEdit) ? true : false }}";
-        var myForm = $("#publish-form");
-        var initialValue = $('.init-editor').val();
-
-        $('.init-editor').hide();
-
-        if(isEdit) {
-            editor.setData(data)
-        } else {
-            editor.setData(data ? data : initialValue)
-        }
-
-        $('#submit-form').click(function(e) {
-          e.preventDefault();
-
-          let community = editor.getData();
-
-          $("input[name=details]").val(community);
-
-
-          if(!myForm[0].checkValidity()) {
-            myForm[0].reportValidity();              
-            
-          } else {
-
-            if(!community) {
-                UIkit.notification("<span uk-icon='icon: check'></span> <strong>Sorry, Content cannot be empty</strong>", { status:'danger' });
-                $('.editor-container').addClass('error-border')
-
-            } else {
-                
-                $('.submit-form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
-                $('.submit-form-btn').attr('disabled', true);
-
-                myForm.submit();
-            }
-          }
-
-          return false;
-        })
-
-        $('.autosuggest input').focus(function() {
-            $('.autosuggest .dropdown-list').show();
-        })
-
-        $('.autosuggest input').blur(function() {
-            $('.autosuggest .dropdown-list').hide();
-        })
-
-
-    })
-</script>
 
 @endsection

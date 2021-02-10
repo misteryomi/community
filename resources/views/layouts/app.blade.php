@@ -39,7 +39,7 @@
 
   gtag('config', 'UA-53641905-1');
 </script>
-<!-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 <script>
   window.OneSignal = window.OneSignal || [];
   OneSignal.push(function() {
@@ -47,7 +47,7 @@
       appId: "0a139ea8-73c0-4d6e-8e77-7cda287b6239",
     });
   });
-</script> -->
+</script>
 
 </head>
 

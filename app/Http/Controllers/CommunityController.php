@@ -99,11 +99,17 @@ class CommunityController extends Controller
     public function new() {
         $communities = $this->community->take(10)->get();
 
-    
-
         return view('community.new', compact('communities'));
     }
 
+
+    public function store(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            // '' =>
+        ]);
+    }
     
     public function APISearch(Request $request) {
 
