@@ -6,9 +6,9 @@
                 <li class="border-bottom my-2 card" id="#{{ $comment->id }}">
                     <div class="">
                         <div class="user-details-card py-0 mb-3">
-                            <div class="user-details-card-avatar user-details-card-avatar-sm">
+                            <!-- <div class="user-details-card-avatar user-details-card-avatar-sm">
                                 {!! $comment->user->displayAvatar() !!}
-                            </div>
+                            </div> -->
                             <div class="user-details-card-name">
                                 {{ ucfirst($comment->user->username) }} <span> {{ $comment->user->level }}<span><small>{{ $comment->date }}</small> </span> </span>
                             </div>

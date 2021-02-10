@@ -278,7 +278,19 @@ class PostController extends Controller
         return redirect()->route('posts.show', ['post' => $post->slug]);
     }
 
-    
+    public function delete(Post $post) {
+
+        if(!$this->user->canEditPost($post)) {
+            abort(404);
+        }
+                //only owner or moderator can edit
+
+        $post->delete();
+
+        return redirect()->back();
+    }
+   
+
     public function setFeatured(Request $request, Post $post) {
 
         if(!$post->canModerate()) {

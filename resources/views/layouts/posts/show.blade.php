@@ -77,6 +77,9 @@
                             <li>
                                 <a href="{{ route('posts.edit', ['post' => $post->slug]) }}">Edit</a>
                             </li>
+                            <li>
+                                <a href="{{ route('posts.delete', ['post' => $post->slug]) }}">Delete</a>
+                            </li>
                             @endif
                             
 
