@@ -21,38 +21,38 @@
                         @csrf
                         <div class="uk-form-group">
                           <div class="uk-position-relative">
-                              <input type="text" name="title" class="uk-input uk-form-large text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Name of Community"  id="title" value="{{ isset($isEdit) ? $community->title : '' }}" required>
+                              <input type="text" name="name" required class="uk-input uk-form-large text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Name of Community"  id="title" value="{{ isset($isEdit) ? $community->title : '' }}" required>
                           </div>
                         </div>
 
                           <div class="uk-form-group">
                             <div class="uk-position-relative autosuggest">
-                                <select class="select2 uk-input uk-textarea uk-form-large" name="community_id" @if(isset($isEdit)) value="{{ $community->community_id }}" @endif id="community">
+                                <select class="select2 uk-input uk-textarea uk-form-large" required name="category" @if(isset($isEdit)) value="{{ $community->community_id }}" @endif id="category">
                                     <option value="">Select a Category</option>
                                     @if(isset($isEdit))
-                                    <option value="{{ $community->community_id }}" selected>{{ $community->category->name }}</option>
-                                    @elseif(isset($community))
-                                    <option value="{{ $community->id }}" selected>{{ $community->name }}</option>
+                                        <option value="{{ $community->category_id }}" selected>{{ $community->category->name }}</option>
                                     @endif
-                                    @foreach($communities as $community)
-                                    <option value="">{{ $community->name }}</option>
+                                    @foreach($categories as $category)
+                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                           </div>
-                          <div class="uk-form-group">
-                              <label>What is this community about?</label>
-                              <textarea class="uk-textarea" placeholder=""></textarea>
+                          <div class="uk-form-group mt-2">
+                              <label>About this Community (optional):</label>
+                              <textarea class="uk-textarea" rows="7" name="about" placeholder=""></textarea>
                           </div>
                           <div class="uk-form-group">
-                              <label>Community Rules:</label>
-                              <textarea class="uk-textarea" placeholder=""></textarea>
+                              <label>Community Rules (optional):</label>
+                              <textarea class="uk-textarea"  rows="7"  name="rules" placeholder=""></textarea>
                           </div>
                           <div class="uk-form-group">
-                              <label>Set Cover Picture:</label><br/>
+                              <label>Logo (optional):</label><br/>
                             <div uk-form-custom="target: true" class="uk-form-custom uk-first-column">
-                                <input type="file">
+                                <input type="file" name="logo">
+                                <!-- <button class="uk-button uk-button-default" type="button" tabindex="-1">Select File</button>                                 -->
                                 <input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled="">
-                            </div>                          </div>
+                            </div>                          
+                        </div>
                           <button type="submit" id="submit-form" class="button block primary button-lg submit-form-btn">@if(isset($isEdit))Update @else Create @endif Community</button>
                         </form>
                       </div>

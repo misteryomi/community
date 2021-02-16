@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Community;
+use App\CommunityCategory;
+use App\Http\Controllers\Traits\MediaTrait;
+use App\Rules\OneWord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -11,14 +14,17 @@ use Jenssegers\Agent\Agent;
 
 class CommunityController extends Controller
 {
+    use MediaTrait;
+
     private $community;
     private $user;
     private $agent;
 
-    function __construct(Community $community) {
+    function __construct(Community $community, CommunityCategory $category) {
         $this->community = $community->where('is_active', true);
         $this->agent = new Agent();
 
+        $this->category = $category;
 
         $this->middleware(function($request, $next) {
             $this->user = Auth::user();
@@ -97,18 +103,42 @@ class CommunityController extends Controller
 
 
     public function new() {
-        $communities = $this->community->take(10)->get();
+        $categories = $this->category->get();
 
-        return view('community.new', compact('communities'));
+        return view('community.new', compact('categories'));
     }
 
 
     public function store(Request $request) {
+
+        $request['name'] =  str_replace(' ', '', ucwords(str_replace('-', ' ', $request->name))); //Convert name to camelCasing
+        $user_id = $request->user()->id;
+
         $request->validate([
-            'name' => 'required',
-            'category' => 'required',
-            // '' =>
+            'name' => ['required', 'unique:App\Community'],
+            'category' => 'required|exists:App\CommunityCategory,id',
+            'upload' => 'image|between:0,2400'
         ]);
+
+        $mediaPath = null;
+
+        if($request->has('upload')) {
+            $mediaPath = $this->processImageUpload($request, 'upload');
+        }
+
+        $community = $this->community->create([
+                            'name' => $request->name,
+                            'category_id' => $request->category,
+                            'about' => $request->about,
+                            'rules' => $request->rules,
+                            'avatar' => $mediaPath,
+                            'slug' => \Str::slug(strtolower($request->name)),
+                            'moderator_id' => $user_id
+                        ]);
+
+        $community->followers()->create(['user_id' => $user_id]);
+
+        return redirect()->route('community.list', ['community' => $community->slug]);
     }
     
     public function APISearch(Request $request) {
@@ -127,5 +157,6 @@ class CommunityController extends Controller
 
         return response(['results' => $communities]);
     }
+
 
 }

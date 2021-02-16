@@ -39,11 +39,14 @@
                     <p> <small>{{ $community->posts->count() }} Topics   - 
                         {{ $community->followers->count() }} Followers</small> </p>
 
+                    <p> <small>Created by <a href="{!! $community->creator->profileRoute() !!}"><strong>{{ $community->creator->username }}</strong></a></small> </p>
+                
+
                     @if($community->userFollows(auth()->user()))
-                    <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button block secondary  mb-1">
+                    <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button block primary mb-1 follow following" data-slug="{{ $community->slug }}">
                             Unfollow</a>
                     @else
-                    <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button block soft-primary  mb-1">
+                    <a href="{{ route('community.follow', ['community' => $community->slug]) }}" class="button block outline-light  mb-1 follow" data-slug="{{ $community->slug }}">
                             Follow</a>
                     @endif                          
                 </div>
@@ -56,4 +59,8 @@
  </div>
 </div>
 
+@endsection
+
+@section('scripts')
+@include('community.follow-script')
 @endsection

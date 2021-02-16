@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 class Community extends Model
 {
 
+    protected $guarded = [];
     /**
      * For routing using {slug}
      */
@@ -35,6 +36,10 @@ class Community extends Model
         }
 
         return $value;
+    }
+
+    public function creator() {
+        return $this->belongsTo(User::class, 'moderator_id');
     }
 
     public function posts() {
