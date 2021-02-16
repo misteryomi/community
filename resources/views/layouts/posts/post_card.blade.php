@@ -31,6 +31,7 @@
 
         </a>  
 
+        @yield('additional_info')
 
         <div class="uk-flex">
                 

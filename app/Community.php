@@ -70,6 +70,13 @@ class Community extends Model
     }
 
 
+    public function getPostType() {
+
+        $post_type = \App\PostType::where('name', $this->name)->first();
+
+        return $post_type;
+    }
+
     public function getExcerptAttribute() {
         return Str::words($this->about, 10);
 //        return 'Some text here in few seconds...';
@@ -109,6 +116,10 @@ class Community extends Model
     }
 
     public function route() {
+        $type = $this->getPostType();
+        if($type) {
+            return route($type->name);            
+        }
         return route('community.list', ['community' => $this->slug ]);
     }
 

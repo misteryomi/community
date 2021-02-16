@@ -6,7 +6,7 @@
     <strong>Job Type</strong>: {{ $post->meta->type->type }} </p>
     @endif
     @if($post->meta->min_salary || $post->meta->min_salary)
-    <p><strong>Salary</strong>: {{ $post->meta->min_salary }} {{ $post->meta->max_salary ? ' - '.$post->meta->max_salary : ''}} {{ $post->meta->salaryType->type }} </p>
+    <p><strong>Salary</strong>: {{ $post->meta->min_salary }} {{ $post->meta->max_salary ? ' - '.$post->meta->max_salary : ''}} {{ $post->meta->salaryType ? $post->meta->salaryType->type : '' }} </p>
     @endif
     @if($post->meta->deadline)
     <p><strong>Application Deadline</strong>: {{ $post->meta->deadline }} </p>

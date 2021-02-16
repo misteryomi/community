@@ -24,12 +24,6 @@
                 </nav>
               @endif
 
-              <!-- <div>
-                <div class="mt-3 @if(isset($displayTopicsType)) text-right @endif block-mobile">
-                  <a href="{{ route('topics.new') }}" class="button primary small circle"> <i class="uil-plus"> </i> Create a New Topic
-                  </a>
-                </div>
-              </div> -->
           </div>        
     </div>
 

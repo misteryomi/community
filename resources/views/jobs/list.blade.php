@@ -17,71 +17,72 @@
 
 
             <h3> Filter</h3>
+            <form action="?" method="get">
+                <ul class="sidebar-filter-list uk-accordion" uk-accordion="multiple: true">
 
-            <ul class="sidebar-filter-list uk-accordion" uk-accordion="multiple: true">
-
-                <li class="uk-open">
-                    <a class="uk-accordion-title" href="#"> Field </a>
-                    <div class="uk-accordion-content" aria-hidden="false">
-                        <div class="uk-margin">
-                            <label><small>Minimum</small></label>
-                            <input class="uk-input" type="text" placeholder="Input">
-                            <label><small>Maximum</small></label>
-                            <input class="uk-input" type="text" placeholder="Input">
-                        </div>                    
-                        <div class="uk-margin">
-                        </div>                    
-                    </div>
-                </li>
-
-                <li class="uk-open">
-                    <a class="uk-accordion-title" href="#"> Job Category </a>
-                    <div class="uk-accordion-content" aria-hidden="false">
-                        <select class="uk-select">
-                            <option value="">All Categories</option>
-                            @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </li>
-
-                <li class="uk-open">
-                    <a class="uk-accordion-title" href="#"> Job Type </a>
-                    <div class="uk-accordion-content" aria-hidden="false">
-                        <div class="uk-form-controls">
-                            <label>
-                                <input class="uk-radio" type="radio" checked name="radio2">
-                                <span class="test"> All </span>
-                            </label>
-                            @foreach($types as $type)
-                            <label>
-                                <input class="uk-radio" type="radio" value="{{ $type->id }}" name="radio2">
-                                <span class="test"> {{ $type->type}} </span>
-                            </label>
-                            @endforeach
+                    <li class="uk-open">
+                        <a class="uk-accordion-title" href="#"> Salary Range </a>
+                        <div class="uk-accordion-content" aria-hidden="false">
+                            <div class="uk-margin">
+                                <label><small>Minimum Salary (NGN)</small></label>
+                                <input class="uk-input" name="min_salary" type="text" placeholder="1000">
+                                <label><small>Maximum (NGN)</small></label>
+                                <input class="uk-input" name="max_salary" type="text" placeholder="100,000">
+                            </div>                    
+                            <div class="uk-margin">
+                            </div>                    
                         </div>
-                    </div>
-                </li>
+                    </li>
 
-                <li class="uk-open">
-                    <a class="uk-accordion-title" href="#"> Location </a>
-                    <div class="uk-accordion-content" aria-hidden="false">
-                        <div class="uk-form-controls">
-                            @foreach($locations as $location)
-                            <label>
-                                <input class="uk-radio" type="radio" name="radio3" checked>
-                                <span class="test">{{ $location->location }}</span>
-                            </label>
-                            @endforeach
+                    <li class="uk-open">
+                        <a class="uk-accordion-title" href="#"> Job Category </a>
+                        <div class="uk-accordion-content" aria-hidden="false">
+                            <select class="uk-select" name="category">
+                                <option value="">All Categories</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                    </div>
-                </li>
+                    </li>
 
+                    <li class="uk-open">
+                        <a class="uk-accordion-title" href="#"> Job Type </a>
+                        <div class="uk-accordion-content" aria-hidden="false">
+                            <div class="uk-form-controls">
+                                <label>
+                                    <input class="uk-radio" type="radio" value="all" checked name="type">
+                                    <span class="test"> All </span>
+                                </label>
+                                @foreach($types as $type)
+                                <label>
+                                    <input class="uk-radio" type="radio" value="{{ $type->id }}" name="type">
+                                    <span class="test"> {{ $type->type}} </span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </li>
 
-            </ul>
+                    <li class="uk-open">
+                        <a class="uk-accordion-title" href="#"> Location </a>
+                        <div class="uk-accordion-content" aria-hidden="false">
+                            <div class="uk-form-controls">
+                                @foreach($locations as $location)
+                                <label>
+                                    <input class="uk-radio" type="radio" value="{{ $location->location }}" name="location" checked>
+                                    <span class="test">{{ $location->location }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </li>
 
-
+                    <li>
+                        <button class="button block primary">Filter Jobs</button>
+                    </li>
+                </ul>
+            </form>
 
         </div>
 
