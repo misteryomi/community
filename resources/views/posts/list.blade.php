@@ -39,8 +39,9 @@
                     <p> <small>{{ $community->posts->count() }} Topics   - 
                         {{ $community->followers->count() }} Followers</small> </p>
 
+                    @if($community->creator)
                     <p> <small>Created by <a href="{!! $community->creator->profileRoute() !!}"><strong>{{ $community->creator->username }}</strong></a></small> </p>
-                
+                    @endif
 
                     @if($community->userFollows(auth()->user()))
                     <a href="{{ route('community.unfollow', ['community' => $community->slug])  }}" class="button block primary mb-1 follow following" data-slug="{{ $community->slug }}">
