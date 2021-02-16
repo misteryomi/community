@@ -1,3 +1,4 @@
+
 <script>
     var uploadURL = "{{ route('media.upload') }}"
 </script>
@@ -30,6 +31,12 @@ $(document).ready(function() {
         submitForm(e, 'editor_questions', '#question-form');
     });
 
+    prePopulateForm('#publish-form');
+
+    $('#publish-form').submit(function(e) {
+        submitForm(e, 'editor', '#publish-form');
+    });
+
 
 });
 </script>
@@ -47,6 +54,7 @@ function submitForm(e, editorClass, submitFormEl) {
 
     var text = editor.getData();
 
+    // console.log({text})
 
     $(submitFormEl).find("input[name=details]").val(text);
 
@@ -66,7 +74,7 @@ function submitForm(e, editorClass, submitFormEl) {
             $('.submit-form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
             $('.submit-form-btn').attr('disabled', true);
 
-           formEl.submit();
+       formEl.submit();
         // }
     }
 
@@ -76,8 +84,10 @@ function submitForm(e, editorClass, submitFormEl) {
 
 function prePopulateForm(editorClass) {
         var isEdit = "{{ isset($isEdit) ? true : false }}";
-        var initialValue = $('.init-editor').val();
-        var editor = editors[editorClass];
+        var initialValue = "{{ isset($isEdit) ? $post->details : '' }}"  //$('.init-editor').val();
+
+        // console.log({initialValue})
+        var editor = editors[editorClass] ? editors[editorClass] : editors.editor;
 
         $('.init-editor').hide();
 

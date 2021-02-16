@@ -8,7 +8,7 @@
     @endif
 @endsection
 @section('form_content')
-    <form class="mt-4" id="publish-form" action="{{ isset($isEdit) ? route('posts.post.edit', ['post' => $post->slug ]) : route('posts.post.new') }}" method="POST" id="form">
+    <form class="mt-4" id="publish-form" action="{{ isset($isEdit) ? route('posts.post.edit', ['post' => $post->slug ]) : route('posts.post.new') }}" method="POST">
         @csrf
         <div class="uk-form-group">
             <div class="uk-position-relative">
