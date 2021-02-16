@@ -215,7 +215,7 @@
             console.log({twtURL});
 
             if(ytID) {
-                el.html(`<iframe width="100%" height="380" src="http://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
+                el.html(`<iframe width="100%" height="380" src="https://www.youtube.com/embed/${ytID}" frameborder="0" allowfullscreen></iframe>`)
             }  
             
             if(twtURL) {
