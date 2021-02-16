@@ -26,21 +26,10 @@
                     <option value="{{ $community->id }}" selected>{{ $community->name }}</option>
                     @endif
                     @foreach($communities as $c)
-                    <option value="">{{ $c->name }}</option>
+                    <option value="{{ $c->id }}">{{ $c->name }}</option>
                     @endforeach
                 </select>
-                <!-- <input class="uk-input uk-form-large" id="category" placeholder="Select Community" >
-                <input type="hidden" name="community_id">
-                    <div class="dropdown-list">
-                        <ul class="uk-list uk-list-divider p-3">
-                            @foreach($communities as $community)
-                            <li>
-                                <a href="#">Report </a>
-                            </li>
-                            @endforeach
-                        </ul>                                
-                    </div>                            
-                </div> -->
+
             </div>
         <div class="uk-form-group mt-2">
             <div class="uk-position-relative editor-container">

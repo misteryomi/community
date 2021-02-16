@@ -166,7 +166,7 @@ trait PostTrait
         //only owner or moderator can edit
 
         $requestData = isset($this->meta_fields) ? $request->except($this->meta_fields) : $request->all();
-        $requestData['community_id'] = $request->community;
+        // $requestData['community_id'] = $request->community;
         $validation =  Validator::make($requestData, [
                         'title' => 'required|max:255',
                         'details' => 'required'
