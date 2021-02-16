@@ -1,14 +1,16 @@
 @extends('layouts.posts.post_card')
 @section('additional_info')
           @if($post->meta)
+          <div class="mb-2">
             @if($post->meta->category)
-            <a href="?&category={{ $post->meta->category->name }}" class="button"> {{ $post->meta->category->name }} </a>
+            <a href="?&category={{ $post->meta->category->name }}" class="button small soft-warning"> {{ $post->meta->category->name }} </a>
             @endif
             @if($post->meta->location)
-            <a href="?&location={{ $post->meta->location }}" class="button">  {{ ucwords($post->meta->location) }}  </a>
+            <a href="?&location={{ $post->meta->location }}" class="button small soft-danger">  {{ ucwords($post->meta->location) }}  </a>
             @endif
             @if($post->meta->type)
-            <a href="?&job_type={{ $post->meta->type->type }}" class="button">  {{ ucwords($post->meta->type->type) }}  </a>
+            <a href="?&job_type={{ $post->meta->type->type }}" class="button small soft-success">  {{ ucwords($post->meta->type->type) }}  </a>
             @endif
+            </div>
           @endif
 @endsection

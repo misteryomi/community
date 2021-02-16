@@ -30,6 +30,4 @@
   <p class="text-center card mt-2 text-md-left">No job found. Be the champion, <a href="{{ route('jobs.new') }}"><strong>post a new job</strong></a>.</p>
   @endif
 @endif
-
-</div>
 </div>

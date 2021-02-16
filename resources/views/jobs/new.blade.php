@@ -54,11 +54,11 @@
         </div>
         <div class="uk-form-group">
             <label>Minimum Salary (NGN) <small>(optional)</small></label>
-            <input type="number" min="0" name="min_salary" class="uk-input" placeholder=""  id="min_salary" value="{{ isset($isEdit) ? $post->meta->min_salary : '' }}" required>
+            <input type="number" min="0" name="min_salary" class="uk-input" placeholder=""  id="min_salary" value="{{ isset($isEdit) ? $post->meta->min_salary : '' }}">
         </div>
         <div class="uk-form-group">
             <label>Maximum Salary (NGN) <small>(optional)</small></label>
-            <input type="number" min="0" name="max_salary" class="uk-input" placeholder=""  id="max_salary" value="{{ isset($isEdit) ? $post->meta->max_salary : '' }}" required>
+            <input type="number" min="0" name="max_salary" class="uk-input" placeholder=""  id="max_salary" value="{{ isset($isEdit) ? $post->meta->max_salary : '' }}">
         </div>
         
         <div class="uk-form-group">
@@ -67,11 +67,11 @@
         </div>
         <div class="uk-form-group">
             <label>Application URL <small>(optional)</small></label>
-            <input type="url" name="url" class="uk-input" placeholder="http://"  id="url" value="{{ isset($isEdit) ? $post->meta->url : '' }}" required>
+            <input type="url" name="url" class="uk-input" placeholder="http://"  id="url" value="{{ isset($isEdit) ? $post->meta->url : '' }}">
         </div>
         <div class="uk-form-group">
             <label>Application Deadline <small>(optional)</small></label>
-            <input type="date" name="deadline" class="uk-input" placeholder="01/01/2021"  id="deadline" value="{{ isset($isEdit) ? $post->meta->dealine : '' }}" required>
+            <input type="date" name="deadline" class="uk-input" placeholder="01/01/2021"  id="deadline" value="{{ isset($isEdit) ? $post->meta->dealine : '' }}">
         </div>
         <div class="uk-form-group">
             <label>Job Details</label>
