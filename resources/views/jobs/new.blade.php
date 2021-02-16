@@ -27,7 +27,7 @@
 
         <div class="uk-form-group">
             <label>Job Category</label>
-            <select class="uk-select" namename="category_id">
+            <select class="uk-select" name="category">
                 <option value="">Select option</option>
                 @foreach($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -36,7 +36,7 @@
         </div>
         <div class="uk-form-group">
             <label>Job type</label>
-            <select class="uk-select" namename="type_id">
+            <select class="uk-select" name="type">
                 <option value="">Select option</option>
                 @foreach($types as $type)
                 <option value="{{ $type->id }}">{{ $type->type }}</option>
@@ -45,7 +45,7 @@
         </div>
         <div class="uk-form-group">
             <label>Salary type <small>(optional)</small></label>
-            <select class="uk-select" namename="salary_type_id">
+            <select class="uk-select" name="salary_type">
                 <option value="">Select option</option>
                 @foreach($salaries as $salaryType)
                 <option value="{{ $salaryType->id }}">{{ $salaryType->type }}</option>

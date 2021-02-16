@@ -39,7 +39,7 @@ class JobController extends Controller
         $this->meta = $meta;
         $this->agent = new Agent();
         $this->post_type = PostType::where('name', 'jobs')->first();
-        $this->job_community = $community->where('name', 'jobs')->first();
+        $this->communityObj = $community->where('name', 'jobs')->first();
         $this->meta_fields = ['url', 'is_approved', 'deadline', 'location', 'category_id', 'type_id', 'min_salary', 'max_salary', 'salary_type_id'];
 
         $this->middleware(function($request, $next) {
@@ -58,7 +58,7 @@ class JobController extends Controller
      */
     public function all(Request $request) {
         $agent = $this->agent;
-        $community = $this->job_community;
+        $community = $this->communityObj;
 
         $posts = $this->post->where('community_id', $community->id)->orWhereHas('type', function($query)  {
                     $query->where('name', $this->post_type->name);
@@ -87,8 +87,8 @@ class JobController extends Controller
      */
     public function new() {
 
-        $community = $this->job_community;
-        $communities = $this->category->where('parent_id', $this->job_community->id)->ordered();
+        $community = $this->communityObj;
+        $communities = $this->category->where('parent_id', $this->communityObj->id)->ordered();
         $types = JobType::all();
         $categories = JobCategory::all();
         $salaries = JobSalaryType::all();
@@ -123,14 +123,41 @@ class JobController extends Controller
      */
     public function store(Request $request) {
 
-        $requestData = $request->except($this->meta_fields);
-        $requestData['community_id'] = $this->job_community->id;
+        $requestData = $request->all(); //$request->except($this->meta_fields);
+        $requestData['community'] = $this->communityObj->id;
 
-        $post = $this->preSubmit($requestData);
+        $validationFields = [
+            'title' => 'required|max:255',
+            'category' => 'required|exists:App\JobCategory,id',
+            'type' => 'required|exists:App\JobType,id',
+            'salary_type' => 'required|exists:App\JobSalaryType,id',
+            'location' => 'required',
+            'job_description' => 'required'
+        ];
+
+        $validation =  Validator::make($requestData, $validationFields);
+
+        if($validation->fails()) {
+             return redirect()->back()->withErrors($validation->errors())->withInput()->send();
+        }
+
+        $requestData['details'] = $request->job_description;
+
+        $post = $this->preSubmit($requestData, false, $validationFields);
+
+        // $post = $this->preSubmit($requestData);
         $post->update(['post_type' => $this->post_type->id]);
         
         $this->meta->create([
             'post_id' => $post->id,
+            'location' => $request->location,
+            'url' => $request->url,
+            'type_id' => $request->type,
+            'category_id' => $request->category,
+            'salary_type_id' => $request->salary_type,
+            'max_salary' => $request->max_salary,
+            'min_salary' => $request->min_salary,
+            'deadline' => $request->deadline,
         ]);
 
         $this->postSubmit($request, $post);
@@ -138,7 +165,6 @@ class JobController extends Controller
         return redirect()->route('jobs.show', ['post' => $post->slug]);
 
     }
-
 
     /**
      * Modify Post
@@ -151,7 +177,7 @@ class JobController extends Controller
         }
                 //only owner or moderator can edit
 
-        $communities = $this->category->where('parent_id', $this->job_community->id)->ordered();
+        $communities = $this->category->where('parent_id', $this->communityObj->id)->ordered();
 
         return view('jobs.new', compact('post', 'communities', 'community'))->withIsEdit(true);
     }
