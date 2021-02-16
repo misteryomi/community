@@ -104,7 +104,7 @@
           @if(auth()->user())
           @include('templates.comment')
           @else
-                <div id="comment" class="card">
+                <div id="comment" class="card mt-3">
                     <textarea uk-toggle="target: #modal-close-default" class="uk-textarea" rows="5" placeholder="Drop a comment"></textarea>
                         <!-- <a href="#" class="uk-margin-small-right" uk-toggle="target: #modal-close-default"><strong>Login/Sign up to drop a comment</strong></a> -->
                 </div>

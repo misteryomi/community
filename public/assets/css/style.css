@@ -13063,6 +13063,7 @@ select.select2 {
   padding: 10px;
   background-color: #fff;
   border: 1px solid #e3e3e3;
+  overflow-wrap: break-word;
 }
 .night-mode .card {
   background-color: transparent;
