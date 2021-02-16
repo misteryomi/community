@@ -133,7 +133,8 @@ class CommunityController extends Controller
                             'rules' => $request->rules,
                             'avatar' => $mediaPath,
                             'slug' => \Str::slug(strtolower($request->name)),
-                            'moderator_id' => $user_id
+                            'moderator_id' => $user_id,
+                            'color' => sprintf('#%06X', mt_rand(0, 0xFFFFFF))
                         ]);
 
         $community->followers()->create(['user_id' => $user_id]);
