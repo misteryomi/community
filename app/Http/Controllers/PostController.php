@@ -260,7 +260,7 @@ class PostController extends Controller
         }
                 //only owner or moderator can edit
 
-        $communities = $this->category->where('is_parent', true)->ordered();
+        $communities = $this->category->ordered();
 
         return view('posts.new', compact('post', 'communities'))->withIsEdit(true);
     }
