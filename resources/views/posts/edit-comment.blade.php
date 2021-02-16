@@ -14,10 +14,10 @@
                         <form class="mt-5" id="publish-form" action="{{ route('posts.comment.edit.post', ['comment' => $comment->id, 'post' => $comment->post->slug ]) }}" method="POST" id="form">
                         @csrf
                           <div class="form-group">
-                              <div class="editor"></div>
+                              <div id="editor"></div>
                               <input type="hidden" name="comment" value="{{ $comment->comment }}">
                           </div>
-                          <button type="submit" id="submit-form" class="btn btn-block btn-default">Update Comment</button>
+                          <button type="submit" id="submit-form" class="button block mt-2 primary">Update Comment</button>
                         </form>
                       </div>
             </div>
@@ -41,6 +41,9 @@
 
 <script>
     $(document).ready(function() {
+
+    
+        var editor = editors.editor;
 
         editor.setData('{!! $comment->comment !!}')
 

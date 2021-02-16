@@ -12,7 +12,7 @@
         @csrf
         <div class="uk-form-group">
             <div class="uk-position-relative">
-                <input type="text" name="title" class="uk-input uk-form-large bg-secondary text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Title"  id="title" value="{{ isset($isEdit) ? $post->title : '' }}" required>
+                <input type="text" name="title" class="uk-input uk-form-large text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Title"  id="title" value="{{ isset($isEdit) ? $post->title : '' }}" required>
             </div>
         </div>
 
@@ -42,9 +42,9 @@
                     </div>                            
                 </div> -->
             </div>
-        <div class="uk-form-group">
+        <div class="uk-form-group mt-2">
             <div class="uk-position-relative editor-container">
-            <div class="editor"></div>
+            <div id="editor"></div>
             <textarea class="uk-textarea init-editor mt-4" placeholder="Details..."> @if(isset($isEdit)){{ html_entity_decode(strip_tags($post->details)) }} @endif</textarea>
             <input type="hidden" name="details" @if(isset($isEdit)) value="{{ $post->details }}" @endif />
             {{-- <label class="form-control-label" for="details">Details</label>

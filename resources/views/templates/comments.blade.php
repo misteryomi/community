@@ -1,9 +1,8 @@
 
         @if($comments->count() > 0)
-        <div class="comments m-0" >
-            <ul>
+        <div class=" m-0" >
                 @foreach ($comments as $comment)
-                <li class="border-bottom my-2 card" id="#{{ $comment->id }}">
+                <div class="border-bottom my-2 card" id="#{{ $comment->id }}">
                     <div class="">
                         <div class="user-details-card py-0 mb-3">
                             <!-- <div class="user-details-card-avatar user-details-card-avatar-sm">
@@ -45,12 +44,12 @@
 
                             <div uk-dropdown="mode: click">
                                 <ul class="uk-list uk-list-divider">
-                                    <li>
-                                        <a href="#">Report Post </a>
-                                    </li>
+                                    <!-- <li>
+                                        <a href="#">Report </a>
+                                    </li> -->
                                     @if($comment->canEdit())
                                     <li>
-                                        <a href="{{ route('posts.comment.edit', ['comment' => $comment->id, 'post' => $post->slug]) }}"><strong>Edit</strong></a>
+                                        <a href="{{ route('posts.comment.edit', ['comment' => $comment->id, 'post' => $post->slug]) }}">Edit</a>
                                     </li>
                                     @endif
                                 </ul>
@@ -58,10 +57,8 @@
                         </div>
                     </div>
 
-                </li>
+                </div>  
                 @endforeach
-
-            </ul>
 
         </div>
         @endif

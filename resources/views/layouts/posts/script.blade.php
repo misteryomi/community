@@ -30,6 +30,7 @@ $(document).ready(function() {
         submitForm(e, 'editor_questions', '#question-form');
     });
 
+
 });
 </script>
 
