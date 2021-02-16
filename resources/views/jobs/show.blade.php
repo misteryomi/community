@@ -6,7 +6,7 @@
     <strong>Job Type</strong>: {{ $post->meta->type->type }} </p>
     @endif
     @if($post->meta->min_salary || $post->meta->min_salary)
-    <p><strong>Salary</strong>: {{ $post->meta->min_salary }} {{ $post->meta->max_salary ? ' - '.$post->meta->max_salary : ''}} {{ $post->meta->salaryType ? $post->meta->salaryType->type : '' }} </p>
+    <p><strong>Salary</strong>: {{ $post->meta->min_salary ? 'NGN'.$post->meta->min_salary : '' }} {{ $post->meta->max_salary ? ' - NGN'.$post->meta->max_salary : ''}} {{ $post->meta->salaryType ? $post->meta->salaryType->type : '' }} </p>
     @endif
     @if($post->meta->deadline)
     <p><strong>Application Deadline</strong>: {{ $post->meta->deadline }} </p>
@@ -20,7 +20,7 @@
 
 @section('extra_info_after')
     @if($post->meta->url)
-    <p>Apply here: {{ $post->meta->url }} </p>
+    <p>Apply here: <a href="{{ $post->meta->url }}" target="_blank">{{ $post->meta->url }}</a> </p>
     @endif
 
 @endsection

@@ -132,7 +132,7 @@ class JobController extends Controller
             'type' => 'required|exists:App\JobType,id',
             'salary_type' => 'required|exists:App\JobSalaryType,id',
             'location' => 'required',
-            'job_description' => 'required'
+            'details' => 'required'
         ];
 
         $validation =  Validator::make($requestData, $validationFields);
@@ -141,7 +141,7 @@ class JobController extends Controller
              return redirect()->back()->withErrors($validation->errors())->withInput()->send();
         }
 
-        $requestData['details'] = $request->job_description;
+        // $requestData['details'] = $request->job_description;
 
         $post = $this->preSubmit($requestData, false, $validationFields);
 

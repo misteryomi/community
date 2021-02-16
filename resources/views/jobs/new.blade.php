@@ -53,11 +53,11 @@
             </select>
         </div>
         <div class="uk-form-group">
-            <label>Minimum Salary <small>(optional)</small></label>
+            <label>Minimum Salary (NGN) <small>(optional)</small></label>
             <input type="number" min="0" name="min_salary" class="uk-input" placeholder=""  id="min_salary" value="{{ isset($isEdit) ? $post->meta->min_salary : '' }}" required>
         </div>
         <div class="uk-form-group">
-            <label>Maximum Salary <small>(optional)</small></label>
+            <label>Maximum Salary (NGN) <small>(optional)</small></label>
             <input type="number" min="0" name="max_salary" class="uk-input" placeholder=""  id="max_salary" value="{{ isset($isEdit) ? $post->meta->max_salary : '' }}" required>
         </div>
         
@@ -74,7 +74,7 @@
             <input type="date" name="deadline" class="uk-input" placeholder="01/01/2021"  id="deadline" value="{{ isset($isEdit) ? $post->meta->dealine : '' }}" required>
         </div>
         <div class="uk-form-group">
-            <label>Job Description</label>
+            <label>Job Details</label>
             <div class="uk-position-relative editor-container">
                 <div id="editor"></div>
                 <textarea class="uk-textarea init-editor mt-4" placeholder="Details..."> @if(isset($isEdit)){{ html_entity_decode(strip_tags($post->details)) }} @endif</textarea>
