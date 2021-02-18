@@ -158,6 +158,7 @@ class JobController extends Controller
             'max_salary' => $request->max_salary,
             'min_salary' => $request->min_salary,
             'deadline' => $request->deadline,
+            'company_name' => $request->company_name
         ]);
 
         $this->postSubmit($request, $post);

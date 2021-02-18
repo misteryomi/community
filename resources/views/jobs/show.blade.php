@@ -2,7 +2,12 @@
 
 @section('extra_info_before')
 
-    @if($post->meta->type)
+    <h3>About the Job</h3>
+
+@endsection
+
+@section('extra_info_after')
+@if($post->meta->type)
     <strong>Job Type</strong>: {{ $post->meta->type->type }} </p>
     @endif
     @if($post->meta->min_salary || $post->meta->min_salary)
@@ -15,10 +20,6 @@
     <p><strong>Category</strong>: {{ $post->meta->category->name }} </p>
     @endif
 
-    <strong>Job Details:</strong>
-@endsection
-
-@section('extra_info_after')
     @if($post->meta->url)
     <p>Apply here: <a href="{{ $post->meta->url }}" target="_blank">{{ $post->meta->url }}</a> </p>
     @endif

@@ -51,8 +51,8 @@
             <ul class="uk-list uk-list-divider">
                 @foreach($trending as $topic)
                 <li>
-                    <a href="#">{{ $topic->title }} </a> <span class="text-muted"> in
-                    <a href="#">{{ $topic->community->name }}</a></span>
+                    <a href="{{ $topic->route() }}">{{ $topic->title }} </a> <span class="text-muted"> in
+                    <a href="{{ $topic->community->route() }}">{{ $topic->community->name }}</a></span>
                 </li>
                 @endforeach
                 <li>

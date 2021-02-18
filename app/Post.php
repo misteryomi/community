@@ -43,6 +43,15 @@ class Post extends Model implements Feedable
         $this->attributes['title'] = $title;
     }
 
+    public function getTitleAttribute($value) {
+
+        if($this->type && $this->type->name == 'jobs' && $this->meta && $this->meta->company_name) {
+            return $value .' - '. ucwords($this->meta->company_name);
+        }
+
+        return $value;
+    }
+
     public function getTypeTitleAttribute() {
         $title = $this->title;
 

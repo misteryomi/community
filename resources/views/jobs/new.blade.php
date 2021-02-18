@@ -24,6 +24,10 @@
             <input type="text" name="title" class="uk-input uk-form-large text-lg text-weight-bold text-dark" style="font-size: 24px;" autofocus="autofocus" placeholder="Job Title"  id="title" value="{{ isset($isEdit) ? $post->title : '' }}" required>
         </div>
     </div>
+    <div class="uk-form-group">
+        <label>Company Name<small>(optional)</small></label>
+        <input name="company_name" required class="uk-input" placeholder=""  id="company_name" value="{{ isset($isEdit) ? $post->meta->company_name : '' }}">
+    </div>
 
         <div class="uk-form-group">
             <label>Job Category</label>
