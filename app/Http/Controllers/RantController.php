@@ -87,7 +87,7 @@ class RantController extends Controller
 
         $useChildCategories = true;
 
-        return view('rants.new', compact('communities', 'community', 'useChildCategories'));
+        return view('rants.new', compact('community'));
     }
 
 
