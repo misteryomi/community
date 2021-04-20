@@ -2,6 +2,12 @@
 
 All notable changes to `image` will be documented in this file
 
+## 1.10.4 - 2021-04-07
+- Allow spatie/temporary-directory v2
+
+## 1.10.3 - 2021-03-10
+- Bump league/glide to 2.0 [#123](https://github.com/spatie/image/pull/123)
+
 ## 1.10.2 - 2020-01-26
 
 - change condition to delete $conversionResultDirectory (#118)

@@ -45,3 +45,15 @@ Stack trace:
 #2 /home/clevphju/jaracentral.com/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\View\Engines\PhpEngine->evaluatePath('/home/clevphju/...', Array)
 #3 /home/clevphju/jaracentral.com/vendor/facade/ignition/src/Views/Engines/CompilerEngine.php(36): Illuminate\View\Engines\CompilerEngine->get('/home/clevphju/...', Array)
 #4 /home/clevphju/jaracentral.com/vendor/laravel/framework/src/Illuminate/View/View.php(143): Facade\Ignition in /home/clevphju/jaracentral.com/resources/views/layouts/sections/header.blade.php on line 60
+[20-Apr-2021 15:37:34 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000] [1044] Access denied for user 'cybetrpn_jprod'@'localhost' to database 'cybetrpn_jc_prod' in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php:70
+Stack trace:
+#0 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php(70): PDO->__construct('mysql:host=127....', 'cybetrpn_jprod', 'VT$r1{.H2GCp', Array)
+#1 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php(46): Illuminate\Database\Connectors\Connector->createPdoConnection('mysql:host=127....', 'cybetrpn_jprod', 'VT$r1{.H2GCp', Array)
+#2 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connectors/MySqlConnector.php(24): Illuminate\Database\Connectors\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFac in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 678
+[20-Apr-2021 15:39:01 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000] [1044] Access denied for user 'cybetrpn_jprod'@'localhost' to database 'cybetrpn_jc_prod' in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php:70
+Stack trace:
+#0 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php(70): PDO->__construct('mysql:host=127....', 'cybetrpn_jprod', 'VT$r1{.H2GCp', Array)
+#1 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php(46): Illuminate\Database\Connectors\Connector->createPdoConnection('mysql:host=127....', 'cybetrpn_jprod', 'VT$r1{.H2GCp', Array)
+#2 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connectors/MySqlConnector.php(24): Illuminate\Database\Connectors\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFac in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 678

@@ -4,3 +4,45 @@
 [18-Feb-2020 06:45:59 America/New_York] PHP Fatal error:  require(): Failed opening required '/home/viradhga/411.servicemall.ng/vendor/autoload.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/viradhga/411.servicemall.ng/artisan on line 18
 [15-Dec-2020 15:20:56 America/New_York] PHP Warning:  require(/home/clevphju/jaracentral.com/vendor/autoload.php): failed to open stream: No such file or directory in /home/clevphju/jaracentral.com/artisan on line 18
 [15-Dec-2020 15:20:56 America/New_York] PHP Fatal error:  require(): Failed opening required '/home/clevphju/jaracentral.com/vendor/autoload.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/clevphju/jaracentral.com/artisan on line 18
+[20-Apr-2021 13:34:39 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\Console\Output\ConsoleOutput::expectsJson() in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:337
+Stack trace:
+#0 /home/cybetrpn/www.jaracentral.com/app/Exceptions/Handler.php(57): Illuminate\Foundation\Exceptions\Handler->render(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Error))
+#1 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(108): App\Exceptions\Handler->renderForConsole(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Error))
+#2 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(94): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole(Object(Error))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#4 {main}
+  thrown in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 337
+[20-Apr-2021 13:34:39 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\Console\Output\ConsoleOutput::expectsJson() in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:337
+Stack trace:
+#0 /home/cybetrpn/www.jaracentral.com/app/Exceptions/Handler.php(57): Illuminate\Foundation\Exceptions\Handler->render(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#1 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(108): App\Exceptions\Handler->renderForConsole(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#2 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(94): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole(Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#3 /home/cybetrpn/www.jaracentr in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 337
+[20-Apr-2021 13:35:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\Console\Output\ConsoleOutput::expectsJson() in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:337
+Stack trace:
+#0 /home/cybetrpn/www.jaracentral.com/app/Exceptions/Handler.php(57): Illuminate\Foundation\Exceptions\Handler->render(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Error))
+#1 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(108): App\Exceptions\Handler->renderForConsole(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Error))
+#2 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(94): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole(Object(Error))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#4 {main}
+  thrown in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 337
+[20-Apr-2021 13:35:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\Console\Output\ConsoleOutput::expectsJson() in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:337
+Stack trace:
+#0 /home/cybetrpn/www.jaracentral.com/app/Exceptions/Handler.php(57): Illuminate\Foundation\Exceptions\Handler->render(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#1 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(108): App\Exceptions\Handler->renderForConsole(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#2 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(94): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole(Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#3 /home/cybetrpn/www.jaracentr in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 337
+[20-Apr-2021 13:38:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\Console\Output\ConsoleOutput::expectsJson() in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:337
+Stack trace:
+#0 /home/cybetrpn/www.jaracentral.com/app/Exceptions/Handler.php(57): Illuminate\Foundation\Exceptions\Handler->render(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Error))
+#1 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(108): App\Exceptions\Handler->renderForConsole(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Error))
+#2 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(94): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole(Object(Error))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Error))
+#4 {main}
+  thrown in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 337
+[20-Apr-2021 13:38:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Symfony\Component\Console\Output\ConsoleOutput::expectsJson() in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php:337
+Stack trace:
+#0 /home/cybetrpn/www.jaracentral.com/app/Exceptions/Handler.php(57): Illuminate\Foundation\Exceptions\Handler->render(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#1 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(108): App\Exceptions\Handler->renderForConsole(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#2 /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(94): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole(Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#3 /home/cybetrpn/www.jaracentr in /home/cybetrpn/www.jaracentral.com/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php on line 337

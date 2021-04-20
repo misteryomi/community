@@ -118,17 +118,21 @@ class Post extends Model implements Feedable
 
     public function meta() {
 
-        switch ($this->type->name) {
-            case 'questions':
-                return $this->hasOne(QuestionMeta::class, 'post_id');
-            case 'jobs':
-                return $this->hasOne(JobMeta::class, 'post_id');
-            case 'rants':
-                return $this->hasOne(RantMeta::class, 'post_id');
-            
-            default:
-                return $this->hasOne(PostMeta::class, 'post_id');
+        if(!$this->type) {
+            return $this->hasOne(PostMeta::class, 'post_id');
         }
+            
+            switch ($this->type->name) {
+                case 'questions':
+                    return $this->hasOne(QuestionMeta::class, 'post_id');
+                case 'jobs':
+                    return $this->hasOne(JobMeta::class, 'post_id');
+                case 'rants':
+                    return $this->hasOne(RantMeta::class, 'post_id');
+                
+                default:
+                    return $this->hasOne(PostMeta::class, 'post_id');
+            }
 
     }
 
